@@ -26,7 +26,7 @@ function init_gear_sets()
 		back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}},
 	}
 
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {})
+    sets.precast.FCEnhancing = set_combine(sets.precast.FC, {})
 	
 	--Fast Cast + Cure spell casting time stack additively, cap 80%
     sets.precast.FC['Healing Magic'] = set_combine(sets.precast.FC, {sub="Sors Shield",})
@@ -161,27 +161,11 @@ function init_gear_sets()
 		back="Alaunus's Cape",
     })
 	
-	sets.midcast.Arise = sets.precast.FC
 	sets.midcast.Raise = sets.precast.FC
 
     sets.midcast.Erase = set_combine(sets.midcast.StatusRemoval, {neck="Cleric's Torque"})
 
-    -- Enhancing 
-	sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.EnhancingDuration, {
-		head="Befouled Crown",
-		hands="Inyan. Dastanas +2",
-		legs="Piety Pantaln. +1",
-		feet="Ebers Duckbills +1",
-		neck="Incanter's Torque",
-		waist="Olympus Sash",
-		left_ear="Andoaa Earring",
-		right_ear="Gifted Earring",
-		left_ring="Stikini Ring",
-		right_ring="Stikini Ring",
-		back="Fi Follet Cape +1",
-    })
-
-    sets.midcast.EnhancingDuration =  set_combine(sets.ConserveMP, {
+    sets.midcast['Enhancing Magic'] = set_combine(sets.ConserveMP, {
 		main="Gada",
 	    sub="Ammurapi Shield",
 		head=gear.Telchine_Head,
@@ -190,30 +174,26 @@ function init_gear_sets()
 		legs=gear.Telchine_Legs,
 		feet=gear.Telchine_Feet,
 		waist="Embla Sash",
-    })
-
-    sets.midcast.Regen = set_combine(sets.midcast.EnhancingDuration, {
-		main="Bolelabunga",
-		head="Inyanga Tiara +2",
-		body={ name="Piety Briault +3", augments={'Enhances "Benediction" effect',}},
-		hands="Ebers Mitts +1",
-		legs="Th. Pantaloons +2",
-		back="Fi Follet Cape +1",
-    })
-	
-	sets.midcast.Haste = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Refresh = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Stoneskin = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Aquaveil = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.BoostStat = set_combine(sets.midcast.EnhancingDuration, {
-		feet="Theo. Duckbills +2",
 		neck="Incanter's Torque",
 		left_ear="Andoaa Earring",
 		left_ring="Stikini Ring",
 		right_ring="Stikini Ring",
-	})
+		back="Fi Follet Cape +1",
+    })
+	
+	sets.midcast.BoostStat = set_combine(sets.midcast['Enhancing Magic'], {
+		feet="Theo. Duckbills +2",
+    })
 
-    sets.midcast.Auspice = set_combine(sets.midcast.EnhancingDuration, {
+    sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {
+		main="Bolelabunga",
+		head="Inyanga Tiara +2",
+		body="Piety Briault +3",
+		hands="Ebers Mitts +1",
+		legs="Th. Pantaloons +2",
+    })
+	
+    sets.midcast.Auspice = set_combine(sets.midcast['Enhancing Magic'], {
 		feet="Ebers Duckbills +1",
         })
 
@@ -229,12 +209,8 @@ function init_gear_sets()
 		right_ring="Stikini Ring",
         })
 	
-    sets.midcast.Protect = set_combine(sets.ConserveMP, sets.midcast.EnhancingDuration, {left_ring="Sheltered Ring"})
-    sets.midcast.Protectra = set_combine(sets.ConserveMP, sets.midcast.EnhancingDuration, {left_ring="Sheltered Ring"})
-    sets.midcast.Shell = set_combine(sets.ConserveMP, sets.midcast.EnhancingDuration, {left_ring="Sheltered Ring"})
-    sets.midcast.Shellra = set_combine(sets.ConserveMP, sets.midcast.EnhancingDuration, {left_ring="Sheltered Ring"})
-	sets.midcast.Storm = set_combine(sets.ConserveMP, sets.midcast.EnhancingDuration, {})
-	
+    sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {left_ring="Sheltered Ring"})
+    sets.midcast.Shell =  sets.midcast.Protect
 	
 	-- Divine and Dark Magic
     sets.midcast['Divine Magic'] = {}

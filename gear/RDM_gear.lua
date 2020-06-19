@@ -165,7 +165,7 @@ function init_gear_sets()
 	})
 	
 	-- Enhancing Skill
-    sets.midcast['Enhancing Magic'].Skill = set_combine(sets.midcast['Enhancing Magic'],{
+    sets.midcast.EnhancingSkill = set_combine(sets.midcast['Enhancing Magic'],{
 		head="Befouled Crown",
 		body=gear.Telchine_Body,
 		hands="Chironic Gloves",
@@ -177,9 +177,7 @@ function init_gear_sets()
 		right_ring="Stikini Ring",
 		back="Ghostfyre Cape",
 	})
-	
-	sets.midcast.Temper = {}
-	
+		
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {legs="Leth. Fuseau +1",})
     
 	sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {

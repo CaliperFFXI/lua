@@ -20,20 +20,7 @@ function job_setup()
 	state.Buff.Enwater = buffactive['Enwater'] or false
 	state.Buff.EnwaterII = buffactive['Enwater II'] or false
     state.Buff.Saboteur = buffactive.Saboteur or false
-	
-	
-	-- --Place spells here for skill bonus
-    -- Enhancing_Skill =	S{'Temper', 'Temper II', 'Enfire', 'Enfire II', 'Enblizzard', 'Enblizzard II', 
-						-- 'Enaero', 'Enaero II','Enstone', 'Enstone II', 'Enthunder', 'Enthunder II',
-						-- 'Enwater', 'Enwater II'}
-					
-	-- --Place spells here for duration bonus				
-	-- Enhancing_Duration = S{'Haste','Haste II','Flurry','Flurry II','Refresh','Refresh II','Refresh III',
-						-- 'Regen','Regen II','Aurorastorm','Voidstorm','Firestorm','Sandstorm','Rainstorm',
-						-- 'Hailstorm','Windstorm','Thunderstorm','Phalanx','Phalanx II'}
 		
-	elemental_ws =	S{'Sanguine Blade','Seraph Blade','Aeolian Edge'}
-	
 	-- This var is used to store EnSpell Element for logic functions.
 	EnSpell_Element = nil
 	
@@ -57,6 +44,17 @@ function user_setup()
 	state.RangeLock = M(false, 'Range Lock')
     state.MagicBurst = M(false, 'Magic Burst')
 	
+end
+
+-- Custom spell mapping.
+function job_get_spell_map(spell, default_spell_map)
+    if spell.action_type == 'Magic' then
+        if default_spell_map == 'Cure' or default_spell_map == 'Curaga' then
+            if (world.weather_element == 'Light' or world.day_element == 'Light') then
+                return "CureWeather"
+            end
+		end		
+    end
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
@@ -96,18 +94,15 @@ end
 
 function job_midcast(spell, action, spellMap, eventArgs)
 
-
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
-
 	--	Composure Buff for Party/Alliance
 	if spellMap == 'Enhancing Magic' then
 		if (spell.target.type == 'PLAYER' or spell.target.type == 'NPC') and buffactive.Composure then
 			equip(sets.buff.ComposureOther)
 		end
 	end
-    
 	--	Cures on Self only
     if spellMap == 'Cure' and spell.target.type == 'SELF' then
         equip(sets.midcast.CureSelf)
@@ -115,9 +110,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 	
 	--Elemental
     if spell.skill == 'Elemental Magic' then
-            if spell.english == "Impact" then
-                equip(sets.midcast.Impact)
-            end
         if (spell.element == world.day_element or spell.element == world.weather_element) then
             equip(sets.Obi)
         end
@@ -227,16 +219,6 @@ function customize_idle_set(idleSet)
     return idleSet
 end
 
--- Custom spell mapping.
-function job_get_spell_map(spell, default_spell_map)
-    if spell.action_type == 'Magic' then
-        if default_spell_map == 'Cure' or default_spell_map == 'Curaga' then
-            if (world.weather_element == 'Light' or world.day_element == 'Light') then
-                return "CureWeather"
-            end
-		end		
-    end
-end
 
 -- Note: may need revision for melee stuffs
 --Weapon Lock function.

@@ -27,16 +27,34 @@ function user_setup()
 	gear.Reive_Cape = {name="Mending Cape"}
 
 end
--------------------------------------------------------------------------------------------------------------------
--- Job-specific hooks for standard casting events.
--------------------------------------------------------------------------------------------------------------------
--- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
--- Set eventArgs.useMidcastGear to true if we want midcast gear equipped on precast.
+
+function job_get_spell_map(spell, default_spell_map)
+    if spell.action_type == 'Magic' then
+        if default_spell_map == 'Cure' then
+            if buffactive['Afflatus Solace'] then
+                if (world.weather_element == 'Light' or world.day_element == 'Light') then
+                    return "CureSolaceWeather"
+                else
+                    return "CureSolace"
+                end
+            else
+                if (world.weather_element == 'Light' or world.day_element == 'Light') then
+                    return "CureWeather"
+                else
+                    return "CureNormal"
+                end
+            end
+        elseif default_spell_map == 'Curaga' then
+            if (world.weather_element == 'Light' or world.day_element == 'Light') then
+                return "CuragaWeather"
+            else
+                return "CuragaNormal"
+            end
+        end
+	end
+end
+
 function job_precast(spell, action, spellMap, eventArgs)
-    if spell.english == "Paralyna" and buffactive.Paralyzed then
-        -- no gear swaps if we're paralyzed, to avoid blinking while trying to remove it.
-        eventArgs.handled = true
-    end
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
@@ -54,18 +72,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
         if (world.weather_element == 'Light' or world.day_element == 'Light') then
             equip(sets.Obi)
         end
-    end
-    if spell.skill == 'Enhancing Magic' then
-        if classes.NoSkillSpells:contains(spell.english) then
-            equip(sets.midcast.EnhancingDuration)
-            if spellMap == 'Refresh' then
-                equip(sets.midcast.Refresh)
-            end
-        end
-        if spell.name == 'Shellra V' then
-            equip(sets.midcast.ShellraV)
-        end
-        
     end
 end
 
@@ -105,45 +111,6 @@ function update_combat_weapon()
 end
 
 function job_buff_change(buff,gain)  
-end
-
--------------------------------------------------------------------------------------------------------------------
--- User code that supplements standard library decisions.
-------------------------------------------------------------------------------------------------------------------
--- Custom spell mapping.
-function job_get_spell_map(spell, default_spell_map)
-    if spell.action_type == 'Magic' then
-        if default_spell_map == 'Cure' then
-            if buffactive['Afflatus Solace'] then
-                if (world.weather_element == 'Light' or world.day_element == 'Light') then
-                    return "CureSolaceWeather"
-                else
-                    return "CureSolace"
-                end
-            else
-                if (world.weather_element == 'Light' or world.day_element == 'Light') then
-                    return "CureWeather"
-                else
-                    return "CureNormal"
-                end
-            end
-        elseif default_spell_map == 'Curaga' then
-            if (world.weather_element == 'Light' or world.day_element == 'Light') then
-                return "CuragaWeather"
-            else
-                return "CuragaNormal"
-            end
-        elseif spell.skill == "Enfeebling Magic" then
-            if spell.type == "WhiteMagic" then
-                return "MndEnfeebles"
-            else
-                return "IntEnfeebles"
-            end
-        end
-	if spell.english:contains("Boost") then
-		return "BoostStat"
-	end    
-	end
 end
 
 --Weapon Lock function.
