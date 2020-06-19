@@ -9,11 +9,8 @@ end
 function job_setup()
     state.Buff['Sublimation: Activated'] = buffactive['Sublimation: Activated'] or false
 	state.Buff['Perpetuance'] = buffactive['Perpetuance'] or false
-	state.Buff['Addendum: White'] = buffactive['Addendum: White'] or False
-	state.Buff['Addendum: Black'] = buffactive['Addendum: Black'] or False
-	
-	-- Add spells to this list for "auto Perpetuance"
-	Perpetuance_Spells = S{'Haste','Flurry','Protect','Shell','Regen'}
+	state.Buff['Addendum: White'] = buffactive['Addendum: White'] or false
+	state.Buff['Addendum: Black'] = buffactive['Addendum: Black'] or false
 end
 
 function user_setup()
@@ -23,12 +20,13 @@ function user_setup()
 
     state.MagicBurst = M(false, 'Magic Burst')
     state.StormSurge = M(false, 'Stormsurge')
+	-- Add spellMap to this list for "auto Perpetuance"
+	Perpetuance_Spells = S{'Haste','Flurry','Protect','Shell','Regen','Storm'}
 end
 
 -- Custom spell mapping.
 function job_get_spell_map(spell, default_spell_map)
 	--add_to_chat(122, tostring(default_spell_map)) --troubleshooting line
-	
     if spell.action_type == 'Magic' then
         if default_spell_map == 'Cure' or default_spell_map == 'Curaga' then
             if (world.weather_element == 'Light' or world.day_element == 'Light') then
@@ -53,13 +51,15 @@ function job_precast(spell, action, spellMap, eventArgs)
         send_command('@input /item "Echo Drops" <me>')
 	end
 	-- Auto Perpetuance.
-	if (state.Buff['Addendum: White'] and Perpetuance_Spells:contains(spellMap)) then
-		if not spell.target.charmed and not state.Buff['Perpetuance'] then			
-			local spell_recasts = windower.ffxi.get_spell_recasts()
-			if spell_recasts[spell.recast_id] < 2 then
-				send_command('@input /ja Perpetuance <me>; wait 1.5; input /ma "'..spell.name..'" '..spell.target.name)
-				eventArgs.cancel = true
-				return
+    if spell.action_type == 'Magic' then 
+		if (state.Buff['Addendum: White'] and Perpetuance_Spells:contains(spellMap)) then
+			if not spell.target.charmed and not state.Buff['Perpetuance'] then			
+				local spell_recasts = windower.ffxi.get_spell_recasts()
+				if spell_recasts[spell.recast_id] < 2 then
+					send_command('@input /ja Perpetuance <me>; wait 1.5; input /ma "'..spell.name..'" '..spell.target.name)
+					eventArgs.cancel = true
+					return
+				end
 			end
 		end
 	end
@@ -107,14 +107,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
-    if not spell.interrupted then
-        if spell.english == "Sleep II" then
-            send_command('@timers c "Sleep II ['..spell.target.name..']" 90 down spells/00259.png')
-        elseif spell.english == "Sleep" or spell.english == "Sleepga" then -- Sleep & Sleepga Countdown --
-            send_command('@timers c "Sleep ['..spell.target.name..']" 60 down spells/00253.png')
-        elseif spell.english == "Break" then
-            send_command('@timers c "Break ['..spell.target.name..']" 30 down spells/00255.png')
-        end
-    end
+
 end
 
