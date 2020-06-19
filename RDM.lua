@@ -229,18 +229,11 @@ end
 
 -- Custom spell mapping.
 function job_get_spell_map(spell, default_spell_map)
-	--add_to_chat(122, tostring(default_spell_map)) --troubleshooting line
-	
     if spell.action_type == 'Magic' then
         if default_spell_map == 'Cure' or default_spell_map == 'Curaga' then
             if (world.weather_element == 'Light' or world.day_element == 'Light') then
                 return "CureWeather"
             end
-        elseif spell.skill == 'Enfeebling Magic' then
-			return Enfeebling_Magic_Map[spell.english]		
-		elseif spell.skill == 'Enhancing Magic' then
-			-- add_to_chat(122, Enhancing_Magic_Map[spell.english]) --troubleshooting line
-			return Enhancing_Magic_Map[spell.english]		
 		end		
     end
 end

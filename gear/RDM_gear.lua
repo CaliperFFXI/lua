@@ -201,8 +201,8 @@ function init_gear_sets()
 	
     sets.buff.Saboteur = {}
 	
-	-- Default set (accuracy)
-	sets.midcast['Enfeebling Magic'] = {
+	
+	sets.midcast.Enfeeble = {
 		main="Naegling",
 		sub="Ammurapi Shield",
 		range="Kaja Bow",
@@ -221,7 +221,7 @@ function init_gear_sets()
 	}
 	
 	-- Skill Based Enfeebles (Frazzle / Distract)
-	sets.midcast['Enfeebling Magic'].Skill = set_combine(sets.midcast['Enfeebling Magic'],{
+	sets.midcast.EnfeebleSkill = set_combine(sets.midcast.Enfeeble,{
 		main="Grioavolr",
 		sub="Enki Strap",
 		head="Befouled Crown",
@@ -231,7 +231,7 @@ function init_gear_sets()
 	})
 
 	-- Effect based Enfeebles (Dia)
-	sets.midcast['Enfeebling Magic'].Effect = set_combine(sets.midcast['Enfeebling Magic'],{
+	sets.midcast.EnfeebleEffect = set_combine(sets.midcast.Enfeeble,{
 		ammo="Regal Gem"
 	})
 
@@ -254,10 +254,10 @@ function init_gear_sets()
 		back="Aurist's Cape +1",
 	}
 
-	sets.midcast.Dispelga = set_combine(sets.midcast['Enfeebling Magic'], {main="Daybreak" })
+	sets.midcast.Dispelga = set_combine(sets.midcast.Enfeeble, {main="Daybreak" })
     sets.midcast.Drain = set_combine(sets.midcast['Dark Magic'], {waist="Fucho-no-Obi"})
     sets.midcast.Aspir = sets.midcast.Drain
-    sets.midcast.Stun = sets.midcast['Enfeebling Magic']
+    sets.midcast.Stun = sets.midcast['Dark Magic']
 
 
     sets.midcast['Elemental Magic'] = {

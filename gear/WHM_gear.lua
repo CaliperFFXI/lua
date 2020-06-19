@@ -340,10 +340,10 @@ function init_gear_sets()
 		feet="Inyan. Crackows +2",
 		neck="Warder's Charm +1",
 		waist="Carrier's Sash",
-		left_ear="Genmei Earring",
+		left_ear="Eabani Earring",
 		right_ear="Ethereal Earring",
 		left_ring="Defending Ring",
-		right_ring="Archon Ring",
+		right_ring="Shadow Ring",
 		back=gear.JSE_Cape,
 	}	
 	

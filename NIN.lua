@@ -14,7 +14,6 @@ function job_setup()
     state.Buff.Innin = buffactive.Innin or false
     state.Buff.Futae = buffactive.Futae or false
 
-	include('Proc-Mappings.lua')
     include('Mote-TreasureHunter')
 	state.TreasureMode:set('Tag')
 	
@@ -151,7 +150,7 @@ function update_combat_weapon()
 		state.CombatWeapon:set(state.WeaponSet.current)
 	end
 		local weapon = state.WeaponSet.current
-	if procs[weapon] then
+	if abyssea_procs[weapon] then
 		display_proc_info(weapon)
 	end
 end
@@ -187,6 +186,13 @@ function customize_idle_set(idleSet)
     idleSet = set_combine(idleSet, select_movement_feet())
 	
     return idleSet
+end
+
+function display_proc_info(weapon)
+	local proc_info = abyssea_procs[weapon].red
+	if proc_info then
+		add_to_chat(175, proc_info)
+	end
 end
 
 function select_movement_feet()
