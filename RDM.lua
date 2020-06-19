@@ -44,6 +44,9 @@ function user_setup()
 	state.RangeLock = M(false, 'Range Lock')
     state.MagicBurst = M(false, 'Magic Burst')
 	
+	-- Low ninja tool threshhold
+	options.ninja_tool_warning_limit = 10
+	
 end
 
 -- Custom spell mapping.
@@ -59,6 +62,7 @@ end
 
 function job_precast(spell, action, spellMap, eventArgs)
 	if spellMap == 'Utsusemi' then
+		do_ninja_tool_checks(spell, spellMap, eventArgs)
 		if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
 			cancel_spell()
 			add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')

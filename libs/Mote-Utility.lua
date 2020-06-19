@@ -660,4 +660,50 @@ function time_change(new_time, old_time)
     end
 end
 
+-- Determine whether we have sufficient tools for the spell being attempted.
+function do_ninja_tool_checks(spell, spellMap, eventArgs)
+    local ninja_tool_name
+    local ninja_tool_min_count = 1
+
+    -- Checks: sneak/invis and shadows.
+    if spell.skill == "Ninjutsu" then
+        if spellMap == 'Utsusemi' then
+            ninja_tool_name = "Shihei"
+        elseif spellMap == 'Monomi' then
+            ninja_tool_name = "Sanjaku-Tenugui"
+        elseif spellMap == 'Tonko' then
+            ninja_tool_name = "Shinobi-Tabi"
+        else
+            return
+        end
+    end
+
+    local available_ninja_tools = player.inventory[ninja_tool_name]
+
+    -- If no tools are available, end.
+    if not available_ninja_tools then
+        if spell.skill == "Ninjutsu" then
+            return
+        end
+    end
+
+    -- Low ninja tools warning.
+    if spell.skill == "Ninjutsu" and state.warned.value == false
+        and available_ninja_tools.count > 1 and available_ninja_tools.count <= options.ninja_tool_warning_limit then
+        local msg = '*****  LOW TOOLS WARNING: '..ninja_tool_name..' *****'
+        --local border = string.repeat("*", #msg)
+        local border = ""
+        for i = 1, #msg do
+            border = border .. "*"
+        end
+
+        add_to_chat(104, border)
+        add_to_chat(104, msg)
+        add_to_chat(104, border)
+
+        state.warned:set()
+    elseif available_ninja_tools.count > options.ninja_tool_warning_limit and state.warned then
+        state.warned:reset()
+    end
+end
 

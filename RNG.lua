@@ -27,21 +27,11 @@ function job_setup()
 		'FailNot',
 		'TpBonus'
 	}
-	
-	elemental_ws = S{'Aeolian Edge', 'Trueflight', 'Wildfire','Flaming Arrow'}
-
-	ranged_weapons = {
-		['Gastraphetes']='Marksmanship',
-		['Fomalhaut']='Marksmanship',
-		['Armageddon']='Marksmanship',
-		['Annihilator']='Marksmanship',
-		['Fail-Not']='Archery',
-		['Gandiva']='Archery',
-		['Yoichinoyumi']='Archery',
-		['Sparrowhawk +2']='Archery',
-	}
 	classes.rangedSkill = ranged_weapons
 	
+	-- Variable for tracking trueshot distance (requires distanceplus addon)
+	dpsetting = nil
+	-- Variable for tracking flurry buff
 	flurry = nil
 
     include('Mote-TreasureHunter')
@@ -64,13 +54,12 @@ function user_setup()
     state.HybridMode:options('Normal', 'DT')
     state.RangedMode:options('Normal', 'Acc')
     state.WeaponskillMode:options('Normal', 'Acc', 'FullTP')
-    state.IdleMode:options('Normal','Regen','Craft','Fish')
+    state.IdleMode:options('Normal','Regen')
 	
     options.ammo_warning_limit = 10
 	options.ninja_tool_warning_limit = 10
 	
-	update_combat_form()
-	update_combat_weapon()
+	job_update()
 	
 end
 
@@ -82,6 +71,19 @@ function job_pretarget(spell, action, spellMap, eventArgs)
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
+	if spell.skill == "Ninjutsu" then
+		do_ninja_tool_checks(spell, spellMap, eventArgs)
+		if spellMap == 'Utsusemi' then
+			if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
+				eventArgs.cancel = true 
+				add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
+				eventArgs.handled = true
+				return
+			elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
+				send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
+			end
+		end
+	end
 	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
 	-- Compensate for TP bonuses during weaponskills.
 	if spell.type == 'WeaponSkill' then
@@ -97,21 +99,9 @@ function job_precast(spell, action, spellMap, eventArgs)
 			state.WeaponskillMode:set('FullTP')
 		end
 	end
-	if spell.skill == "Ninjutsu" then
-		do_ninja_tool_checks(spell, spellMap, eventArgs)
-		if spellMap == 'Utsusemi' then
-			if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-				eventArgs.cancel = true 
-				add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-				eventArgs.handled = true
-				return
-			elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-				send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-			end
-		end
-	end
 	if spell.type == 'WeaponSkill' or spell.action_type == 'Ranged Attack' then
 			handle_ammo(spell, action, spellMap, eventArgs)	
+			set_trueShot_range()
 		if spell.name ~= "Savage Blade" then
 			if player.equipment.ammo == "Hauksbok Arrow" then
 				add_to_chat(123, 'Cancelled action: "'..player.equipment.ammo..'" was equipped!')
@@ -149,10 +139,8 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 	elseif spell.type == 'WeaponSkill' then
      if elemental_ws:contains(spell.name) then
 			-- Unlimited shot bullet.
-			if state.Buff['Unlimited Shot'] then
-				--equip({ammo="Animikii Bullet"})
             -- Matching double weather (w/o day conflict).
-            elseif spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
+            if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
                 equip(sets.Obi)
             -- Target distance under 1.7 yalms.
             --elseif spell.target.distance < (1.7 + spell.target.model_size) then
@@ -240,40 +228,17 @@ function job_buff_change(buff,gain)
 	end
 end
 
-function job_status_change(newStatus, oldStatus)
---	if newStatus == 'Engaged' then
---		state.WeaponSet:set('TpBonus')
---	end
-	--if oldStatus == 'Engaged' then
-		--state.WeaponSet:reset()
-	--end
-end
-
 function job_state_change(descrip, newVal, oldVal)
 	if state.WeaponLock.value == true then
         disable('main','sub','range')
 	else
 		enable('main','sub','range')
-	end
-	if newVal then
-		if state.WeaponSet.current == 'Gastraphetes' then
-			send_command('dp Xbow')
-		elseif state.WeaponSet.current == 'Gandiva' then
-			send_command('dp Bow')
-		elseif state.WeaponSet.current == 'TpBonus' then
-			send_command('dp Bow')
-		elseif state.WeaponSet.current == 'FailNot' then
-			send_command('dp Bow')
-		else 
-			send_command('dp Gun')
-		end
-	end
+	end	
 end
 
 function job_update(cmdParams, eventArgs)
 	update_combat_weapon()
 	update_combat_form()
-	handle_lockstyle()
 end
 
 function update_combat_form()
@@ -289,9 +254,7 @@ end
 function update_combat_weapon()
 	state.CombatWeapon:set(state.WeaponSet.current)
 	equip(sets[state.WeaponSet.current])
-end
-
-function get_custom_wsmode(spell, spellMap, ws_mode)
+	dpsetting = nil -- reset distanceplus for new weapon
 end
 
 --Read incoming packet to differentiate between Haste/Flurry I and II
@@ -353,70 +316,11 @@ function check_ammo_stock(spell, spellMap, eventArgs)
     end
 end
 
--- Determine whether we have sufficient tools for the spell being attempted.
-function do_ninja_tool_checks(spell, spellMap, eventArgs)
-    local ninja_tool_name
-    local ninja_tool_min_count = 1
-
-    -- Checks: sneak/invis and shadows.
-    if spell.skill == "Ninjutsu" then
-        if spellMap == 'Utsusemi' then
-            ninja_tool_name = "Shihei"
-        elseif spellMap == 'Monomi' then
-            ninja_tool_name = "Sanjaku-Tenugui"
-        elseif spellMap == 'Tonko' then
-            ninja_tool_name = "Shinobi-Tabi"
-        else
-            return
-        end
-    end
-
-    local available_ninja_tools = player.inventory[ninja_tool_name]
-
-    -- If no tools are available, end.
-    if not available_ninja_tools then
-        if spell.skill == "Ninjutsu" then
-            return
-        end
-    end
-
-    -- Low ninja tools warning.
-    if spell.skill == "Ninjutsu" and state.warned.value == false
-        and available_ninja_tools.count > 1 and available_ninja_tools.count <= options.ninja_tool_warning_limit then
-        local msg = '*****  LOW TOOLS WARNING: '..ninja_tool_name..' *****'
-        --local border = string.repeat("*", #msg)
-        local border = ""
-        for i = 1, #msg do
-            border = border .. "*"
-        end
-
-        add_to_chat(104, border)
-        add_to_chat(104, msg)
-        add_to_chat(104, border)
-
-        state.warned:set()
-    elseif available_ninja_tools.count > options.ninja_tool_warning_limit and state.warned then
-        state.warned:reset()
-    end
-end
-
-function handle_lockstyle()
-		if state.WeaponSet.current == 'Gastraphetes' then
-			send_command('wait 2; input /lockstyleset 21')
-		elseif state.WeaponSet.current == 'Gandiva' then
-			send_command('wait 2; input /lockstyleset 23')
-		elseif state.WeaponSet.current == 'TpBonus' then
-			send_command('wait 2; input /lockstyleset 24')
-		else 
-			send_command('wait 2; input /lockstyleset 22')
-		end
-end
-
 function handle_ammo(spell, action, spellMap, eventArgs)
 	--add_to_chat(123, 'entered function handle_ammo()') 
-	local skill = classes.rangedSkill[player.equipment.range]
-		--error protection and warning
-	if skill == nil then
+	skill = classes.rangedSkill[player.equipment.range]
+    --add_to_chat(122, 'Skill:'..skill..'') -- troubleshooting
+	if skill == nil then	--error protection and warning
 		add_to_chat(123, 'Cancelled ammo selection: No ranged weapon available') 
 		return
 	end
@@ -436,6 +340,25 @@ function handle_ammo(spell, action, spellMap, eventArgs)
 			equip({ammo="Artemis's Arrow"})
 		end
 	end		
+end
+
+-- BETA
+function set_trueShot_range()
+	if not dpsetting then
+		-- Requires distancePlus
+		if skill == 'Marksmanship' and player.equipment.range == "Gastraphetes" then
+			dpsetting = 'xbow'
+		else
+			dpsetting = 'gun'
+		end
+		if skill == 'Archery' then
+			dpsetting = 'Bow'
+		end
+		
+		if dpsetting then
+			send_command('dp '..dpsetting..'')
+		end
+	end
 end
 
 
