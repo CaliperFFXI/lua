@@ -1,0 +1,17 @@
+sets.exported={
+    main="Bolelabunga",
+    sub="Ammurapi Shield",
+    ammo="Homiliary",
+    head="Arbatel Bonnet +1",
+    body={ name="Telchine Chas.", augments={'Pet: "Regen"+2','Enh. Mag. eff. dur. +9',}},
+    hands={ name="Telchine Gloves", augments={'"Fast Cast"+5','Enh. Mag. eff. dur. +9',}},
+    legs={ name="Telchine Braconi", augments={'"Fast Cast"+4','Enh. Mag. eff. dur. +10',}},
+    feet={ name="Telchine Pigaches", augments={'Pet: "Regen"+1','Enh. Mag. eff. dur. +10',}},
+    neck="Loricate Torque +1",
+    waist="Embla Sash",
+    left_ear="Ethereal Earring",
+    right_ear="Etiolation Earring",
+    left_ring="Defending Ring",
+    right_ring="Gelatinous Ring +1",
+    back="Solemnity Cape",
+}

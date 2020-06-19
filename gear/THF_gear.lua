@@ -70,13 +70,13 @@ function init_gear_sets()
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
-		legs={ name="Lustr. Subligar +1", augments={'Accuracy+20','DEX+8','Crit. hit rate+3%',}},
-		feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
+		legs="Lustr. Subligar +1", 
+		feet="Lustra. Leggings +1",
 		neck="Fotia Gorget",
 		waist="Fotia Belt",
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ear="Sherida Earring",
-		right_ear="Moonshade Earring",
+		right_ear="Odr Earring",
 		left_ring="Begrudging Ring",
 		right_ring="Ilabrat Ring",
 	})
@@ -91,6 +91,7 @@ function init_gear_sets()
     sets.precast.WS['Mandalic Stab'].Acc = sets.precast.WS["Rudra's Storm"].Acc
 
     sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {
+		ammo="Pemphredo Tahtlum",
 		head=gear.Herculean_Head_MAB,
 		body=gear.Herculean_Body_TH,
 		hands=gear.Herculean_Hands_WSD,
@@ -191,7 +192,7 @@ function init_gear_sets()
     sets.engaged = {
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
-		hands={ name="Adhemar Wrist. +1", augments={'AGI+12','Rng.Acc.+20','Rng.Atk.+20',}},
+		hands="Adhemar Wrist. +1",
 		legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
 		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
 		neck="Anu Torque",
@@ -200,17 +201,30 @@ function init_gear_sets()
 		right_ear="Suppanomimi",
 		left_ring="Gere Ring",
 		right_ring="Epona's Ring",
+		back="Sacro Mantle",
 	}
-		
+	
+	sets.engaged.DT = set_combine(sets.engaged, {
+		hands="Malignance Gloves",
+		neck="Loricate Torque +1",
+		right_ring="Defending Ring",
+	})
+	
 	-- OffenseMode 'Acc' sets. Activated if HyrbidMode set to 'DT'
 	sets.engaged.Acc = set_combine(sets.engaged, {})
 	sets.engaged.Acc.DT = set_combine(sets.engaged.Acc, {})
+	
+	-- Hybrid Mode Crit
+	sets.engaged.Crit = set_combine(sets.engaged, {
+		legs="Mummu Kecks +2",
+		feet="Mummu Gamash. +2",
+	})
 	
     sets.Kiting = {feet="Pillager's Poulaines"}
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.TreasureHunter = {hands="Plunderer's Armlets +1", feet="Skulk. Poulaines +1",}
 	
-	sets.Normal = {main="Tauret",sub="Skinflayer",range="Antitail +1"}
+	sets.Normal = {main="Aeneas",sub="Ternion Dagger +1",range="Antitail +1"}
 	sets.Cleave = {main="Malevolence",sub="Malevolence",range="Antitail +1"}
 
 end

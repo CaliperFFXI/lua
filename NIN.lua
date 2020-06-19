@@ -14,6 +14,7 @@ function job_setup()
     state.Buff.Innin = buffactive.Innin or false
     state.Buff.Futae = buffactive.Futae or false
 
+	include('Proc-Mappings.lua')
     include('Mote-TreasureHunter')
 	state.TreasureMode:set('Tag')
 	
@@ -78,6 +79,17 @@ function job_precast(spell, action, spellMap, eventArgs)
             send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
         end
     end
+	if spell.type == 'WeaponSkill' then
+		if spell.skill == 'Marksmanship' or spell.skill == 'Archery' then
+			if spell.target.distance > 22 then
+				eventArgs.cancel = true 
+				add_to_chat(123, 'Action Cancelled: Too far from target!')
+			end
+		elseif spell.target.distance > 6 then
+				eventArgs.cancel = true 
+				add_to_chat(123, 'Action Cancelled: Too far from target!')
+		end
+	end	
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
@@ -138,6 +150,10 @@ function update_combat_weapon()
 		equip(sets[state.WeaponSet.current])
 		state.CombatWeapon:set(state.WeaponSet.current)
 	end
+		local weapon = state.WeaponSet.current
+	if procs[weapon] then
+		display_proc_info(weapon)
+	end
 end
 
 function customize_defense_set(defenseSet) 
@@ -160,21 +176,15 @@ function customize_melee_set(meleeSet)
 end
 
 function customize_idle_set(idleSet)
-	
-	if player.main_job == 'NIN' then
-        idleSet = set_combine(idleSet, select_movement_feet())
-	end
-	
 	-- CP rule
     if state.CP.current == 'on' then
 	    idleSet = set_combine(idleSet, sets.CP)
     end
-	
 		--Doom State Detection
 	if ( buffactive.doom or buffactive['Doom'] ) then
         idleSet = set_combine(idleSet, sets.buff.Doom)
     end
-
+    idleSet = set_combine(idleSet, select_movement_feet())
 	
     return idleSet
 end
@@ -182,8 +192,10 @@ end
 function select_movement_feet()
     if world.time >= (17*60) or world.time <= (7*60) then
         state.Night:set()
+        return sets.NightMovement
     else
         state.Night:reset()
+        return sets.DayMovement
     end
 end
 

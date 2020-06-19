@@ -1,10 +1,5 @@
 function init_gear_sets()
-
-    ------------------------------------------------------------------------------------------------
-    ---------------------------------------- Precast Sets ------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
-    -- Enmity sets
+    -- Enmity 
     sets.Enmity = {
 		ammo="Sapience Orb",
 		head="Halitus Helm",
@@ -18,44 +13,40 @@ function init_gear_sets()
 		right_ear="Cryptic Earring",
 		left_ring="Supershear Ring",
 		right_ring="Begrudging Ring",
-		back={ name="Ogma's cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Parrying rate+5%',}},
+		back="Reiki Cloak",
 	}
 
-    sets.Enmity.HP = {}
-
---[[
-    sets.precast.JA['Vallation'] = {body="Runeist's Coat +3", legs="Futhark Trousers +3", back=gear.RUN_HPD_Cape,}
+    sets.precast.JA['Vallation'] = {}
     sets.precast.JA['Valiance'] = sets.precast.JA['Vallation']
-    sets.precast.JA['Pflug'] = {feet="Runeist's Boots +3"}
-    sets.precast.JA['Battuta'] = {head="Fu. Bandeau +3"}
-    sets.precast.JA['Liement'] = {body="Futhark Coat +3"}
+    sets.precast.JA['Pflug'] = {}
+    sets.precast.JA['Battuta'] = {}
+    sets.precast.JA['Liement'] = {}
 
     sets.precast.JA['Lunge'] = {}
-
     sets.precast.JA['Swipe'] = sets.precast.JA['Lunge']
-    sets.precast.JA['Gambit'] = {hands="Runeist's Mitons +3"}
-    sets.precast.JA['Rayke'] = {feet="Futhark Boots +1"}
-    sets.precast.JA['Elemental Sforzo'] = {body="Futhark Coat +3"}
-    sets.precast.JA['Swordplay'] = {hands="Futhark Mitons +3"}
-    sets.precast.JA['Vivacious Pulse'] = {head="Erilaz Galea +1"}
-]]
+    sets.precast.JA['Gambit'] = {}
+    sets.precast.JA['Rayke'] = {}
+    sets.precast.JA['Elemental Sforzo'] = {}
+    sets.precast.JA['Swordplay'] = {}
+    sets.precast.JA['Vivacious Pulse'] = {}
 
-    -- Fast cast sets for spells
+
+    -- Precast
     sets.precast.FC = {
-	    ammo="Sapience Orb",
-		head="Carmine Mask +1",
-		body={ name="Taeon Tabard", augments={'"Fast Cast"+3',}},
+		ammo="Sapience Orb",
+		head={ name="Carmine Mask +1", augments={'Accuracy+20','Mag. Acc.+12','"Fast Cast"+4',}},
+		body={ name="Taeon Tabard", augments={'"Fast Cast"+3','Phalanx +3',}},
 		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 		legs="Aya. Cosciales +2",
-		feet={ name="Taeon Boots", augments={'"Fast Cast"+5',}},
+		feet={ name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +2',}},
 		neck="Voltsurge Torque",
-		left_ear="Loquac. Earring",
-		right_ear="Etiolation Earring",
+		waist="Flume Belt +1",
+		left_ear="Odnowa Earring",
+		right_ear="Odnowa Earring +1",
 		left_ring="Kishar Ring",
 		right_ring="Weather. Ring",
+		back="Reiki Cloak",
 	}
-
-    sets.precast.FC.HP = set_combine(sets.precast.FC, {})
 
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {})
 
@@ -63,11 +54,7 @@ function init_gear_sets()
 
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {})
 
-
-    ------------------------------------------------------------------------------------------------
-    ------------------------------------- Weapon Skill Sets ----------------------------------------
-    ------------------------------------------------------------------------------------------------
-
+	-- Great Sword
     sets.precast.WS = {
 	    ammo="Knobkierrie",
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
@@ -86,33 +73,23 @@ function init_gear_sets()
 
     sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 
-    sets.precast.WS.Uncapped = set_combine(sets.precast.WS, {})  
-
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {})
-
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'], {})
 
-    sets.precast.WS['Resolution'].Uncapped = set_combine(sets.precast.WS['Resolution'], {})
 
     sets.precast.WS['Dimidiation'] = set_combine(sets.precast.WS, {})
-
     sets.precast.WS['Dimidiation'].Acc = set_combine(sets.precast.WS['Dimidiation'], {})
 
-    sets.precast.WS['Dimidiation'].Uncapped = set_combine(sets.precast.WS['Dimidiation'], {})
-
     sets.precast.WS['Herculean Slash'] = sets.precast.JA['Lunge']
-
-    sets.precast.WS['Shockwave'] = {}
+   
+	sets.precast.WS['Shockwave'] = {}
 
     sets.precast.WS['Fell Cleave'] = set_combine(sets.precast.WS, {})
 
     sets.precast.WS['Upheaval'] = sets.precast.WS['Resolution']
     sets.precast.WS['Full Break'] = sets.precast.WS['Shockwave']
 
-    ------------------------------------------------------------------------------------------------
-    ---------------------------------------- Midcast Sets ------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
+	-- Midcast
     sets.midcast.FastRecast = sets.precast.FC
 
     sets.midcast.SpellInterrupt = {} 
@@ -132,10 +109,9 @@ function init_gear_sets()
 	})
 
     sets.midcast['Aquaveil'] = set_combine(sets.midcast['Enhancing Magic'], sets.midcast.SpellInterrupt, {})
-
     sets.midcast['Regen'] = set_combine(sets.midcast['Enhancing Magic'], {head="Rune. Bandeau +3"})
     sets.midcast.Refresh = set_combine(sets.midcast.EnhancingDuration, {head="Erilaz Galea +1", waist="Gishdubar Sash"})
-    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {waist="Siegel Sash"})
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {ring2="Sheltered Ring"})
     sets.midcast.Shell = sets.midcast.Protect
 
@@ -151,11 +127,7 @@ function init_gear_sets()
     sets.midcast['Blue Magic'].Cure = sets.midcast.Cure
     sets.midcast['Blue Magic'].Buff = sets.midcast['Enhancing Magic']
 
-
-    ------------------------------------------------------------------------------------------------
-    ----------------------------------------- Idle Sets --------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
+	-- Idle
     sets.idle = {
 	    ammo="Homiliary",
 		head="Meghanada Visor +2",
@@ -177,14 +149,9 @@ function init_gear_sets()
     sets.idle.Town = set_combine(sets.idle, {})
 
     sets.idle.Weak = sets.idle.DT
-    sets.Kiting = {legs="Carmine Cuisses +1"}
 
-
-    ------------------------------------------------------------------------------------------------
-    ---------------------------------------- Defense Sets ------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
-    sets.defense.Knockback = {back="Repulse Mantle"}
+	-- Defense
+    sets.defense.Knockback = {}
 
     sets.defense.PDT = {    
 		ammo="Staunch Tathlum",
@@ -204,21 +171,10 @@ function init_gear_sets()
 
     sets.defense.MDT = {
 	    neck="Warder's Charm +1",
+		waist="Carrier's Sash",
 	}
 
-    sets.defense.HP = {}
-	
-	sets.defense.Charm = set_combine(sets.defense.PDT, {    
-		neck="Warder's Charm +1",
-	    right_ear="Genmei Earring",
-	})
-
-    sets.defense.Parry = {}
-
-    ------------------------------------------------------------------------------------------------
-    ---------------------------------------- Engaged Sets ------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
+	-- Engaged
     sets.engaged = {
 		ammo="Ginsen",
 	    head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
@@ -234,39 +190,16 @@ function init_gear_sets()
 		back="Relucent Cape",
 	}
 
-    sets.engaged.LowAcc = set_combine(sets.engaged, {})
+    sets.engaged.Acc = set_combine(sets.engaged, {})
 
-    sets.engaged.MidAcc = set_combine(sets.engaged.LowAcc, {})
+	-- Hybrid
+    sets.engaged.DT = set_combine(sets.engaged, {})
+    sets.engaged.Acc.DT = set_combine(sets.engaged.Acc, {})
 
-    sets.engaged.HighAcc = set_combine(sets.engaged.MidAcc, {})
-
-    sets.engaged.STP = set_combine(sets.engaged, {})
-
-    sets.engaged.Aftermath = {}
-
-
-    ------------------------------------------------------------------------------------------------
-    ---------------------------------------- Hybrid Sets -------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
---[[
-	sets.Hybrid = {}
-
-    sets.engaged.DT = set_combine(sets.engaged, sets.Hybrid)
-    sets.engaged.LowAcc.DT = set_combine(sets.engaged.LowAcc, sets.Hybrid)
-    sets.engaged.MidAcc.DT = set_combine(sets.engaged.MidAcc, sets.Hybrid)
-    sets.engaged.HighAcc.DT = set_combine(sets.engaged.HighAcc, sets.Hybrid)
-    sets.engaged.STP.DT = set_combine(sets.engaged.STP, sets.Hybrid)
-]]
-
-    ------------------------------------------------------------------------------------------------
-    ---------------------------------------- Special Sets ------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
-    --sets.buff.Doom = {}
-
+    sets.Kiting = {legs="Carmine Cuisses +1"}
+    sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.Embolden = set_combine(sets.midcast.EnhancingDuration, {})
     sets.Obi = {waist="Hachirin-no-Obi"}
-    --sets.CP = {back="Mecisto. Mantle"}
+    sets.CP = {back="Mecisto. Mantle"}
 
 end

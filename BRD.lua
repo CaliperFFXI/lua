@@ -6,12 +6,11 @@ function get_sets()
 	-- Load player include file.
 end  
 
-function job_setup()
-    state.SongMode = M{['description']='Song Mode', 'None', 'Placeholder'}
-
+function job_setup()	
+	state.Buff['Nightingale'] = buffactive.nightingale or false
+	state.Buff['Troubadour'] = buffactive.troubadour or false
     state.Buff['Pianissimo'] = buffactive.pianissimo or false
     state.Buff['Pianissimo'] = buffactive.pianissimo or false
-
 end
 
 function user_setup()
@@ -22,16 +21,23 @@ function user_setup()
     state.IdleMode:options('Normal')
 	
 	--SpellMap Tables
-	Dummies = M{['description']='Dummy Song','Warding Round','Fowl Aubade','Herb Pastoral','Shining Fantasia','Scop\'s Operetta','Puppet\'s Operetta'}
+	Placeholders = M{['description']='Dummy Song','Warding Round','Fowl Aubade','Herb Pastoral','Shining Fantasia','Scop\'s Operetta','Puppet\'s Operetta'}
 	Enfeeble_Song = M{['description']='Threnody','Finale','Elegy','Nocturne','Requiem','Lullaby'}
 
-	state.WeaponSet = M{['description']='Weapon Set','Dagger','Sword','Odin'}
+	state.WeaponSet = M{['description']='Weapon Set','Dagger','Shield','Sword','DaggerMAB'}
 	
+	-- Instrument variables --
+	-- These placeholders can be modified with the name of the instrument to support RMEA options and otherwise.
     -- Define name of additional song harp
-    info.ExtraSongInstrument = 'Daurdabla'
-    -- Define number of extra songs.
-    info.ExtraSongs = 2
-
+    info.ExtraSongInstrument = 'Daurdabla' 
+	-- Define name of + Songs instrument
+	info.SongBonusInstrument = 'Gjallarhorn'
+	
+	-- For non-Aeonic Horn users, the AeonicHorn field should be set equal to nil as follows.
+	-- info.AeonicHorn = nil 
+	-- Define name of Aeonic Horn
+	info.AeonicHorn = 'Marsyas'
+	
     include('Mote-TreasureHunter')
 	state.TreasureMode:set('Tag')
 
@@ -40,7 +46,8 @@ function user_setup()
 end
 
 function job_precast(spell, action, spellMap, eventArgs)	
-    if spell.action_type == 'Magic' and buffactive.Silence then -- Auto Use Echo Drops If You Are Silenced --
+	-- Auto Use Echo Drops If You Are Silenced 
+    if spell.action_type == 'Magic' and buffactive.Silence then 
 		eventArgs.cancel = true 
         send_command('@input /item "Echo Drops" <me>')
 	end
@@ -56,14 +63,21 @@ function job_precast(spell, action, spellMap, eventArgs)
                 return
             end
         end
-        if spell.name == 'Honor March' then 				--Aeonic for honor march
-            equip({range="Marsyas"})
-        elseif spell.name:contains("Foe Lullaby") then 		--Aeonic for single target sleep
-            equip({range="Marsyas"})
-        elseif spell.name:contains("Horde Lullaby") then 	--Empyrean for AoE Sleep
-			equip({range="Daurdabla"})
+        if spell.name == 'Honor March' then 	
+			-- Aeonic for honor march if applicable
+            equip({range=info.AeonicHorn})
+        elseif spell.name:contains("Foe Lullaby") then
+			-- Single target sleep (Max duration)
+			if (state.Buff['Troubadour'] and state.Buff['Nightingale'])and info.AeonicHorn ~= nil then
+				equip({range=info.AeonicHorn})
+			else
+				equip({range=info.SongBonusInstrument})
+			end
+        elseif spell.name:contains("Horde Lullaby") then 	
+			-- AoE Sleep ( range and duration ) Harp's
+			equip({range=info.ExtraSongInstrument})
 		else
-			equip({range="Gjallarhorn"})
+			equip({range=info.SongBonusInstrument})
 		end
 		
     end
@@ -129,15 +143,36 @@ function customize_melee_set(meleeSet)
     return meleeSet
 end
 
+function customize_idle_set(idleSet)
+	if state.CombatForm == 'Normal' then
+	end
+	return idleSet
+end
+
 function job_get_spell_map(spell, default_spell_map)
 	-- return "newspellMap" 
     if spell.type == 'BardSong' then
-		if Dummies:contains(spell.english) then
+		if Placeholders:contains(spell.english) then
 			return "SongPlaceholder"
 		elseif spell.target.type == 'MONSTER' then
 			return "SongEnfeeble"
 		end
     end
+	-- Weather spellMap for 'Cure'
+	if spell.action_type == 'Magic' then
+        if default_spell_map == 'Cure' then
+			if (world.weather_element == 'Light' or world.day_element == 'Light') then
+				return "CureWeather"
+            end
+        elseif default_spell_map == 'Curaga' then
+            if (world.weather_element == 'Light' or world.day_element == 'Light') then
+                return "CuragaWeather"
+            end
+		end
+	end
+	-- if spellMap == 'Threnody' and spell.english:contains("Threnody II") then
+		
+	-- end
 end
 
 function get_lullaby_duration(spell)

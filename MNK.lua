@@ -8,27 +8,28 @@ end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
-	state.Buff.Footwork = buffactive.Footwork or false
-    state.Buff.Impetus = buffactive.Impetus or false
-	state.Buff.Counterstance = buffactive.counterstance or false
-	state.Buff.Boost = buffactive.Boost or false
+	state.Buff['Footwork'] = buffactive.Footwork or false
+    state.Buff['Impetus'] = buffactive.Impetus or false
+	state.Buff['Counterstance'] = buffactive.counterstance or false
+	state.Buff['Boost'] = buffactive.Boost or false
 end
 
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
-    state.OffenseMode:options('Normal','STP','Acc')
+    state.OffenseMode:options('Normal','Acc','Crit')
     state.WeaponskillMode:options('Normal','Acc','FullTP')
-    state.HybridMode:options('Normal','Counter')
+    state.HybridMode:options('Normal','DT','Counter')
     state.PhysicalDefenseMode:options('PDT')
 	
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.CP = M(false, 'Capacity Points Mode')
 	
-	state.WeaponSet = M{['description']='Weapon Set','Godhands','Karambit','MalignancePole'}
-	--state.WeaponSet = M{['description']='Weapon Set','Verethragna','Spharai','MalignancePole'}
-   
+	state.WeaponSet = M{['description']='Weapon Set','Verethragna','Godhands','Staff'}
+	
+	Previous_Weapon = nil
+	
     include('Mote-TreasureHunter')
-	state.TreasureMode:set('Tag')
+	--state.TreasureMode:set('Tag')
 	
 	update_combat_weapon()
 end
@@ -52,7 +53,8 @@ end
 function job_post_precast(spell, action, spellMap, eventArgs)
 	if spell.type == 'WeaponSkill' then
         if state.Buff.Impetus and (spell.english == "Ascetic's Fury" or spell.english == "Victory Smite") then
-            equip(sets.Impetus)
+            --equip(sets.Impetus)
+			equip(sets.VictorySmite_Impetus)
 		end
         elseif state.Buff.Footwork and (spell.english == "Dragon's Kick" or spell.english == "Tornado Kick") then
             equip(sets.Footwork)
@@ -60,16 +62,14 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
-	
+	state.WeaponskillMode:reset() -- reset WS mode for next round.
 	if state.Buff.Boost or buffactive.boost then
 		eventArgs.handled = true -- if boost is active, cancel aftercast.
 	end
-	
-	state.WeaponskillMode:reset() -- reset WS mode for next round.
 end
 
 function job_buff_change(buff, gain) 
-	update_combat_form() -- COunterstance check
+	update_combat_form() -- Counterstance check
 	if player.status ~= 'Idle' then
 		if not midaction() then
             handle_equipping_gear(player.status)
@@ -110,7 +110,6 @@ function customize_idle_set(idleSet)
     return idleSet
 end
 
-
 function customize_defense_set(defenseSet)
 	-- Equips Ask Sash while boost is active, and returns to normal sets otherwise
 	if buffactive.Boost then
@@ -127,6 +126,9 @@ function customize_defense_set(defenseSet)
 	return defenseSet
 end
 
+function job_state_change(descrip, newVal, oldVal)
+	handle_equipping_gear()
+end
 
 function job_update(cmdParams, eventArgs)
     update_combat_weapon()

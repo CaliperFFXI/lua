@@ -23,7 +23,7 @@ function init_gear_sets()
     sets.precast.JA['Elemental Siphon'] = {	    
 		main={ name="Espiritus", augments={'Summoning magic skill +15','Pet: Mag. Acc.+30','Pet: Damage taken -4%',}},
 		sub="Vox Grip",
-		ammo="Sancus Sachet +1",
+		ammo="Esper Stone +1",
 		head="Beckoner's Horn +1",
 		body="Beck. Doublet +1",
 		hands="Lamassu Mitts +1",
@@ -59,15 +59,16 @@ function init_gear_sets()
 
     -- Fast Cast --
     sets.precast.FC = {
+		ammo="Sapience Orb",
 		head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
 		body="Inyanga Jubbah +2",
-		hands={ name="Telchine Gloves", augments={'"Fast Cast"+5',}},
-		legs="Assid. Pants +1",
+		hands={ name="Telchine Gloves", augments={'"Fast Cast"+5','Enh. Mag. eff. dur. +9',}},
+		legs={ name="Lengo Pants", augments={'INT+10','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Refresh"+1',}},
 		feet="Regal Pumps +1",
 		neck="Voltsurge Torque",
 		waist="Witful Belt",
 		left_ear="Loquac. Earring",
-		right_ear="Etiolation Earring",
+		right_ear="Malignance Earring",
 		left_ring="Lebeche Ring",
 		right_ring="Weather. Ring",
 		back=gear.BPcapeMagical,
@@ -89,14 +90,27 @@ function init_gear_sets()
 		neck="Sanctity Necklace",
 		waist="Luminary Sash",
 		left_ear="Etiolation Earring",
-		left_ring="Fortified Ring",
 		right_ring="Persis Ring",
 		back="Fi Follet Cape +1",
 	}
 	
 	sets.precast.WS['Shattersoul'] = {}             
 
-	sets.precast.WS['Garland of Bliss'] = {}
+	sets.precast.WS['Garland of Bliss'] = {
+		ammo="Pemphredo Tathlum",
+		head="C. Palug Crown",
+		body="Merlinic Jubbah",
+		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+		legs="Merlinic Shalwar",
+		feet="Merlinic Crackows",
+		neck="Sanctity Necklace",
+		waist="Eschan Stone",
+		left_ear="Friomisi Earring",
+		right_ear="Hermetic Earring",
+		left_ring="Weather. Ring",
+		right_ring="Arvina Ringlet +1",
+		back="Aurist's Cape +1",
+	}
 
 
     -- Midcast sets --
@@ -105,7 +119,6 @@ function init_gear_sets()
     sets.midcast.Cure = {
 		head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
 		hands={ name="Telchine Gloves", augments={'"Fast Cast"+5',}},
-		feet={ name="Medium's Sabots", augments={'MP+25','"Conserve MP"+5',}},
 		waist="Luminary Sash",
 		left_ear="Mendi. Earring",
 		right_ear="Gifted Earring",
@@ -154,7 +167,7 @@ function init_gear_sets()
     sets.midcast.Pet.BloodPactWard = {
 		main="Espiritus",
 		sub="Vox Grip",
-		ammo="Sancus Sachet +1",
+		ammo="Esper Stone +1",
 		head="Beckoner's Horn +1",
 		body="Beck. Doublet +1",
 		hands="Lamassu Mitts +1",
@@ -204,7 +217,7 @@ function init_gear_sets()
 		waist="Regal Belt",
 		left_ear="Gelos Earring",
 		right_ear="Lugalbanda Earring",
-		left_ring="Varar Ring",
+		left_ring="Varar Ring +1",
 		right_ring="C. Palug Ring",
 		back=gear.BPcapeMagical,
 	}
@@ -224,7 +237,7 @@ function init_gear_sets()
 		waist="Incarnation Sash",
 		left_ear="Gelos Earring",
 		right_ear="Lugalbanda Earring",
-		left_ring="Varar Ring",
+		left_ring="Varar Ring +1",
 		right_ring="C. Palug Ring",
 		back=gear.BPcapePhysical,
 	}
@@ -234,7 +247,7 @@ function init_gear_sets()
 	})
 	
     sets.midcast.Pet.MagicalBloodPactRage = {
-		main="Grioavolr",
+		main=gear.Grioavolr,
 		sub="Elan Strap",
 		ammo="Sancus Sachet +1",
 		head="C. Palug Crown",
@@ -246,7 +259,7 @@ function init_gear_sets()
 		waist="Regal Belt",
 		left_ear="Gelos Earring",
 		right_ear="Lugalbanda Earring",
-		left_ring="Varar Ring",
+		left_ring="Varar Ring +1",
 		right_ring="C. Palug Ring",
 		back=gear.BPcapeMagical,
 	}
@@ -313,7 +326,7 @@ function init_gear_sets()
 	-- If no defined set is available, default sets are chosen.
     -- EG: sets.engaged.CombatForm.CombatWeapon.OffenseMode.DefenseMode.CustomMeleeGroups
 
-    sets.engaged = sets.idle
+    sets.engaged = {}
 	
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.latent_refresh = {waist="Fucho-no-obi"}

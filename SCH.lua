@@ -6,18 +6,16 @@ function get_sets()
 	-- Load player include file.
 end
 
--- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
 function job_setup()
-    info.addendumNukes = S{"Stone IV", "Water IV", "Aero IV", "Fire IV", "Blizzard IV", "Thunder IV",
-        "Stone V", "Water V", "Aero V", "Fire V", "Blizzard V", "Thunder V"}
-
     state.Buff['Sublimation: Activated'] = buffactive['Sublimation: Activated'] or false
-    state.HelixMode = M{['description']='Helix Mode', 'Potency', 'Duration'}
-    state.RegenMode = M{['description']='Regen Mode', 'Duration', 'Potency'}
-
+	state.Buff['Perpetuance'] = buffactive['Perpetuance'] or false
+	state.Buff['Addendum: White'] = buffactive['Addendum: White'] or False
+	state.Buff['Addendum: Black'] = buffactive['Addendum: Black'] or False
+	
+	-- Add spells to this list for "auto Perpetuance"
+	Perpetuance_Spells = S{'Haste','Flurry','Protect','Shell','Regen'}
 end
 
--- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.CastingMode:options('Normal')
@@ -27,8 +25,44 @@ function user_setup()
     state.StormSurge = M(false, 'Stormsurge')
 end
 
+-- Custom spell mapping.
+function job_get_spell_map(spell, default_spell_map)
+	--add_to_chat(122, tostring(default_spell_map)) --troubleshooting line
+	
+    if spell.action_type == 'Magic' then
+        if default_spell_map == 'Cure' or default_spell_map == 'Curaga' then
+            if (world.weather_element == 'Light' or world.day_element == 'Light') then
+                return "CureWeather"
+            end
+		end		
+		if default_spell_map == 'Helix' then
+			--determine helix element, which can be specially enhanced.
+			if spell.element == 'Light' then
+				return "LightHelix"
+			elseif spell.element == 'Dark' then
+				return "DarkHelix"
+			end
+		end
+    end
+end
+
 function job_precast(spell, action, spellMap, eventArgs)
-    
+    -- Auto Use Echo Drops If You Are Silenced 
+    if spell.action_type == 'Magic' and buffactive.Silence then 
+		eventArgs.cancel = true 
+        send_command('@input /item "Echo Drops" <me>')
+	end
+	-- Auto Perpetuance.
+	if (state.Buff['Addendum: White'] and Perpetuance_Spells:contains(spellMap)) then
+		if not spell.target.charmed and not state.Buff['Perpetuance'] then			
+			local spell_recasts = windower.ffxi.get_spell_recasts()
+			if spell_recasts[spell.recast_id] < 2 then
+				send_command('@input /ja Perpetuance <me>; wait 1.5; input /ma "'..spell.name..'" '..spell.target.name)
+				eventArgs.cancel = true
+				return
+			end
+		end
+	end
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
@@ -40,7 +74,6 @@ function job_post_precast(spell, action, spellMap, eventArgs)
     end
 end
 
--- Run after the general midcast() is done.
 function job_post_midcast(spell, action, spellMap, eventArgs)
     if spell.skill == 'Elemental Magic' or spell.english == "Kaustra" then
         if (spell.element == world.day_element or spell.element == world.weather_element) then
@@ -49,46 +82,21 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
                 equip(sets.buff['Klimaform'])
             end
         end
-        if spellMap == "Helix" then
-            --equip(sets.midcast['Elemental Magic'])
-            if spell.english:startswith('Lumino') then
-                equip(sets.midcast.LightHelix)
-            elseif spell.english:startswith('Nocto') then
-                equip(sets.midcast.DarkHelix)
-            else
-                equip(sets.midcast.Helix)
-            end
-            if state.HelixMode.value == 'Duration' then
-                equip(sets.Bookworm)
-            end
-        end
     end
-    if spell.action_type == 'Magic' then
-        apply_grimoire_bonuses(spell, action, spellMap, eventArgs)
-    end
-    if spell.skill == 'Enfeebling Magic' then
-        if spell.type == "WhiteMagic" and (buffactive["Light Arts"] or buffactive["Addendum: White"]) then
-            equip(sets.LightArts)
-        elseif spell.type == "BlackMagic" and (buffactive["Dark Arts"] or buffactive["Addendum: Black"]) then
-            equip(sets.DarkArts)
-        end
-    end
+    -- if spell.skill == 'Enfeebling Magic' then
+        -- if spell.type == "WhiteMagic" and (buffactive["Light Arts"] or buffactive["Addendum: White"]) then
+            -- equip(sets.LightArts)
+        -- elseif spell.type == "BlackMagic" and (buffactive["Dark Arts"] or buffactive["Addendum: Black"]) then
+            -- equip(sets.DarkArts)
+        -- end
+    -- end
     if spell.skill == 'Elemental Magic' and state.MagicBurst.value then
-        equip(sets.magic_burst)
+        equip(sets.MagicBurst)
         if spell.english == "Impact" then
             equip(sets.midcast.Impact)
         end
     end
     if spell.skill == 'Enhancing Magic' then
-        if classes.NoSkillSpells:contains(spell.english) then
-            equip(sets.midcast.EnhancingDuration)
-            if spellMap == 'Refresh' then
-                equip(sets.midcast.Refresh)
-            end
-        end
-        if spellMap == "Regen" and state.RegenMode.value == 'Duration' then
-            equip(sets.midcast.RegenDuration)
-        end
         if state.Buff.Perpetuance then
             equip(sets.buff['Perpetuance'])
         end
@@ -109,29 +117,4 @@ function job_aftercast(spell, action, spellMap, eventArgs)
         end
     end
 end
-
--------------------------------------------------------------------------------------------------------------------
--- User code that supplements standard library decisions.
--------------------------------------------------------------------------------------------------------------------
-
--- Custom spell mapping.
-function job_get_spell_map(spell, default_spell_map)
-    if spell.action_type == 'Magic' then
-        if default_spell_map == 'Cure' or default_spell_map == 'Curaga' then
-            if (world.weather_element == 'Light' or world.day_element == 'Light') then
-                return 'CureWeather'
-            end
-        elseif spell.skill == 'Enfeebling Magic' then
-            if spell.type == 'WhiteMagic' then
-                return 'MndEnfeebles'
-            else
-                return 'IntEnfeebles'
-            end
-        end
-    end
-end
-
-function job_update(cmdParams, eventArgs)
-end
-
 

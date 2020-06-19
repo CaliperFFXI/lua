@@ -11,7 +11,6 @@ function init_gear_sets()
 	-- Fast Cast 
     sets.precast.FC = { 
 		main="C. Palug Hammer",
-		sub="Chanter's Shield",
 		ammo="Sapience Orb",
 		head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
 		body="Inyanga Jubbah +2",
@@ -21,7 +20,7 @@ function init_gear_sets()
 		neck="Voltsurge Torque",
 		waist="Witful Belt",
 		left_ear="Loquac. Earring",
-		right_ear="Etiolation Earring",
+		right_ear="Malignance Earring",
 		left_ring="Kishar Ring",
 		right_ring="Weather. Ring",
 		back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}},
@@ -79,7 +78,7 @@ function init_gear_sets()
     sets.midcast.CureSolace = {
 		main={ name="Queller Rod", augments={'Healing magic skill +15','"Cure" potency +10%','"Cure" spellcasting time -7%',}},
 		sub="Sors Shield",
-		ammo="Pemphredo Tathlum",
+		ammo="Esper Stone +1",
 		head="Theophany Cap +2",
 		body="Ebers Bliaud +1",
 		hands="Theophany Mitts +2",
@@ -89,7 +88,6 @@ function init_gear_sets()
 		waist="Luminary Sash",
 		left_ear="Nourish. Earring +1",
 		right_ear="Glorious Earring",
-		left_ring="Persis Ring",
 		right_ring="Lebeche Ring",
 		back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}},
         }
@@ -100,7 +98,11 @@ function init_gear_sets()
 		body={ name="Piety Briault +3", augments={'Enhances "Benediction" effect',}},
 	})
 
-    sets.midcast.CureWeather = set_combine(sets.midcast.CureNormal, {waist="Hachirin-no-Obi"})
+    sets.midcast.CureWeather = set_combine(sets.midcast.CureNormal, {
+		main="Chatoyant Staff",
+		sub="Mensch Strap +1",
+		waist="Hachirin-no-Obi",
+	})
 
     sets.midcast.CuragaNormal = {
 		main={ name="Queller Rod", augments={'Healing magic skill +15','"Cure" potency +10%','"Cure" spellcasting time -7%',}},
@@ -115,18 +117,21 @@ function init_gear_sets()
 		waist="Luminary Sash",
 		left_ear="Nourish. Earring +1",
 		right_ear="Glorious Earring",
-		left_ring="Persis Ring",
 		right_ring="Lebeche Ring",
 		back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}},
 	}
 
-    sets.midcast.CuragaWeather = set_combine(sets.midcast.CuragaNormal, {waist="Hachirin-no-Obi"})
+    sets.midcast.CuragaWeather = set_combine(sets.midcast.CuragaNormal, {
+		main="Chatoyant Staff",
+		sub="Enki Strap",
+		waist="Hachirin-no-Obi",
+		back="Twilight Cape",
+	})
 	
     sets.midcast.CureMelee = sets.midcast.CureSolace
 
     sets.midcast.StatusRemoval = set_combine(sets.ConserveMP, {
 		main={ name="Queller Rod", augments={'Healing magic skill +15','"Cure" potency +10%','"Cure" spellcasting time -7%',}},
-		sub="Chanter's Shield",
 		ammo="Sapience Orb",
 		head="Ebers Cap +1",
 		body="Inyanga Jubbah +2",
@@ -144,7 +149,6 @@ function init_gear_sets()
 
     sets.midcast.Cursna = set_combine(sets.midcast.StatusRemoval, {
 		main="Queller Rod",
-		sub="Chanter's Shield",
 		hands="Fanatic Gloves",
 		legs="Th. Pantaloons +2",
 		feet="Gende. Galosh. +1",
@@ -172,12 +176,13 @@ function init_gear_sets()
 		waist="Olympus Sash",
 		left_ear="Andoaa Earring",
 		right_ear="Gifted Earring",
-		left_ring="Kishar Ring",
-		right_ring="Weather. Ring",
+		left_ring="Stikini Ring",
+		right_ring="Stikini Ring",
 		back="Fi Follet Cape +1",
     })
 
     sets.midcast.EnhancingDuration =  set_combine(sets.ConserveMP, {
+		main="Gada",
 	    sub="Ammurapi Shield",
 		head=gear.Telchine_Head,
 		body=gear.Telchine_Body,
@@ -200,6 +205,13 @@ function init_gear_sets()
     sets.midcast.Refresh = set_combine(sets.midcast.EnhancingDuration, {})
     sets.midcast.Stoneskin = set_combine(sets.midcast.EnhancingDuration, {})
     sets.midcast.Aquaveil = set_combine(sets.midcast.EnhancingDuration, {})
+    sets.midcast.BoostStat = set_combine(sets.midcast.EnhancingDuration, {
+		feet="Theo. Duckbills +2",
+		neck="Incanter's Torque",
+		left_ear="Andoaa Earring",
+		left_ring="Stikini Ring",
+		right_ring="Stikini Ring",
+	})
 
     sets.midcast.Auspice = set_combine(sets.midcast.EnhancingDuration, {
 		feet="Ebers Duckbills +1",
@@ -213,6 +225,8 @@ function init_gear_sets()
 		legs="Piety Pantaln. +1",
 		feet="Ebers Duckbills +1",
 		neck="Incanter's Torque",
+		left_ring="Stikini Ring",
+		right_ring="Stikini Ring",
         })
 	
     sets.midcast.Protect = set_combine(sets.ConserveMP, sets.midcast.EnhancingDuration, {left_ring="Sheltered Ring"})
@@ -259,7 +273,7 @@ function init_gear_sets()
 		feet="Theo. Duckbills +2",
 		neck="Erra Pendant",
 		waist="Luminary Sash",
-		left_ear="Digni. Earring",
+		left_ear="Malignance Earring",
 		right_ear="Regal Earring",
 		left_ring="Weather. Ring",
 		right_ring="Kishar Ring",
@@ -353,7 +367,7 @@ function init_gear_sets()
     sets.engaged = {
 		main="C. Palug Hammer",
 		sub="Genmei Shield",
-		ammo="Staunch Tathlum",
+		ammo="Amar Cluster",
 		head="Aya. Zucchetto +2",
 		body="Ayanmo Corazza +2",
 		hands="Aya. Manopolas +2",

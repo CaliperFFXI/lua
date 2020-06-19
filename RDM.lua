@@ -20,25 +20,19 @@ function job_setup()
 	state.Buff.Enwater = buffactive['Enwater'] or false
 	state.Buff.EnwaterII = buffactive['Enwater II'] or false
     state.Buff.Saboteur = buffactive.Saboteur or false
-    
-	enfeebling_magic_acc = S{'Bind','Break','Dispel','Distract','Distract II','Frazzle',
-							'Frazzle II','Gravity','Gravity II','Silence','Sleep','Sleep II','Sleepga'}
-							
-    enfeebling_magic_skill = S{'Distract III', 'Frazzle III', 'Poison II'}
 	
-    enfeebling_magic_effect = S{'Dia', 'Dia II', 'Dia III', 'Diaga'}
-
-	--Place spells here for skill bonus
-    skill_spells = S{'Temper', 'Temper II', 'Enfire', 'Enfire II', 'Enblizzard', 'Enblizzard II', 
-					'Enaero', 'Enaero II','Enstone', 'Enstone II', 'Enthunder', 'Enthunder II',
-					'Enwater', 'Enwater II'}
+	
+	-- --Place spells here for skill bonus
+    -- Enhancing_Skill =	S{'Temper', 'Temper II', 'Enfire', 'Enfire II', 'Enblizzard', 'Enblizzard II', 
+						-- 'Enaero', 'Enaero II','Enstone', 'Enstone II', 'Enthunder', 'Enthunder II',
+						-- 'Enwater', 'Enwater II'}
 					
-	--Place spells here for duration bonus				
-	NoSkillSpells = S{'Haste','Haste II','Flurry','Flurry II','Refresh','Refresh II','Refresh III',
-					'Regen','Regen II','Aurorastorm','Voidstorm','Firestorm','Sandstorm','Rainstorm',
-					'Hailstorm','Windstorm','Thhunderstorm','Phalanx','Phalanx II'}
+	-- --Place spells here for duration bonus				
+	-- Enhancing_Duration = S{'Haste','Haste II','Flurry','Flurry II','Refresh','Refresh II','Refresh III',
+						-- 'Regen','Regen II','Aurorastorm','Voidstorm','Firestorm','Sandstorm','Rainstorm',
+						-- 'Hailstorm','Windstorm','Thunderstorm','Phalanx','Phalanx II'}
 		
-	elemental_ws = S{'Sanguine Blade'}
+	elemental_ws =	S{'Sanguine Blade','Seraph Blade','Aeolian Edge'}
 	
 	-- This var is used to store EnSpell Element for logic functions.
 	EnSpell_Element = nil
@@ -53,7 +47,7 @@ function user_setup()
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Normal', 'Acc')
     state.CastingMode:options('Normal')
-    state.IdleMode:options('Normal','Refresh','Craft','Fish','Synergy')
+    state.IdleMode:options('Normal','Refresh')
 	
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.WeaponSet = M{['description']='Weapon Set',}
@@ -66,7 +60,7 @@ function user_setup()
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
-	if spellMap == 'UtsusemiUtsusemi' then
+	if spellMap == 'Utsusemi' then
 		if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
 			cancel_spell()
 			add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
@@ -101,57 +95,18 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 end
 
 function job_midcast(spell, action, spellMap, eventArgs)
-    if spell.skill == 'Enfeebling Magic' then
-        if enfeebling_magic_skill:contains(spell.english) or enfeebling_magic_effect:contains(spell.english) then
-            if spell.type == "WhiteMagic" then
-                equip(sets.midcast.MndEnfeeblesAcc)
-            else
-                equip(sets.midcast.IntEnfeeblesAcc)
-            end
-        end
-    end
+
+
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
-   
-   --Enfeebling Skill / Effect
-   if spell.skill == 'Enfeebling Magic' then
-        if enfeebling_magic_skill:contains(spell.english) then
-            equip(sets.midcast.SkillEnfeebles)
-        elseif enfeebling_magic_effect:contains(spell.english) then
-            equip(sets.midcast.EffectEnfeebles)
-        end
-        if state.Buff.Saboteur then
-            equip(sets.buff.Saboteur)
-        end
-    end
-	
-	--Enhancing 
-	if spell.skill == 'Enhancing Magic' and spell.name ~= 'Phalanx' then 
-		if NoSkillSpells:contains(spell.english) then
-            equip(sets.midcast.EnhancingDuration)
-            
-			if spellMap == 'Refresh' then
-                equip(sets.midcast.Refresh)
-               
-				if spell.target.type == 'SELF' then
-                    equip(sets.midcast.RefreshSelf)
-				end
-	
-			end
-			
-		end
-			
-    elseif skill_spells:contains(spell.english) then
-            equip(sets.midcast['Enhancing Magic'])
-    elseif spell.english:startswith('Gain') then
-            equip(sets.midcast.GainSpell)
-    end
-	
+
 	--	Composure Buff for Party/Alliance
-    if (spell.target.type == 'PLAYER' or spell.target.type == 'NPC') and buffactive.Composure then
-		equip(sets.buff.ComposureOther)
-    end
+	if spellMap == 'Enhancing Magic' then
+		if (spell.target.type == 'PLAYER' or spell.target.type == 'NPC') and buffactive.Composure then
+			equip(sets.buff.ComposureOther)
+		end
+	end
     
 	--	Cures on Self only
     if spellMap == 'Cure' and spell.target.type == 'SELF' then
@@ -160,12 +115,9 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 	
 	--Elemental
     if spell.skill == 'Elemental Magic' then
-        if state.MagicBurst.value and spell.english ~= 'Death' then
-            equip(sets.magic_burst)
             if spell.english == "Impact" then
                 equip(sets.midcast.Impact)
             end
-        end
         if (spell.element == world.day_element or spell.element == world.weather_element) then
             equip(sets.Obi)
         end
@@ -173,15 +125,15 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
-    if not spell.interrupted then
-        if spell.english == "Sleep II" then
-            send_command('@timers c "Sleep II ['..spell.target.name..']" 90 down spells/00259.png')
-        elseif spell.english == "Sleep" or spell.english == "Sleepga" then -- Sleep & Sleepga Countdown --
-            send_command('@timers c "Sleep ['..spell.target.name..']" 60 down spells/00253.png')
-        elseif spell.english == "Break" then
-            send_command('@timers c "Break ['..spell.target.name..']" 30 down spells/00255.png')
-        end
-    end
+    -- if not spell.interrupted then
+        -- if spell.english == "Sleep II" then
+            -- send_command('@timers c "Sleep II ['..spell.target.name..']" 90 down spells/00259.png')
+        -- elseif spell.english == "Sleep" or spell.english == "Sleepga" then -- Sleep & Sleepga Countdown --
+            -- send_command('@timers c "Sleep ['..spell.target.name..']" 60 down spells/00253.png')
+        -- elseif spell.english == "Break" then
+            -- send_command('@timers c "Break ['..spell.target.name..']" 30 down spells/00255.png')
+        -- end
+    -- end
 end
 
 function job_update(cmdParams, eventArgs)
@@ -277,40 +229,23 @@ end
 
 -- Custom spell mapping.
 function job_get_spell_map(spell, default_spell_map)
+	--add_to_chat(122, tostring(default_spell_map)) --troubleshooting line
+	
     if spell.action_type == 'Magic' then
         if default_spell_map == 'Cure' or default_spell_map == 'Curaga' then
             if (world.weather_element == 'Light' or world.day_element == 'Light') then
-                return 'CureWeather'
+                return "CureWeather"
             end
-        end
-        if spell.skill == 'Enfeebling Magic' then
-            if spell.type == "WhiteMagic" then
-                if  enfeebling_magic_effect:contains(spell.english) then
-                    return "EffectEnfeebles"
-                elseif not enfeebling_magic_skill:contains(spell.english) then
-                    if enfeebling_magic_acc:contains(spell.english) and not buffactive.Stymie then
-                        return "MndEnfeeblesAcc"
-                    else
-                        return "MndEnfeebles"
-                    end
-                end
-            elseif spell.type == "BlackMagic" then
-                if  enfeebling_magic_effect:contains(spell.english) then
-                    return "EffectEnfeebles"
-                elseif not enfeebling_magic_skill:contains(spell.english) then
-                    if enfeebling_magic_acc:contains(spell.english) and not buffactive.Stymie then
-                        return "IntEnfeeblesAcc"
-                    else
-                        return "IntEnfeebles"
-                    end
-                end
-            else
-                return "MndEnfeebles"
-            end
-        end
+        elseif spell.skill == 'Enfeebling Magic' then
+			return Enfeebling_Magic_Map[spell.english]		
+		elseif spell.skill == 'Enhancing Magic' then
+			-- add_to_chat(122, Enhancing_Magic_Map[spell.english]) --troubleshooting line
+			return Enhancing_Magic_Map[spell.english]		
+		end		
     end
 end
 
+-- Note: may need revision for melee stuffs
 --Weapon Lock function.
 function job_state_change(stateField, newValue, oldValue)
 	if state.WeaponLock.value == true then

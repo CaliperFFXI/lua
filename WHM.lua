@@ -18,11 +18,8 @@ function user_setup()
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal')
 	state.DualWield = M(false, 'Dual Wield Mode')
-
-    state.BarElement = M{['description']='BarElement', 'Barfira', 'Barblizzara', 'Baraera', 'Barstonra', 'Barthundra', 'Barwatera'}
-    state.BarStatus = M{['description']='BarStatus', 'Baramnesra', 'Barvira', 'Barparalyzra', 'Barsilencera', 'Barpetra', 'Barpoisonra', 'Barblindra', 'Barsleepra'}
-    state.BoostSpell = M{['description']='BoostSpell', 'Boost-STR', 'Boost-INT', 'Boost-AGI', 'Boost-VIT', 'Boost-DEX', 'Boost-MND', 'Boost-CHR'}
 	
+	state.WeaponLock = M(false, 'Weapon Lock')	
 	--CombatWeapons
 	state.WeaponSet = M{['description']='Weapon Set','Yagrush'}
 	
@@ -143,7 +140,10 @@ function job_get_spell_map(spell, default_spell_map)
                 return "IntEnfeebles"
             end
         end
-    end
+	if spell.english:contains("Boost") then
+		return "BoostStat"
+	end    
+	end
 end
 
 --Weapon Lock function.

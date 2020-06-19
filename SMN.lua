@@ -40,16 +40,6 @@ function user_setup()
     state.CastingMode:options('Physical', 'Magical')
     state.IdleMode:options('Normal','Craft','Fish')
 
-	--Common Gear
-	--also Avatar idle Cape
-	gear.BPcapePhysical = {name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Damage taken-3%',}}
-	--also Fast Cast Cape
-	gear.BPcapeMagical = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Mag. Acc.+10','"Fast Cast"+10',}}
-	--also SMN +skill Cape
-	gear.BPdelayCape = {name="Conveyance Cape", augments={'Summoning magic skill +1','Blood Pact Dmg.+1','Blood Pact ab. del. II -3',}}
-	
-	gear.MagMerlinic = {name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+20 Pet: "Mag.Atk.Bns."+20','Blood Pact Dmg.+10','Pet: STR+6','Pet: Mag. Acc.+15',}}
-	gear.Grioavolr	= { name="Grioavolr", augments={'Blood Pact Dmg.+6','Pet: Mag. Acc.+23','Pet: "Mag.Atk.Bns."+25','DMG:+6',}}
 
 end
 -------------------------------------------------------------------------------------------------------------------

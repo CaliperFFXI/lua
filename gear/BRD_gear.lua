@@ -22,26 +22,34 @@ function init_gear_sets()
 	}
 
     sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {waist="Siegel Sash"})
+	
+	sets.precast.FC['Dispelga'] = set_combine(sets.precast.FC, {main="Daybreak"})
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {})
 
-    sets.precast.FC.BardSong = set_combine(sets.precast.FC, {main="Kali",head="Fili Calot +1"})
+    sets.precast.FC.BardSong = set_combine(sets.precast.FC, {
+		main="Kali",
+		sub="Kali",
+		head="Fili Calot +1",
+		feet="Bihu Slippers +3",
+	})
 
     sets.precast.FC.SongPlaceholder = set_combine(sets.precast.FC.BardSong, {range=info.ExtraSongInstrument})
     
 	sets.precast.FC.Ustsusemi = {}
-    
-    sets.precast.JA.Nightingale = {feet={ name="Bihu Slippers", augments={'Enhances "Nightingale" effect',}}}
+	
+    sets.precast.JA['Sublimation'] = {waist="Embla Sash"}
+    sets.precast.JA.Nightingale = {feet="Bihu Slippers +3"}
     sets.precast.JA.Troubadour = {body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}}}
-    sets.precast.JA['Soul Voice'] = {legs={ name="Bihu Cannions", augments={'Enhances "Soul Voice" effect',}}}
+    sets.precast.JA['Soul Voice'] = {legs="Bihu Cannions +3"}
  
     sets.precast.WS = {
 		range="Linos",
-		head="Aya. Zucchetto +2",
+		head="Bihu Roundlet +3",
 		body="Ayanmo Corazza +2",
-		hands={ name="Lustr. Mittens +1", augments={'Accuracy+30','VIT+13','DEX+10',}},
-		legs={ name="Lustr. Subligar +1", augments={'Accuracy+20','DEX+8','Crit. hit rate+3%',}},
-		feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
+		hands="Lustr. Mittens +1", 
+		legs="Lustr. Subligar +1", 
+		feet="Bihu Slippers +3",
 	    neck="Fotia Gorget",
 		waist="Fotia Belt",
 		left_ear="Ishvara Earring",
@@ -49,18 +57,19 @@ function init_gear_sets()
 	}
     
     sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
+		body="Ayanmo Corazza +2",
+		feet="Aya. Gambieras +2",
+		neck="Fotia Gorget",
+		waist="Fotia Belt",
+		left_ear="Brutal Earring",
+		right_ear="Cessance Earring",
 		left_ring="Hetairoi Ring",
 		right_ring="Begrudging Ring",
 		back=gear.BRD_CRIT_WS,
 	})
         
     sets.precast.WS['Exenterator'] = set_combine(sets.precast.WS, {
-		range={ name="Linos", augments={'Accuracy+14','"Dbl.Atk."+2','Quadruple Attack +3',}},
-		head="Aya. Zucchetto +2",
 		body="Ayanmo Corazza +2",
-		hands={ name="Lustr. Mittens +1", augments={'Accuracy+30','VIT+13','DEX+10',}},
-		legs={ name="Lustr. Subligar +1", augments={'Accuracy+20','DEX+8','Crit. hit rate+3%',}},
-		feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
 		neck="Fotia Gorget",
 		waist="Fotia Belt",
 		left_ear="Brutal Earring",
@@ -71,7 +80,11 @@ function init_gear_sets()
 	})
 
     sets.precast.WS['Mordant Rime'] = set_combine(sets.precast.WS, {
+		head="Bihu Roundlet +3",
 		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
+		hands="Bihu Cuffs +3",
+		legs="Bihu Cannions +3",
+		feet="Bihu Slippers +3",
 		neck="Combatant's Torque",
 		waist="Grunfeld Rope",
 		left_ear="Regal Earring",
@@ -82,8 +95,12 @@ function init_gear_sets()
 	})
 
     sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {
-		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
-		neck="Combatant's Torque",
+		head="Lustratio Cap +1",
+		body="Bihu Jstcorps. +3",
+		hands="Lustr. Mittens +1",
+		legs="Lustr. Subligar +1",
+		feet="Bihu Slippers +3",
+		neck="Caro Necklace",
 		waist="Grunfeld Rope",
 		left_ring="Hetairoi Ring",
 		left_ring="Ilabrat Ring",
@@ -91,30 +108,38 @@ function init_gear_sets()
 		back=gear.BRD_DEX_WS,
 	})
 	
+	sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {
+		ammo="Pemphredo Tathlum",
+		head="C. Palug Crown",
+		body={ name="Chironic Doublet", augments={'Pet: INT+1','Pet: Phys. dmg. taken -2%','"Treasure Hunter"+1','Accuracy+16 Attack+16',}},
+		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
+		legs={ name="Lengo Pants", augments={'INT+10','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Refresh"+1',}},
+		feet={ name="Chironic Slippers", augments={'Accuracy+18 Attack+18','"Dbl.Atk."+2','MND+7','Accuracy+8','Attack+7',}},
+		neck="Sanctity Necklace",
+		waist="Eschan Stone",
+		left_ear="Regal Earring",
+		right_ear="Friomisi Earring",
+		left_ring="Arvina Ringlet +1",
+		right_ring="Ilabrat Ring",
+		back=BRD_DEX_WS,
+	})
+	
 	--set for testing equipment swaps
 	sets.rudras = sets.precast.WS['Rudra\'s Storm']
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
 		ammo="Ginsen",
-		head="Aya. Zucchetto +2",
 		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
-		hands={ name="Lustr. Mittens +1", augments={'Accuracy+30','VIT+13','DEX+10',}},
-		legs={ name="Lustr. Subligar +1", augments={'Accuracy+20','DEX+8','Crit. hit rate+3%',}},
-		feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
 		neck="Caro Necklace",
 		waist="Grunfeld Rope",
 		left_ear="Ishvara Earring",
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
-		left_ring="Rufescent Ring",
-		right_ring="Begrudging Ring",
+		left_ring="Ilabrat Ring",
+		right_ring="Rufescent Ring",
 		back=gear.BRD_DEX_WS,
 	})
     
-    
-    ------------------------------------------------------------------------------------------------
-    ---------------------------------------- Midcast Sets ------------------------------------------
-    ------------------------------------------------------------------------------------------------
-
+   
     sets.ConserveMP = {
 		ammo="Pemphredo Tathlum",
 		head="Vanya Hood", 
@@ -147,17 +172,19 @@ function init_gear_sets()
     sets.midcast.Minne = set_combine(sets.SongEnhancing, {})
     sets.midcast.Minuet = set_combine(sets.SongEnhancing, {body="Fili Hongreline +1",})
     sets.midcast.Paeon = set_combine(sets.SongEnhancing, {})
-    sets.midcast['Adventurer\'s Dirge'] = set_combine(sets.SongEnhancing, {})
+    sets.midcast["Adventurer's Dirge"] = set_combine(sets.SongEnhancing, {})
     sets.midcast['Foe Sirvente'] = set_combine(sets.SongEnhancing, {})
     sets.midcast["Sentinel's Scherzo"] = set_combine(sets.SongEnhancing, {feet="Fili Cothurnes +1"})
     sets.midcast.Mazurka = set_combine(sets.SongEnhancing, {})
+    sets.midcast.Prelude = set_combine(sets.SongEnhancing, {})
+	sets.midcast["Goddess's Hymnus"] = set_combine(sets.SongEnhancing, {})
 
     -- For song defbuffs (duration primary, accuracy secondary)
     sets.midcast.SongEnfeeble = {
 		main="Tauret",
 		sub="Ammurapi Shield",
-		head="C. Palug Crown",
-		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
+		head="Bihu Roundlet +3",
+		body="Bihu Jstcorps. +3", 
 		hands="Brioso Cuffs +3",
 		legs="Inyanga Shalwar +2",
 		feet="Brioso Slippers +2",
@@ -171,31 +198,39 @@ function init_gear_sets()
 	}
 		
     -- For song defbuffs (accuracy primary, duration secondary)
-    sets.midcast.SongEnfeebleAcc = set_combine(sets.midcast.SongEnfeeble, {main="Tauret",sub="Ammurapi Shield"})
+    sets.midcast.SongEnfeebleAcc = set_combine(sets.midcast.SongEnfeeble, {})
 
     -- Placeholder song; minimize duration to make it easy to overwrite.
     sets.midcast.SongPlaceholder = {range=info.ExtraSongInstrument}
 
     -- Curing and White Magic Spells
     sets.midcast.Cure = {
-		main="Daybreak",
-		sub="Genmei Shield",
+		main="Chatoyant Staff",
+		sub="Mensch Strap +1",
 		ammo="Pemphredo Tathlum",
-		head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
-		body="Inyanga Jubbah +2",
-		hands="Brioso Cuffs +3",
-		legs="Inyanga Shalwar +2",
-		feet="Inyan. Crackows +2",
-		neck="Incanter's Torque",
+		head={ name="Gende. Caubeen +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -3%',}},
+		body={ name="Gende. Bilaut +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -2%','Song spellcasting time -4%',}},
+		hands={ name="Gende. Gages +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -4%','Song spellcasting time -3%',}},
+		legs={ name="Gende. Spats +1", augments={'Phys. dmg. taken -3%','Magic dmg. taken -4%','Song recast delay -3',}},
+		feet={ name="Gende. Galosh. +1", augments={'Phys. dmg. taken -3%','Magic dmg. taken -4%','"Cure" potency +2%',}},
+		neck="Nodens Gorget",
 		waist="Luminary Sash",
-		left_ear="Regal Earring",
-		right_ear="Gifted Earring",
-		left_ring="Persis Ring",
+		left_ear="Odnowa Earring +1",
+		right_ear="Mendi. Earring",
+		left_ring="Gelatinous Ring +1",
 		right_ring="Lebeche Ring",
 		back="Solemnity Cape",
 	}
         
     sets.midcast.Curaga = sets.midcast.Cure
+	
+	-- Cure with Weather
+	sets.midcast.CureWeather = set_combine(sets.midcast.Cure,{
+		waist="Hachirin-no-Obi"
+	})
+	
+	-- Curaga with Weather
+	sets.midcast.CuragaWeather = set_combine(sets.midcast.CureWeather,{})
         
     sets.midcast.StatusRemoval = set_combine(sets.midcast.Cure, {
 		left_ring="Ephedra Ring",
@@ -203,6 +238,7 @@ function init_gear_sets()
 	})
         
     sets.midcast.Cursna = set_combine(sets.midcast.StatusRemoval, {
+		hands="Inyan. Dastanas +2",
 		feet="Gende. Galosh. +1",
 		neck="Malison Medallion",
 	})
@@ -234,15 +270,14 @@ function init_gear_sets()
 		waist="Flume Belt +1",
 		left_ear="Ethereal Earring",
 		right_ear="Genmei Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		left_ring="Gelatinous Ring +1",
+		right_ring="Defending Ring",
 		back=gear.BRD_FC_Idle,
 	}
 
         
     -- Defense Sets
     sets.defense.PDT = {
-		sub="Genmei Shield",
 		head={ name="Gende. Caubeen +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -3%',}},
 		body={ name="Gende. Bilaut +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -2%','Song spellcasting time -4%',}},
 		hands={ name="Gende. Gages +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -4%','Song spellcasting time -3%',}},
@@ -258,7 +293,6 @@ function init_gear_sets()
 	}
 	
     sets.defense.MDT = {
-		sub="Genmei Shield",
 		head="Inyanga Tiara +2",
 		body="Inyanga Jubbah +2",
 		hands="Inyan. Dastanas +2",
@@ -286,60 +320,51 @@ function init_gear_sets()
 		range="Linos",
 		head="Aya. Zucchetto +2",
 		body="Ayanmo Corazza +2",
-		hands="Aya. Manopolas +2",
+		hands="Chironic Gloves",
 		legs="Aya. Cosciales +2",
-		feet="Aya. Gambieras +2",
-		neck="Lissome Necklace",
-		waist="Grunfeld Rope",
-		left_ear="Telos Earring",
-		right_ear="Cessance Earring",
+		feet="Chironic Slippers",
+		neck="Ainia Collar",
+		waist="Reiki Yotai",
+		left_ear="Suppanomimi",
+		right_ear="Dedition Earring",
 		left_ring="Ilabrat Ring",
 		right_ring="Petrov Ring",
 		back=gear.BRD_TP,
 	}
 
-    sets.engaged.Acc = set_combine(sets.engaged, {})
+    sets.engaged.Acc = set_combine(sets.engaged, {
+		neck="Lissome Necklace",
+		right_ear="Telos Earring",
+	})
 	
 	-- CombatForm DualWield
 	sets.engaged.DualWield = set_combine(sets.engaged,{left_ear="Suppanomimi",waist="Reiki Yotai"})
-	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield,{})
+	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield,{
+		neck="Lissome Necklace",
+		right_ear="Telos Earring",
+	})
 	
 	sets.engaged.DualWield.DT = set_combine(sets.engaged.DualWield, {    
 		neck="Loricate Torque +1",
 		right_ring="Defending Ring",
 	})
 	
-	--called in midcast() if combatform is DualWield
-	sets.SongDualWieldDuration = {main="Kali",sub="Legato Dagger"}
+	sets.engaged.DualWield.Acc.DT = set_combine(sets.engaged.DualWield.DT, {})
 	
+	--called in midcast() if combatform is DualWield
+	sets.SongDualWieldDuration = {main="Kali",sub="Kali"}
 	
 	-- Special Sets
     sets.latent_refresh = {waist="Fucho-no-Obi"}
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.Obi = {waist="Hachirin-no-Obi"}
     sets.CP = {back="Mecisto. Mantle"}
-    sets.TreasureHunter = {waist="Chaac belt", feet="Volte Boots"}
-	
-	sets.Odin = {
-		main="Qutrub Knife",
-		sub="Trainee Knife",
-		ammo="Pemphredo Tathlum",
-		head="Aya. Zucchetto +2",
-		body="Ayanmo Corazza +2",
-		hands="Aya. Manopolas +2",
-		legs="Aya. Cosciales +2",
-		feet="Aya. Gambieras +2",
-		neck="Mnbw. Whistle +1",
-		waist="Hachirin-no-Obi",
-		left_ear="Hermetic Earring",
-		right_ear="Digni. Earring",
-		left_ring="Cacoethic Ring +1",
-		right_ring="Weather. Ring",
-		back="Relucent Cape",
-	}
+    sets.TreasureHunter = {body=gear.Chironic_Body_TH,waist="Chaac belt", feet="Volte Boots"}
 	
 	sets.Sword = {main="Naegling",sub="Ternion Dagger +1"}
-	sets.Dagger = {main="Tauret",sub="Ternion Dagger +1"}
-	
+	sets.Dagger = {main="Aeneas",sub="Ternion Dagger +1"}
+	sets.DaggerMAB = {main="Aeneas",sub="Malevolence"}
+	sets.Shield = {sub="Genmei Shield"}
 
+	
 end

@@ -12,14 +12,13 @@ function job_setup()
     state.Buff.Doom = buffactive.doom or false
 	state.Buff.Aquaveil = buffactive.aquaveil or false
 	state.Buff.Majesty = buffactive.majesty or false
-		
-	-- Ambuscade Capes
-	gear.Cure_SIRD_Cape = {name="Rudianos's Mantle", augments={'VIT+20','"Cure" potency +10%','Spell interruption rate down-10%',}}		
-	gear.FC_PDT_CAPE = {name="Rudianos's Mantle", augments={'VIT+20','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','"Fast Cast"+10','Phys. dmg. taken-10%',}}
-	gear.TP_CAPE = { name="Rudianos's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
-
-	-- Reive Cape
-	gear.Phalanx_Cape = {name="Weard Mantle"}
+	
+	-- Enfeebles to track for pretarget cancellation
+	state.Buff.Paralyzed = buffactive.paralyzed or false
+	state.Buff.Stunned = buffactive.stunned or false
+	state.Buff.Terrorized = buffactive.terrorized or false
+	state.Buff.Petrification = buffactive.petrified or false
+	state.Buff.Amnesia = buffactive.amnesic or false
 	
 end
 
@@ -33,7 +32,7 @@ function user_setup()
     state.MagicalDefenseMode:options('MDT')
 	state.IdleMode:options('Normal', 'Refresh')
 	
-	state.WeaponSet = M{['description']='Weapon Set','Malignance Sword','Malignance Pole'}
+	state.WeaponSet = M{['description']='Weapon Set','MagicalShield','PhysicalShield'}
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.CP = M(false, 'Capacity Points Mode')
     state.EquipShield = M(false, 'Equip Shield w/Defense')
@@ -41,6 +40,7 @@ function user_setup()
     include('Mote-TreasureHunter')
 
     state.DefenseMode:set('Physical') -- Set's Physical Defense Mode by default
+	state.CastingMode:set('PDT') --Sets Midcast mode to PDT.
 	update_combat_weapon()	    
 	
 end
@@ -48,6 +48,20 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- Job-File specific hooks for standard casting events.
 -------------------------------------------------------------------------------------------------------------------
+function job_pretarget(spell, action, spellMap, eventArgs)
+    if spell.action_type == 'Magic' and buffactive.silence then -- Auto Use Echo Drops If You Are Silenced --
+		eventArgs.cancel = true 
+        send_command('input /item "Echo Drops" <me>')
+	end
+    if buffactive['terror'] or buffactive['petrification'] or buffactive['stun'] or buffactive['sleep'] then
+		eventArgs.cancel = true 
+        add_to_chat(123, '**!! '..spell.english..' Canceled due to status effect.**')
+	end
+end
+
+function job_aftercast(spell, action, spellMap, eventArgs)
+	update_combat_weapon()
+end
 
 function job_update(cmdParams, eventArgs)
 
@@ -97,10 +111,6 @@ function job_buff_change(buff,gain)
 end
 
 function customize_defense_set(defenseSet)
-   
---    if state.EquipShield.value == true then
---        defenseSet = set_combine(defenseSet, sets[state.DefenseMode.current .. 'Shield'])
---    end
 	-- Equip Twilight mail sets.Reraise if Doomed or HybridMode is 'Reraise'
 	if ( buffactive.doom or buffactive['Doom'] ) or state.HybridMode.value == 'Reraise' then
         defenseSet = set_combine(defenseSet, sets.buff.Doom, sets.Reraise)

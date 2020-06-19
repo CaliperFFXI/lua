@@ -37,7 +37,7 @@ end
 function user_setup()
 
     state.OffenseMode:options('Normal','Acc')
-    state.HybridMode:options('Normal', 'DT')
+    state.HybridMode:options('Normal', 'DT', 'Crit')
     state.RangedMode:options('Normal', 'Acc')
     state.WeaponskillMode:options('Normal', 'Acc')
     state.IdleMode:options('Normal', 'Regen')

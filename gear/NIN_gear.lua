@@ -84,12 +84,17 @@ function init_gear_sets()
 	sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
 		ammo="C. Palug Stone",
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
+		body="Abnoba Kaftan",
+		hands="Mummu Wrists +2",
+		legs="Mummu Kecks +2",
+		feet="Mummu Gamash. +2",
 		neck="Fotia Gorget",
 		waist="Fotia Belt",
 		left_ear="Brutal Earring",
-		right_ear="Mache Earring +1",
+		right_ear="Odr Earring",
 		left_ring="Gere Ring",
-		right_ring="Regal Ring",
+		right_ring="Begrudging Ring",
+		back="Sacro Mantle",
 	})
 
     sets.precast.WS['Blade: Ten'] = set_combine(sets.precast.WS, {
@@ -116,11 +121,11 @@ function init_gear_sets()
 
     sets.precast.WS['Blade: Yu'] = set_combine(sets.precast.WS, {
 		ammo="Pemphredo Tathlum",
-		head={ name="Herculean Helm", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Weapon skill damage +1%','INT+9','Mag. Acc.+12','"Mag.Atk.Bns."+10',}},
-		body={ name="Herculean Vest", augments={'Weapon Skill Acc.+6','Sklchn.dmg.+2%','"Treasure Hunter"+2','Mag. Acc.+17 "Mag.Atk.Bns."+17',}},
-		hands={ name="Herculean Gloves", augments={'Weapon Skill Acc.+4','STR+5','Weapon skill damage +7%','Accuracy+7 Attack+7','Mag. Acc.+14 "Mag.Atk.Bns."+14',}},
-		legs={ name="Herculean Trousers", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Weapon skill damage +1%','Mag. Acc.+14','"Mag.Atk.Bns."+13',}},
-		feet={ name="Herculean Boots", augments={'"Mag.Atk.Bns."+24','Weapon skill damage +3%','Mag. Acc.+11',}},
+		head=gear.Herculean_Head_MAB,
+		body=gear.Herculean_Body_TH,
+		hands=gear.Herculean_Hands_WSD,
+		legs=gear.Herculean_Legs_MAB,
+		feet=gear.Herculean_Feet_MAB,
 		neck="Sanctity Necklace",
 		waist="Eschan Stone",
 		left_ear="Friomisi Earring",
@@ -169,18 +174,19 @@ function init_gear_sets()
 
     -- Idle sets
     sets.idle = {
+		ammo="Staunch Tathlum",
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
-		hands={ name="Herculean Gloves", augments={'Weapon Skill Acc.+4','STR+5','Weapon skill damage +7%','Accuracy+7 Attack+7','Mag. Acc.+14 "Mag.Atk.Bns."+14',}},
+		hands="Malignance Gloves",
 		legs="Malignance Tights",
-		feet="Hachiya Kyahan +2",
+		feet="Malignance Boots",
 		neck="Loricate Torque +1",
 		waist="Flume Belt +1",
-		left_ear="Odnowa Earring",
+		left_ear="Tuisto Earring",
 		right_ear="Odnowa Earring +1",
 		left_ring="Defending Ring",
 		right_ring="Purity Ring",
-		back="Solemnity Cape",
+		back="Reiki Cloak",
 	}
 
     sets.idle.DT = set_combine(sets.idle, {})
@@ -216,7 +222,7 @@ function init_gear_sets()
 		ammo="Ginsen",
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
-		hands={ name="Adhemar Wrist. +1", augments={'AGI+12','Rng.Acc.+20','Rng.Atk.+20',}},
+		hands="Adhemar Wrist. +1",
 		legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
 		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
 		neck="Iskur Gorget",
@@ -225,7 +231,7 @@ function init_gear_sets()
 		right_ear="Dedition Earring",
 		left_ring="Epona's Ring",
 		right_ring="Gere Ring",
-		back=gear.DEXcape
+		back="Sacro Mantle",
 	} 
 
     sets.engaged.LowAcc = set_combine(sets.engaged, {})
@@ -243,7 +249,13 @@ function init_gear_sets()
 		right_ring="Fortified Ring",
 	}
 	
-    sets.engaged.DT = set_combine(sets.engaged, sets.engaged.Hybrid)
+    sets.engaged.DT = set_combine(sets.engaged, {		
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance tights",
+		feet="Malignance Boots",
+	})
 
     --------------------------------------
     -- Custom buff sets

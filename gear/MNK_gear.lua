@@ -7,16 +7,16 @@ function init_gear_sets()
 	}
 
 	sets.Enmity = {
+		ammo="Sapience Orb",
 		head="Halitus Helm",
 		body="Emet Harness +1",
 		hands="Kurys Gloves",
 		legs="Obatala Subligar",
-		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
 		neck="Unmoving Collar +1",
-		waist="Sulla Belt",
+		waist="Moonbow Belt +1",
 		left_ear="Cryptic Earring",
 		right_ear="Friomisi Earring",
-		left_ring="Eihwaz Ring",
+		left_ring="Petrov Ring",
 		right_ring="Begrudging Ring",
 		back="Reiki Cloak",
 	}
@@ -29,7 +29,7 @@ function init_gear_sets()
     sets.precast.JA['Hundred Fists'] = {legs="Hes. Hose +3",}
     sets.precast.JA['Boost'] = {hands="Anchorite's Gloves +3",waist="Ask Sash",}
     sets.precast.JA['Dodge'] = {feet="Anchorite's Gaiters +3"}
-    sets.precast.JA['Focus'] = {head="Anchor. Crown +2"}
+    sets.precast.JA['Focus'] = {head="Anch. Crown +2"}
     sets.precast.JA['Counterstance'] = {}
     sets.precast.JA['Footwork'] = {feet="Shukuyu Sune-Ate"}
     sets.precast.JA['Formless Strikes'] = {}
@@ -77,7 +77,7 @@ function init_gear_sets()
 		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
 		feet=gear.HercFeetTP,
 		neck="Mnk. Nodowa +1",
-		waist="Moonbow Belt",
+		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ring="Regal Ring",
@@ -93,7 +93,7 @@ function init_gear_sets()
 		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
 		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
 		neck="Mnk. Nodowa +1",
-		waist="Moonbow Belt",
+		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ring="Epona's Ring",
@@ -102,8 +102,24 @@ function init_gear_sets()
 	})
 	
     sets.precast.WS['Victory Smite'] = set_combine(sets.precast.WS['Raging Fists'], {
-		neck="Fotia Gorget",
+		ammo="Knobkierrie",
+		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
+		body="Ken. Samue",
 		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
+		legs="Ken. Hakama",
+		feet="Ken. Sune-Ate",
+		neck="Fotia Gorget",
+		waist="Moonbow Belt +1",
+		left_ear="Sherida Earring",
+		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
+		left_ring="Gere Ring",
+		right_ring="Niqmaddu Ring",
+		back=gear.MNK_Crit,
+	})
+	
+	sets.VictorySmite_Impetus = set_combine(sets.precast.WS['Victory Smite'],{
+		body="Bhikku Cyclas +1",
+		back=gear.MNK_STR_WS,
 	})
 	
     sets.precast.WS['Shijin Spiral'] = set_combine(sets.precast.WS, {
@@ -114,7 +130,7 @@ function init_gear_sets()
 		legs="Ken. Hakama",
 		feet="Ken. Sune-Ate",
 		neck="Fotia Gorget",
-		waist="Moonbow Belt",
+		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
 		right_ear="Mache Earring +1",
 		left_ring="Ilabrat Ring",
@@ -123,10 +139,19 @@ function init_gear_sets()
 	})
 	
 	sets.precast.WS['Howling Fist'] = set_combine(sets.precast.WS, {
+		ammo="Knobkierrie",
 		head={ name="Hes. Crown +3", augments={'Enhances "Penance" effect',}},
+		body="Ken. Samue",
 		hands="Anchor. Gloves +3",
-		feet="Anch. Gaiters +3",
-		back=gear.MNK_STR_WS,
+		legs="Ken. Hakama",
+		feet="Ken. Sune-Ate",
+		neck={ name="Mnk. Nodowa +1", augments={'Path: A',}},
+		waist="Moonbow Belt +1",
+		left_ear="Sherida Earring",
+		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
+		left_ring="Gere Ring",
+		right_ring="Niqmaddu Ring",
+		back=gear.MNK_VIT_WS,
 	})
 	
 	sets.precast.WS['Howling Fist'].FullTP = set_combine(sets.precast.WS['Howling Fist'], {
@@ -140,24 +165,50 @@ function init_gear_sets()
     sets.precast.WS["Ascetic's Fury"] = set_combine(sets.precast.WS, {})	
 	
     sets.precast.WS['Dragon Kick'] = sets.precast.WS['Howling Fist']
-	
-    sets.precast.WS['Tornado Kick'] = sets.precast.WS['Howling Fist']
-	
-    sets.precast.WS['Spinning Attack'] = set_combine(sets.precast.WS, {})
+		
+    sets.precast.WS['Spinning Attack'] = set_combine(sets.precast.WS, {
+		ammo="Knobkierrie",
+		head={ name="Hes. Crown +3", augments={'Enhances "Penance" effect',}},
+		body="Ken. Samue",
+		hands="Anchor. Gloves +3",
+		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
+		feet="Ken. Sune-Ate",
+		neck={ name="Mnk. Nodowa +1", augments={'Path: A',}},
+		waist="Moonbow Belt +1",
+		left_ear="Sherida Earring",
+		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
+		left_ring="Regal Ring",
+		right_ring="Niqmaddu Ring",
+		back=gear.MNK_STR_WS,
+	})
 
-    sets.precast.WS['Cataclysm'] = {}
+    sets.precast.WS['Cataclysm'] = {
+		ammo="Pemphredo Tathlum",
+		head="Pixie Hairpin +1",
+		body=gear.Herculean_Body_TH,
+		hands=gear.Herculean_Hands_WSD,
+		legs=gear.Herculean_Legs_MAB,
+		feet=gear.Herculean_Feet_MAB,
+		neck="Sanctity Necklace",
+		waist="Eschan Stone",
+		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
+		right_ear="Friomisi Earring",
+		left_ring="Archon Ring",
+		right_ring="Arvina Ringlet +1",
+		back="Sacro Mantle",
+	}
 
 	sets.precast.WS['Shell Crusher'] = {
 	    ammo="Pemphredo Tathlum",
 		head="Malignance Chapeau",
-		body="Ken. Samue",
-		hands="Anchor. Gloves +3",
-		legs={ name="Herculean Trousers", augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','Crit. hit damage +2%','Mag. Acc.+11','"Mag.Atk.Bns."+12',}},
-		feet={ name="Herculean Boots", augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','"Dbl.Atk."+2','MND+15','"Mag.Atk.Bns."+15',}},
-		neck="Voltsurge Torque",
-		waist="Eschan Stone",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance tights",
+		feet="Malignance Boots",
+		neck="Sanctity Necklace",
+		waist="Luminary Sash",
 		left_ear="Digni. Earring",
-		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
+		right_ear="Hermetic Earring",
 		left_ring="Weather. Ring",
 		right_ring="Regal Ring",
 		back="Sacro Mantle",
@@ -179,12 +230,12 @@ function init_gear_sets()
 		ammo="Staunch Tathlum",
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
-		hands={ name="Herculean Gloves", augments={'Weapon Skill Acc.+4','STR+5','Weapon skill damage +7%','Accuracy+7 Attack+7','Mag. Acc.+14 "Mag.Atk.Bns."+14',}},
+		hands="Malignance Gloves",
 		legs="Malignance tights",
-		feet="Volte Boots",
+		feet="Malignance Boots",
 		neck="Loricate Torque +1",
-		waist="Moonbow Belt",
-		left_ear="Odnowa Earring",
+		waist="Moonbow Belt +1",
+		left_ear="Tuisto Earring",
 		right_ear="Odnowa Earring +1",
 		left_ring="Defending Ring",
 		right_ring="Purity Ring",
@@ -203,6 +254,7 @@ function init_gear_sets()
 		body="Malignance Tabard",
 		hands="Malignance Gloves",
 		legs="Malignance Tights",
+		feet="Malignance Boots",
 		neck="Loricate Torque +1",
 		left_ring="Defending Ring",
 	}
@@ -227,10 +279,10 @@ function init_gear_sets()
 		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
 		feet="Anch. Gaiters +3",
 		neck="Mnk. Nodowa +1",
-		waist="Moonbow Belt",
+		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",                          
 		right_ear="Telos Earring",
-		left_ring="Epona's Ring",
+		left_ring="Gere Ring",
 		right_ring="Niqmaddu Ring",
 		back=gear.MNK_TP,
 	}
@@ -240,46 +292,52 @@ function init_gear_sets()
 		ammo="Falcon Eye",
 	})
 	
-	-- Offense Mode 'STP'
-	sets.engaged.STP = set_combine(sets.engaged, {
-		right_ear="Dedition Earring",
+	-- Offense Mode 'Crit'
+	sets.engaged.Crit = set_combine(sets.engaged, {
+		ammo="Falcon Eye",
+		head="Ken. Jinpachi",
+		body="Ken. Samue",
+		hands="Ken. Tekko",
+		legs="Ken. Hakama",
+		feet="Ken. Sune-Ate",
+		neck={ name="Mnk. Nodowa +1", augments={'Path: A',}},
+		waist="Moonbow Belt +1",
+		left_ear="Sherida Earring",
+		right_ear="Odr Earring",
+		left_ring="Epona's Ring",
+		right_ring="Niqmaddu Ring",
 	})
-			
-	-- CombatForm Counterstance (Master Sets)
-    sets.engaged.Counterstance = set_combine(sets.engaged, {})
-    sets.engaged.Counterstance.Acc = set_combine(sets.engaged.Counterstance, {})
-	sets.engaged.Counterstance.STP = set_combine(sets.engaged.Counterstance, {})	
 	
+	-- Hybrid Mode 'DT'
+	sets.engaged.DT = set_combine(sets.engaged, {
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
+		left_ring="Defending Ring",
+	})
+	sets.engaged.Acc.DT = set_combine(sets.engaged.Acc, {})
+	sets.engaged.Crit.DT = set_combine(sets.engaged.Crit, {})
+	
+	-- Hybrid mode 'Counter'
+	sets.engaged.Counter = set_combine(sets.engaged, {})
+	sets.engaged.Acc.Counter = set_combine(sets.engaged.Acc, {})
+	sets.engaged.Crit.Counter = set_combine(sets.engaged.Crit, {})
+	-- CombatWeapon Godhands
+	sets.engaged.Godhands = set_combine(sets.engaged, {right_ear="Mache Earring +1"})
+	sets.engaged.Godhands.Acc = set_combine(sets.engaged.Acc, {})
+	sets.engaged.Godhands.Crit = set_combine(sets.engaged.Godhands, sets.engaged.Crit, {})
+	sets.engaged.Godhands.DT = set_combine(sets.engaged.Godhands, sets.engaged.DT)
 	-- CombatWeapon Verethragna 
 	sets.engaged.Verethragna = set_combine(sets.engaged, {})
 	sets.engaged.Verethragna.Acc = set_combine(sets.engaged.Acc, {})
-	sets.engaged.Verethragna.STP = set_combine(sets.engaged.Verethragna, sets.engaged.STP, {})
-	
-	-- CombatWeapon Verethragna (Counterstance) 
-	sets.engaged.Counterstance.Verethragna = set_combine(sets.engaged.Counterstance, {})
-	sets.engaged.Counterstance.Verethragna.Acc = set_combine(sets.engaged.Counterstance.Acc, {})
-	sets.engaged.Counterstance.Verethragna.STP = set_combine(sets.engaged.Verethragna, sets.engaged.STP, {})
-	
+	sets.engaged.Verethragna.Crit = set_combine(sets.engaged.Verethragna, sets.engaged.Crit, {})
+	sets.engaged.Verethragna.DT = set_combine(sets.engaged.Verethragna, sets.engaged.DT)
 	-- CombatWeapon Spharai
-	sets.engaged.Spharai = set_combine(sets.engaged, {})
+	sets.engaged.Spharai = set_combine(sets.engaged, {right_ear="Mache Earring +1"})
 	sets.engaged.Spharai.Acc = set_combine(sets.engaged.Acc, {})
-	sets.engaged.Spharai.STP = set_combine(sets.engaged.Spharai, sets.engaged.STP, {})
-	
-	-- CombatWeapon Spharai (Counterstance) 
-	sets.engaged.Counterstance.Spharai = set_combine(sets.engaged.Counterstance, {})
-	sets.engaged.Counterstance.Spharai.Acc = set_combine(sets.engaged.Counterstance.Acc, {})
-	sets.engaged.Counterstance.Spharai.STP = set_combine(sets.engaged.Counterstance.Spharai, sets.engaged.STP, {})
-	
-	-- CombatWeapon Godhands 
-	sets.engaged.Godhands = set_combine(sets.engaged, {right_ear="Mache Earring +1"})
-	sets.engaged.Godhands.Acc = set_combine(sets.engaged.Godhands, {})
-	sets.engaged.Godhands.STP = set_combine(sets.engaged.Godhands, sets.engaged.STP, {right_ear="Mache Earring +1"})	
-	
-	-- CombatWeapon Godhands (Counterstance)
-	sets.engaged.Counterstance.Godhands = set_combine(sets.engaged.Counterstance, {right_ear="Mache Earring +1"})
-	sets.engaged.Counterstance.Godhands.Acc = set_combine(sets.engaged.Counterstance.Acc, {})
-	sets.engaged.Counterstance.Godhands.STP = set_combine(sets.engaged.Counterstance, sets.engaged.STP, {})
-
+	sets.engaged.Spharai.Crit = set_combine(sets.engaged.Spharai, sets.engaged.Crit, {})
 	
 	-- Conditional Sets
 	-- Equipped if you are Doomed
@@ -292,9 +350,12 @@ function init_gear_sets()
 	sets.AskSash = {waist="Ask Sash"}
 	-- Movement Speed item for toggle 'Kiting'
     sets.Kiting = {feet="Herald's Gaiters"}
+	-- Mache Earring 'recommended for slower knuckles '
+	sets.Mache = {right_ear="Mache Earring +1"}
 	
 	sets.Godhands = {main="Godhands"}
-	sets.Karambit = {main="Karambit"}
-	sets.MalignancePole = {main="Malignance Pole", sub="Flanged Grip"}
+	-- sets.Karambit = {main="Karambit"}
+	sets.Verethragna = {main="Verethragna"}
+	sets.Staff = {main="Reikikon", sub="Flanged Grip"}
 	
 end

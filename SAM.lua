@@ -31,7 +31,11 @@ function job_setup()
     state.warned = M(false)
 	
 	-- order of weapons is determined as they appear in this table
-	state.WeaponSet = M{['description']='Weapon Set','GreatKatana','Polearm'}
+	state.WeaponSet = M{['description']='Weapon Set',
+		'GreatKatana',
+		'Polearm',
+		'SixStep'
+	}
 	elemental_ws = S{''}
 	
 	--place weaponskills in this table to be used with lugra swaps 

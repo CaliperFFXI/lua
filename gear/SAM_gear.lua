@@ -43,16 +43,17 @@ function init_gear_sets()
 	
 	-- Default WS -- equipped if no gear is specified
     sets.precast.WS = {
+		sub="Utu Grip",
 		ammo="Knobkierrie",
 		head=gear.Valorous_Head_WSD,
 		body="Flamma Korazin +2",
 		hands=gear.Valorous_Hands_WSD,
 		legs="Hiza. Hizayoroi +2",
-		feet=Valorous_Feet_WSD,
+		feet=gear.Valorous_Feet_WSD,
 		neck="Fotia Gorget",
 		waist="Fotia Belt",
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
-		right_ear="Ishvara Earring",
+		right_ear="Thrud Earring",
 		left_ring="Niqmaddu Ring",
 		right_ring="Regal Ring",
 		back=gear.SAM_STR_WS,
@@ -131,7 +132,11 @@ function init_gear_sets()
 	-- Polearm --
 	
 	-- Impulse Drive
-    sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, {
+		hands="Flam. Manopolas +2",
+		feet="Thereoid Greaves",
+		left_ring="Begrudging Ring",
+	})
 	sets.precast.WS['Impulse Drive'].Acc = set_combine(sets.precast.WS['Impulse Drive'], {})
 	sets.precast.WS['Impulse Drive'].HighAcc = set_combine(sets.precast.WS['Impulse Drive'].HighAcc, {})
 	
@@ -150,7 +155,7 @@ function init_gear_sets()
 		body="Emet Harness +1",
 		hands="Macabre Gaunt. +1",
 		legs="Flamma Dirs +2",
-		feet="Flam. Gambieras +2",
+		feet="Danzo Sune-Ate",
 		neck="Loricate Torque +1",
 		waist="Flume Belt +1",
 		left_ear="Genmei Earring",
@@ -205,7 +210,11 @@ function init_gear_sets()
     sets.engaged.HighAcc = set_combine(sets.engaged.Acc, {})
 	
 	-- Hybrid --
-	sets.engaged.DT = set_combine(sets.engaged, {})
+	sets.engaged.DT = set_combine(sets.engaged, {
+		neck="Loricate Torque +1",
+		left_ring="Gelatinous Ring +1",
+		right_ring="Defending Ring",
+	})
 	sets.engaged.Acc.DT = set_combine(sets.engaged.DT, {})
     sets.engaged.HighAcc.DT = set_combine(sets.engaged.Acc.DT, {})
 	
@@ -223,10 +232,10 @@ function init_gear_sets()
 	-- Elemental Sash --
 	sets.Obi = {waist="Hachirin-no-Obi",}
 	-- Kiting Mode --
-    sets.Kiting = {}
+    sets.Kiting = {feet="Danzo sune-ate"}
 	
 	-- Weapon sets -- determined by state.WeaponSet
-	sets.GreatKatana = {main="Norifusa +1",sub="Nepenthe Grip +1",}
-	sets.Polearm = {main="Shining One",sub="Nepenthe Grip +1",}
-	
+	sets.GreatKatana = {main="Norifusa +1",sub="Utu Grip"}
+	sets.Polearm = {main="Shining One",sub="Utu Grip"}
+	sets.SixStep = {main="Norifusa +1",sub="Nepenthe Grip +1",}
 end

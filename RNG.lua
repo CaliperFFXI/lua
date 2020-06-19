@@ -19,9 +19,16 @@ function job_setup()
 	state.CP = M(false, 'Capacity Points Mode')
     state.warned = M(false)
 	
-	state.WeaponSet = M{['description']='Weapon Set','Gastraphetes','Annihilator','Fomalhaut','Gandiva','TpBonus'}
+	state.WeaponSet = M{['description']='Weapon Set',
+		'Gastraphetes',
+		'Annihilator',
+		'Fomalhaut',
+		'Gandiva',
+		'FailNot',
+		'TpBonus'
+	}
 	
-	elemental_ws = S{'Aeolian Edge', 'Trueflight', 'Wildfire'}
+	elemental_ws = S{'Aeolian Edge', 'Trueflight', 'Wildfire','Flaming Arrow'}
 
 	ranged_weapons = {
 		['Gastraphetes']='Marksmanship',
@@ -38,6 +45,16 @@ function job_setup()
 	flurry = nil
 
     include('Mote-TreasureHunter')
+
+	-- For th_action_check():
+	-- AoE MA IDs for actions that always have TH: Diaga
+	info.th_ma_ids = S{33, 34}
+	-- AoE WS IDs for actions that always have TH in TH mode: Cyclone, Aeolian Edge
+	info.th_ws_ids = S{20, 30}
+	-- JA IDs for actions that always have TH: Provoke, Animated Flourish (Should all be handled in aftercast, kept for notes: 35, 204)
+	info.th_ja_ids = S{}
+	-- Unblinkable JA IDs for actions that always have TH: Quick/Box/Stutter Step, Desperate/Violent Flourish (Should all be handled in aftercast, kept for notes: 201, 202, 203, 205, 207)
+	info.th_u_ja_ids = S{}
 
 end
 
@@ -57,7 +74,13 @@ function user_setup()
 	
 end
 
---Casting Hooks
+function job_pretarget(spell, action, spellMap, eventArgs)
+    if spell.action_type == 'Magic' and buffactive.silence then -- Auto Use Echo Drops If You Are Silenced --
+		eventArgs.cancel = true 
+        send_command('input /item "Echo Drops" <me>')
+	end
+end
+
 function job_precast(spell, action, spellMap, eventArgs)
 	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
 	-- Compensate for TP bonuses during weaponskills.
@@ -239,6 +262,8 @@ function job_state_change(descrip, newVal, oldVal)
 			send_command('dp Bow')
 		elseif state.WeaponSet.current == 'TpBonus' then
 			send_command('dp Bow')
+		elseif state.WeaponSet.current == 'FailNot' then
+			send_command('dp Bow')
 		else 
 			send_command('dp Gun')
 		end
@@ -412,3 +437,5 @@ function handle_ammo(spell, action, spellMap, eventArgs)
 		end
 	end		
 end
+
+
