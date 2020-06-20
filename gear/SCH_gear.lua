@@ -213,7 +213,7 @@ function init_gear_sets()
     sets.engaged = {}
 
     sets.MagicBurst = {
-		head="Merlinic Hood",
+		--head="Merlinic Hood",
 		body="Merlinic Jubbah",
 		hands="Amalric Gages +1",
 		legs="Merlinic Shalwar", 
@@ -240,7 +240,9 @@ function init_gear_sets()
     sets.LightArts = {}
     sets.DarkArts = {}
 
-    sets.Obi = {waist="Hachirin-no-Obi",back="Twilight Cape",}
+    sets.Obi = {waist="Hachirin-no-Obi"}
+	sets.TwilightCape = {back="Twilight Cape"}
+	
     sets.Bookworm = {back="Bookworm's Cape"}
     sets.CP = {back="Mecisto. Mantle"}
 

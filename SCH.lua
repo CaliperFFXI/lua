@@ -76,12 +76,14 @@ end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
     if spell.skill == 'Elemental Magic' or spell.english == "Kaustra" then
-        if (spell.element == world.day_element or spell.element == world.weather_element) then
-            equip(sets.Obi)
-            if buffactive['Klimaform'] then
-                equip(sets.buff['Klimaform'])
-            end
-        end
+		if (spell.element == world.day_element or spell.element == world.weather_element) then
+			if spellMap ~= 'Helix' then
+				equip(sets.Obi)
+			end
+			if buffactive['Klimaform'] then
+				equip(sets.buff['Klimaform'])
+			end
+		end
     end
     -- if spell.skill == 'Enfeebling Magic' then
         -- if spell.type == "WhiteMagic" and (buffactive["Light Arts"] or buffactive["Addendum: White"]) then
