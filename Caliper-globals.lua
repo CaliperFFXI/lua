@@ -203,17 +203,17 @@ function set_macros()
 	
 	if (book or page) ~= nil then
 		set_macro_page(page,book)
-		add_to_chat(003, 'Macros for '..player.main_job..' set to...') 
-		add_to_chat(003, 'Book -  '..book..' / Page - '..page..''  ) 
+		add_to_chat(122, 'Macros for '..player.main_job..' set to...') 
+		add_to_chat(122, 'Book -  '..book..' / Page - '..page..''  ) 
 	else
-		add_to_chat(123, 'Job file warning: '..player.main_job..' macro book and page not specified in job file.') 
+		add_to_chat(122, 'Job file warning: '..player.main_job..' macro book/page not specified in job file.') 
 	end
 end
 
 function handle_lockstyle()
 	local lockstyleset = job_user_settings[player.main_job].num
 	if lockstyleset == nil then
-		add_to_chat(028, ''..player.main_job..' Job file warning: Lockstyle not specified.') 
+		add_to_chat(122, ''..player.main_job..' Job file warning: Lockstyle not specified.') 
 		lockstyleset = 20 --"default" lockstyle set, applied if none other specified.
 	end
 		send_command('wait 2; input /lockstyleset ' .. lockstyleset)
