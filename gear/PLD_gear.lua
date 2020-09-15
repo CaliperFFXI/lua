@@ -11,7 +11,7 @@ function init_gear_sets()
 		main="Brilliance",
 		-- sub="Srivatsa",
 		ammo="Sapience Orb",
-		head="Loess Barbuta",
+		head="Loess Barbuta +1",
 		body="Rev. Surcoat +3",
 		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
 		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
@@ -112,7 +112,7 @@ function init_gear_sets()
     
 	sets.precast.WS['Atonement'] = {
 		ammo="Staunch Tathlum",
-		head="Loess Barbuta",
+		head="Loess Barbuta +1",
 		body="Rev. Surcoat +3",
 		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
 		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},

@@ -93,8 +93,24 @@ function init_gear_sets()
 		right_ring="Ilabrat Ring",
 		back="Relucent Cape",
 	}
+	
+	sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS, {
+		ammo="Pemphredo Tathlum",
+		head="C. Palug Crown",
+		body="Jhakri Robe +2",
+		hands="Jhakri Cuffs +2",
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2",
+		neck="Sanctity Necklace",
+		waist="Sacro Cord",
+		left_ear="Moonshade Earring",
+		right_ear="Malignance Earring",
+		left_ring="Freke Ring",
+		right_ring="Weather. Ring",
+		back="Izdubar Mantle",
+	})
 
-    sets.precast.WS['Sanguine Blade'] = {}
+    sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, {})
 		
 	-- Midcast
 	
@@ -136,7 +152,6 @@ function init_gear_sets()
 		waist="Hachirin-no-Obi",
 	})
 	
-    sets.midcast.CureSelf = set_combine(sets.midcast.Cure, {})
     sets.midcast.Curaga = set_combine(sets.midcast.Cure, {})
 
     sets.midcast.StatusRemoval = set_combine(sets.ConserveMP,{
@@ -160,6 +175,7 @@ function init_gear_sets()
 		hands="Atrophy Gloves +2",
 		legs=gear.Telchine_Legs,
 		feet="Leth. Houseaux +1",
+		neck="Dls. Torque +1",
 		waist="Embla Sash",
 		back=gear.FC_MACC_Cape,
 	})
@@ -190,7 +206,7 @@ function init_gear_sets()
     sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {left_ring="Sheltered Ring"})
     sets.midcast.Shell = sets.midcast.Protect
 	
-	-- When casting on another player.
+	-- When casting on another player. (enhancing magic)
     sets.buff.ComposureOther = set_combine(sets.midcast['Enhancing Magic'], {
 		head="Leth. Chappel +1",
 		legs="Leth. Fuseau +1",
@@ -209,7 +225,7 @@ function init_gear_sets()
 		hands="Regal Cuffs",
 		legs="Chironic Hose",
 		feet="Malignance Boots",
-		neck="Erra Pendant",
+		neck="Dls. Torque +1",
 		waist="Luminary Sash",
 		left_ear="Regal Earring",
 		right_ear="Snotra Earring",
@@ -219,8 +235,8 @@ function init_gear_sets()
 	}
 	
 	-- Skill Based Enfeebles (Frazzle / Distract)
-	sets.midcast.EnfeebleSkill = set_combine(sets.midcast.Enfeeble,{
-		main="Grioavolr",
+	sets.midcast.SkillEnfeeble = set_combine(sets.midcast.Enfeeble,{
+		main=gear.Enfeebling_Grio,
 		sub="Enki Strap",
 		head="Befouled Crown",
 		neck="Incanter's Torque",
@@ -284,8 +300,12 @@ function init_gear_sets()
     -- Initializes trusts at iLvl 119
     sets.midcast.Trust = sets.precast.FC
 
+	-- sets.idle[idleScope][state.IdleMode][Pet[Engaged]][CustomIdleGroups]
+
 	-- Idle Sets
     sets.idle = {
+		main="Daybreak",
+		sub="Genmei Shield",
 		head={ name="Viti. Chapeau +1", augments={'Enfeebling Magic duration','Magic Accuracy',}},
 		body="Malignance Tabard",
 		hands="Malignance Gloves",
@@ -302,11 +322,12 @@ function init_gear_sets()
 
     sets.idle.Town = set_combine(sets.idle, {legs="Carmine Cuisses +1"})
 	
+	sets.idle.Field = set_combine(sets.idle,{})
+	
     sets.idle.Weak = set_combine(sets.idle, {})
 	
 	sets.idle.Refresh = set_combine(sets.idle, {
 		main="Daybreak",
-		sub="Genmei Shield",
 		ammo="Homiliary",
 		body="Jhakri Robe +2",
 	})
@@ -316,7 +337,22 @@ function init_gear_sets()
 
     -- Defense Sets
 
-    sets.defense.PDT = {}
+    sets.defense.PDT = {
+		main="Daybreak",
+		sub="Genmei Shield",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
+		neck="Loricate Torque +1",
+		waist="Flume Belt +1",
+		left_ear="Ethereal Earring",
+		right_ear="Etiolation Earring",
+		left_ring="Defending Ring",
+		right_ring="Gelatinous Ring +1",
+		back="Solemnity Cape",
+	}
     sets.defense.MDT = sets.defense.PDT
 
 	--COnditional Sets
@@ -332,14 +368,14 @@ function init_gear_sets()
     sets.engaged = {
 		main="Naegling",
 		sub="Genmei Shield",
-		range="Kaja Bow",
+		ammo="Ginsen",
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
 		hands="Malignance Gloves",
 		legs="Malignance Tights",
 		feet="Malignance Boots",
 		neck="Anu Torque",
-		waist="Windbuffet Belt +1",
+		waist="Reiki Yotai",
 		left_ear="Sherida Earring",
 		right_ear="Dedition Earring",
 		left_ring="Hetairoi Ring",
@@ -347,12 +383,20 @@ function init_gear_sets()
 		back="Relucent Cape",
 	}
 
-    sets.engaged.Acc = set_combine(sets.engaged, {})
+    sets.engaged.Acc = set_combine(sets.engaged, {
+		right_ear="Telos Earring",
+	})
 	
-	sets.engaged.DualWield = set_combine(sets.engaged, {waist="Reiki Yotai",right_ear="Suppanomimi"})
+	sets.engaged.DualWield = set_combine(sets.engaged, {
+		sub="Daybreak",
+		left_ear="Suppanomimi",
+		waist="Reiki Yotai",
+	})
 	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield, {})
 	
     sets.engaged.Hybrid = {}
+	
+    sets.TreasureHunter = {body=gear.Chironic_Body_TH,waist="Chaac belt", feet="Volte Boots"}
 
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
 

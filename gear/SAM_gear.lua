@@ -151,7 +151,7 @@ function init_gear_sets()
     -- Idle --
     sets.idle = {
 		ammo="Staunch Tathlum",
-		head="Loess Barbuta",
+		head="Loess Barbuta +1",
 		body="Emet Harness +1",
 		hands="Macabre Gaunt. +1",
 		legs="Flamma Dirs +2",

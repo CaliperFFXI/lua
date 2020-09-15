@@ -92,7 +92,11 @@ function init_gear_sets()
 		back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}},
         }
 
-    sets.midcast.CureSolaceWeather = set_combine(sets.midcast.CureSolace, {waist="Hachirin-no-Obi"})
+    sets.midcast.CureSolaceWeather = set_combine(sets.midcast.CureSolace, {
+		main="Chatoyant Staff",
+		sub="Mensch Strap +1",
+		waist="Hachirin-no-Obi"
+	})
 
     sets.midcast.CureNormal = set_combine(sets.midcast.CureSolace, {    
 		body={ name="Piety Briault +3", augments={'Enhances "Benediction" effect',}},

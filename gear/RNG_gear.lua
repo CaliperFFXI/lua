@@ -124,8 +124,8 @@ function init_gear_sets()
 
 
     sets.precast.WS['Trueflight'] = {
-		head=gear.Herculean_Head_MAB,
-		body={ name="Carm. Sc. Mail +1", augments={'Attack+20','"Mag.Atk.Bns."+12','"Dbl.Atk."+4',}},
+		--head=gear.Herculean_Head_MAB,
+		body={ name="Cohort Cloak +1", augments={'Path: A',}},
 		hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
 		legs={ name="Arc. Braccae +3", augments={'Enhances "Eagle Eye Shot" effect',}},
 		feet=gear.Herculean_Feet_MAB,

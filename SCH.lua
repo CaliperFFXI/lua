@@ -21,7 +21,7 @@ function user_setup()
     state.MagicBurst = M(false, 'Magic Burst')
     state.StormSurge = M(false, 'Stormsurge')
 	-- Add spellMap to this list for "auto Perpetuance"
-	Perpetuance_Spells = S{'Haste','Flurry','Protect','Shell','Regen','Storm'}
+	Perpetuance_Spells = S{'Haste','Flurry','Protect','Shell','Regen','Storm','Adloquium'}
 end
 
 -- Custom spell mapping.

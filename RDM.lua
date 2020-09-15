@@ -20,6 +20,9 @@ function job_setup()
 	state.Buff.Enwater = buffactive['Enwater'] or false
 	state.Buff.EnwaterII = buffactive['Enwater II'] or false
     state.Buff.Saboteur = buffactive.Saboteur or false
+	
+    include('Mote-TreasureHunter')
+	state.TreasureMode:set('Tag')
 		
 	-- This var is used to store EnSpell Element for logic functions.
 	EnSpell_Element = nil
@@ -39,11 +42,12 @@ function user_setup()
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.WeaponSet = M{['description']='Weapon Set',}
 	state.CP = M(false, 'Capacity Points Mode')
-
+    state.warned = M(false)
+	
 	state.DualWield = M(false, 'Dual Wield Mode')
 	state.RangeLock = M(false, 'Range Lock')
     state.MagicBurst = M(false, 'Magic Burst')
-	
+		
 	-- Low ninja tool threshhold
 	options.ninja_tool_warning_limit = 10
 	
@@ -97,7 +101,6 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 end
 
 function job_midcast(spell, action, spellMap, eventArgs)
-
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
@@ -106,12 +109,7 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 		if (spell.target.type == 'PLAYER' or spell.target.type == 'NPC') and buffactive.Composure then
 			equip(sets.buff.ComposureOther)
 		end
-	end
-	--	Cures on Self only
-    if spellMap == 'Cure' and spell.target.type == 'SELF' then
-        equip(sets.midcast.CureSelf)
-    end
-	
+	end	
 	--Elemental
     if spell.skill == 'Elemental Magic' then
         if (spell.element == world.day_element or spell.element == world.weather_element) then
@@ -121,15 +119,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
-    -- if not spell.interrupted then
-        -- if spell.english == "Sleep II" then
-            -- send_command('@timers c "Sleep II ['..spell.target.name..']" 90 down spells/00259.png')
-        -- elseif spell.english == "Sleep" or spell.english == "Sleepga" then -- Sleep & Sleepga Countdown --
-            -- send_command('@timers c "Sleep ['..spell.target.name..']" 60 down spells/00253.png')
-        -- elseif spell.english == "Break" then
-            -- send_command('@timers c "Break ['..spell.target.name..']" 30 down spells/00255.png')
-        -- end
-    -- end
 end
 
 function job_update(cmdParams, eventArgs)
@@ -156,25 +145,25 @@ function update_combat_weapon()
 end
 
 function job_buff_change(buff,gain)
-		if (buffactive['Enfire'] or buffactive['Enfire II'])then		
-			EnSpell_Element = "Fire"
-		elseif (buffactive['Enblizzard'] or buffactive['Enblizzard II']) then 		
-			EnSpell_Element = "Ice"
-		elseif (buffactive['Enaero'] or buffactive['Enaero II']) then		
-			EnSpell_Element = "Wind"
-		elseif (buffactive['Enstone'] or buffactive['Enstone II']) then 		
-			EnSpell_Element = "Earth"
-		elseif (buffactive['Enthunder'] or buffactive['Enthunder II']) then 	
-			EnSpell_Element = "Lightning"
-		elseif (buffactive['Enwater'] or buffactive['Enwater II']) then 		
-			EnSpell_Element = "Water"
-		else
-			EnSpell_Element = "None"
-		end
---			add_to_chat(122, '[ Enspell Mode: ' .. EnSpell_Element .. ' ]') --troubleshooting line
-		if player.status == 'Engaged' then	
-			handle_equipping_gear(player.status)
-		end
+	if (buffactive['Enfire'] or buffactive['Enfire II'])then		
+		EnSpell_Element = "Fire"
+	elseif (buffactive['Enblizzard'] or buffactive['Enblizzard II']) then 		
+		EnSpell_Element = "Ice"
+	elseif (buffactive['Enaero'] or buffactive['Enaero II']) then		
+		EnSpell_Element = "Wind"
+	elseif (buffactive['Enstone'] or buffactive['Enstone II']) then 		
+		EnSpell_Element = "Earth"
+	elseif (buffactive['Enthunder'] or buffactive['Enthunder II']) then 	
+		EnSpell_Element = "Lightning"
+	elseif (buffactive['Enwater'] or buffactive['Enwater II']) then 		
+		EnSpell_Element = "Water"
+	else
+		EnSpell_Element = "None"
+	end
+		--add_to_chat(122, '[ Enspell Mode: ' .. EnSpell_Element .. ' ]') --troubleshooting line
+	if player.status == 'Engaged' then	
+		handle_equipping_gear(player.status)
+	end
 end
 
 function customize_defense_set(defenseSet) 

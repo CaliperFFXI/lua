@@ -51,6 +51,20 @@ elements.recast_staff_of = {['Light']='Arka II', ['Dark']='Xsaeta II', ['Fire']=
 elements.perpetuance_staff_of = {['Light']='Arka III', ['Dark']='Xsaeta III', ['Fire']='Atar III', ['Ice']='Vourukasha III',
     ['Wind']='Vayuvata III', ['Earth']='Vishrava III', ['Lightning']='Apamajas III', ['Water']='Haoma III', ['Thunder']='Apamajas III'}
 
+enspells = {	
+	['Enfire']='Fire',
+	['Enfire II']='Fire',
+	['Enblizzard']='Ice',
+	['Enblizzard II']='Ice',
+	['Enaero']='Wind',
+	['Enaero II']='Wind',
+	['Enstone']='Earth',
+	['Enstone II']='Earth',
+	['Enthunder']='Lightning',
+	['Enthunder II']='Lightning',
+	['Enwater']='Water',
+	['Enwater II']='Water',
+}
 
 -- Elements for skillchain names
 skillchain_elements = {}
@@ -140,6 +154,8 @@ data.weaponskills.ranged = S{"Flaming Arrow", "Piercing Arrow", "Dulling Arrow",
 	
 elemental_ws = S{"Sanguine Blade","Seraph Blade","Aeolian Edge","Trueflight","Leaden Salute", "Flaming Arrow",
 				"Wildfire"}
+				
+
 				
 ranged_weapons = {
 	["Gastraphetes"]='Marksmanship',
@@ -271,7 +287,6 @@ spell_maps = {
 	["Drain III"]='Drain',
 	["Drain"]='Drain',
 
-	
 	["Dia II"]='EffectEnfeeble',
 	["Dia III"]='EffectEnfeeble',
 	["Dia"]='EffectEnfeeble',
@@ -338,7 +353,7 @@ spell_maps = {
 	["Animus Augeo"]='Enhancing',
 	["Animus Minuo"]='Enhancing',
 	["Aquaveil"]='Enhancing',
-	["Adloquium"]='Enhancing',
+	["Adloquium"]='Adloquium',
 	["Blaze Spikes"]='Enhancing',
 	["Blink"]='Enhancing',
 	["Embrava"]='Enhancing',

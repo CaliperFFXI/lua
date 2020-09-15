@@ -126,7 +126,7 @@ function init_gear_sets()
 		back="Solemnity Cape",
 	}
 
-	sets.midcast.EnhancingDuration =  {
+    sets.midcast['Enhancing Magic'] = {
 	    main="Bolelabunga",
 	    sub="Ammurapi Shield",
 		head=gear.Telchine_Head,
@@ -136,8 +136,6 @@ function init_gear_sets()
 		feet=gear.Telchine_Feet,
 		waist="Embla Sash",
     }
-
-    sets.midcast['Enhancing Magic'] = sets.midcast.EnhancingDuration
 
     sets.midcast['Elemental Magic'] = {}
 	
@@ -247,7 +245,7 @@ function init_gear_sets()
 	})
 	
     sets.midcast.Pet.MagicalBloodPactRage = {
-		main=gear.Grioavolr,
+		main=gear.BP_Grio,
 		sub="Elan Strap",
 		ammo="Sancus Sachet +1",
 		head="C. Palug Crown",

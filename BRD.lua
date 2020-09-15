@@ -20,6 +20,8 @@ function user_setup()
     state.CastingMode:options('Normal','Acc')
     state.IdleMode:options('Normal')
 	
+    state.warned = M(false)
+	
 	--SpellMap Tables
 	Placeholders = M{['description']='Dummy Song','Warding Round','Fowl Aubade','Herb Pastoral','Shining Fantasia','Scop\'s Operetta','Puppet\'s Operetta'}
 	Enfeeble_Song = M{['description']='Threnody','Finale','Elegy','Nocturne','Requiem','Lullaby'}

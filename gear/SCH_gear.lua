@@ -131,7 +131,7 @@ function init_gear_sets()
 		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
 		legs={ name="Merlinic Shalwar", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Magic burst dmg.+9%','CHR+5','Mag. Acc.+7','"Mag.Atk.Bns."+10',}},
 		feet={ name="Merlinic Crackows", augments={'Mag. Acc.+24 "Mag.Atk.Bns."+24','Magic burst dmg.+8%','MND+9',}},
-		neck="Incanter's Torque",
+		neck="Erra Pendant",
 		waist="Sacro Cord",
 		left_ear="Malignance Earring",
 		right_ear="Hermetic Earring",
@@ -164,7 +164,7 @@ function init_gear_sets()
 		left_ear="Malignance Earring",
 		right_ear="Regal Earring",
 		left_ring="Freke Ring",
-		right_ring="Arvina Ringlet +1",
+		right_ring="Jhakri Ring",
 		back="Izdubar Mantle",
 	}
 

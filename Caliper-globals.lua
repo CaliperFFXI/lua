@@ -50,6 +50,15 @@ job_user_settings = {
 function define_global_sets()
 	-- Special gear info that may be useful across jobs.
 	
+	sets.Craft = {    
+		sub="Joiner's Shield",
+		body="Carpenter's Smock",
+		hands="Carpenter's Gloves",
+		neck="Carver's Torque",
+		left_ring="Artificer's Ring",
+		right_ring="Craftmaster's Ring",
+	}
+	
 	-- Telchine
 	gear.Telchine_Head = { name="Telchine Cap", augments={'Enh. Mag. eff. dur. +9',}}
 	gear.Telchine_Body = { name="Telchine Chas.", augments={'Pet: "Regen"+2','Enh. Mag. eff. dur. +9',}}
@@ -69,7 +78,8 @@ function define_global_sets()
 	gear.Herculean_Hands_WSD = { name="Herculean Gloves", augments={'Weapon Skill Acc.+4','STR+5','Weapon skill damage +7%','Accuracy+7 Attack+7','Mag. Acc.+14 "Mag.Atk.Bns."+14',}}
 	gear.Herculean_Head_MAB = { name="Herculean Helm", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Weapon skill damage +1%','INT+9','Mag. Acc.+12','"Mag.Atk.Bns."+10',}}
 	gear.Herculean_Legs_MAB = { name="Herculean Trousers", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Weapon skill damage +1%','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
-	gear.Herculean_Feet_MAB = { name="Herculean Boots", augments={'"Mag.Atk.Bns."+21','Weapon skill damage +4%','AGI+8','Mag. Acc.+8',}}
+	gear.Herculean_Feet_MAB = { name="Herculean Boots", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
+
 
 	-- Valourous
 	gear.Valorous_Head_WSD = { name="Valorous Mask", augments={'Accuracy+20','Weapon skill damage +4%','AGI+2','Attack+14',}}
@@ -81,6 +91,9 @@ function define_global_sets()
 	gear.Herculean_Body_TH = { name="Herculean Vest", augments={'Weapon Skill Acc.+6','Sklchn.dmg.+2%','"Treasure Hunter"+2','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
 	gear.Chironic_Body_TH = { name="Chironic Doublet", augments={'MND+6','Pet: "Mag.Atk.Bns."+12','"Treasure Hunter"+2','Accuracy+6 Attack+6','Mag. Acc.+15 "Mag.Atk.Bns."+15',}}
 
+	-- Other
+	gear.BP_Grio = { name="Grioavolr", augments={'Blood Pact Dmg.+6','Pet: STR+1','Pet: Mag. Acc.+25','Pet: "Mag.Atk.Bns."+30','DMG:+10',}}
+	gear.Enfeebling_Grio = { name="Grioavolr", augments={'Enfb.mag. skill +10','MND+14','Mag. Acc.+24','"Mag.Atk.Bns."+17',}}
 		
 	-- JSE -- 
 	
@@ -116,7 +129,6 @@ function define_global_sets()
 	gear.BPcapeMagical = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Mag. Acc.+10','"Fast Cast"+10',}}
 	gear.BPdelayCape = {name="Conveyance Cape", augments={'Summoning magic skill +1','Blood Pact Dmg.+1','Blood Pact ab. del. II -3',}}
 	gear.MagMerlinic = {name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+20 Pet: "Mag.Atk.Bns."+20','Blood Pact Dmg.+10','Pet: STR+6','Pet: Mag. Acc.+15',}}
-	gear.Grioavolr = { name="Grioavolr", augments={'Blood Pact Dmg.+6','Pet: STR+1','Pet: Mag. Acc.+25','Pet: "Mag.Atk.Bns."+30','DMG:+10',}}
 
 	-- Ambuscade Capes
 	gear.PLD_Cure_SIRD = {name="Rudianos's Mantle", augments={'VIT+20','"Cure" potency +10%','Spell interruption rate down-10%',}}		

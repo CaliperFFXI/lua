@@ -97,6 +97,7 @@ end
 
 -- Set locked TH flag to false, and enable relevant gear slots.
 function unlock_TH()
+	if state.TreasureMode.value == 'None' then return end --Mod
     state.th_gear_is_locked = false
     local slots = T{}
     for slot,item in pairs(sets.TreasureHunter) do
@@ -109,7 +110,7 @@ end
 
 -- For any active TH mode, if we haven't already tagged this target, equip TH gear and lock slots until we manage to hit it.
 function TH_for_first_hit()
-    if player.status == 'Engaged'  and state.TreasureMode.value ~= 'None' then
+    if player.status == 'Engaged'  and state.TreasureMode.value ~= 'None' and state.DefenseMode.value == 'None' then
         if not info.tagged_mobs[player.target.id] then
             if _settings.debug_mode then add_to_chat(123,'Prepping for first hit on '..tostring(player.target.id)..'.') end
             equip(sets.TreasureHunter)
@@ -132,20 +133,19 @@ end
 
 -- On engaging a mob, attempt to add TH gear.  For any other status change, unlock TH gear slots.
 function on_status_change_for_th(new_status_id, old_status_id)
-    if gearswap.gearswap_disabled or T{2,3,4}:contains(old_status_id) or T{2,3,4}:contains(new_status_id) then return end
-    
-    local new_status = gearswap.res.statuses[new_status_id].english
-    local old_status = gearswap.res.statuses[old_status_id].english
-
-    if new_status == 'Engaged' then
-        if _settings.debug_mode then add_to_chat(123,'Engaging '..player.target.id..'.') end
-        info.last_player_target_index = player.target.index
-        TH_for_first_hit()
-    elseif old_status == 'Engaged' then
-        if _settings.debug_mode and state.th_gear_is_locked then add_to_chat(123,'Disengaging. Unlocking TH.') end
-        info.last_player_target_index = 0
-        unlock_TH()
-    end
+	if not (gearswap and gearswap.res and gearswap.res.statuses and new_status_id and old_status_id) then return end
+    if gearswap.gearswap_disabled then return end
+	
+	-- 1 Is the status ID for Engaged.
+	if new_status_id == 1 then
+		if _settings.debug_mode then add_to_chat(123,'Engaging '..player.target.id..'.') end
+		info.last_player_target_index = player.target.index
+		TH_for_first_hit()
+	elseif old_status_id == 1 then
+		if _settings.debug_mode and state.th_gear_is_locked then add_to_chat(123,'Disengaging. Unlocking TH.') end
+		info.last_player_target_index = 0
+		unlock_TH()
+	end
 end
 
 
@@ -169,6 +169,7 @@ end
 function on_action_for_th(action)
     --add_to_chat(123,'cat='..action.category..',param='..action.param)
     -- If player takes action, adjust TH tagging information
+	if not action then return end --protection from errors
     if state.TreasureMode.value ~= 'None' then
         if action.actor_id == player.id then
             -- category == 1=melee, 2=ranged, 3=weaponskill, 4=spell, 6=job ability, 14=unblinkable JA
@@ -206,7 +207,31 @@ end
 
 -- Need to use this event handler to listen for deaths in case Battlemod is loaded,
 -- because Battlemod blocks the 'action message' event.
---
+
+-- Modifying this function for AoE TH Applying Actions, single targets now handled in aftercast.
+function th_action_check(category, param)
+    if category == 2 or -- any ranged attack
+        (category == 4 	and info.th_ma_ids:contains(param)) or  -- Dia/Bio
+        (category == 3 	and info.th_ws_ids:contains(param)) or  -- Aeolian Edge
+        (category == 6 	and info.th_ja_ids:contains(param)) or  -- Provoke, Animated Flourish
+        (category == 14 and info.th_u_ja_ids:contains(param))	-- Quick/Box/Stutter Step, Desperate/Violent Flourish
+        then return true
+    end
+end
+
+-- For th_action_check():
+-- AoE MA IDs for actions that always have TH: Diaga
+info.th_ma_ids = S{33, 34}
+-- AoE WS IDs for actions that always have TH in TH mode: Cyclone, Aeolian Edge
+info.th_ws_ids = S{20, 30}
+-- JA IDs for actions that always have TH: Provoke, Animated Flourish (Should all be handled in aftercast, kept for notes: 35, 204)
+info.th_ja_ids = S{}
+-- Unblinkable JA IDs for actions that always have TH: Quick/Box/Stutter Step, Desperate/Violent Flourish (Should all be handled in aftercast, kept for notes: 201, 202, 203, 205, 207)
+info.th_u_ja_ids = S{}
+
+-- Need to use this event handler to listen for deaths in case Battlemod is loaded,
+-- because Battlemod blocks the 'action message' event.
+
 -- This function removes mobs from our tracking table when they die.
 function on_incoming_chunk_for_th(id, data, modified, injected, blocked)
     if id == 0x29 then
@@ -214,10 +239,16 @@ function on_incoming_chunk_for_th(id, data, modified, injected, blocked)
         local message_id = data:unpack('H',0x19)%32768
 
         -- Remove mobs that die from our tagged mobs list.
-        if info.tagged_mobs[target_id] then
+        if message_id == 6 or message_id == 20 then
+			if being_attacked and not player.in_combat then
+				being_attacked = false
+				if player.status == 'Idle' and not midaction() and not pet_midaction() then
+					send_command('gs c forceequip')
+				end
+			end
             -- 6 == actor defeats target
             -- 20 == target falls to the ground
-            if message_id == 6 or message_id == 20 then
+            if info.tagged_mobs[target_id] then
                 if _settings.debug_mode then add_to_chat(123,'Mob '..target_id..' died. Removing from tagged mobs table.') end
                 info.tagged_mobs[target_id] = nil
             end
@@ -248,6 +279,12 @@ function job_state_change(stateField, newValue, oldValue)
         elseif oldValue == 'None' then
             TH_for_first_hit()
         end
+	elseif stateField == 'Defense Mode' then
+		if state.DefenseMode.value == 'None' then
+			TH_for_first_hit()
+		else
+			unlock_TH()
+		end
     end
     
     if job_state_change_via_th then

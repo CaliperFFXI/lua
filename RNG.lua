@@ -36,16 +36,6 @@ function job_setup()
 
     include('Mote-TreasureHunter')
 
-	-- For th_action_check():
-	-- AoE MA IDs for actions that always have TH: Diaga
-	info.th_ma_ids = S{33, 34}
-	-- AoE WS IDs for actions that always have TH in TH mode: Cyclone, Aeolian Edge
-	info.th_ws_ids = S{20, 30}
-	-- JA IDs for actions that always have TH: Provoke, Animated Flourish (Should all be handled in aftercast, kept for notes: 35, 204)
-	info.th_ja_ids = S{}
-	-- Unblinkable JA IDs for actions that always have TH: Quick/Box/Stutter Step, Desperate/Violent Flourish (Should all be handled in aftercast, kept for notes: 201, 202, 203, 205, 207)
-	info.th_u_ja_ids = S{}
-
 end
 
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
