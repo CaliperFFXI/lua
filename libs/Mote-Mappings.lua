@@ -155,8 +155,6 @@ data.weaponskills.ranged = S{"Flaming Arrow", "Piercing Arrow", "Dulling Arrow",
 elemental_ws = S{"Sanguine Blade","Seraph Blade","Aeolian Edge","Trueflight","Leaden Salute", "Flaming Arrow",
 				"Wildfire"}
 				
-
-				
 ranged_weapons = {
 	["Gastraphetes"]='Marksmanship',
 	["Fomalhaut"]='Marksmanship',
