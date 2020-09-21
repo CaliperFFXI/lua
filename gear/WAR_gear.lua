@@ -96,7 +96,8 @@ function init_gear_sets()
     sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Upheaval'].Acc = set_combine(sets.precast.WS['Upheaval'], {})
 	sets.precast.WS['Upheaval'].HighAcc = set_combine(sets.precast.WS['Upheaval'].HighAcc, {})
-	sets.precast.WS["Upheaval"].FullTP = set_combine(sets.precast.WS["Upheaval"], {})
+	sets.precast.WS['Upheaval'].LowTP = set_combine(sets.precast.WS['Upheaval'], {})
+	sets.precast.WS['Upheaval'].FullTP = set_combine(sets.precast.WS['Upheaval'], {})
 	
 	-- Metatron Torment 	STR 80%
     sets.precast.WS['Metatron Torment'] = set_combine(sets.precast.WS, {})
@@ -113,6 +114,7 @@ function init_gear_sets()
     sets.precast.WS["King's Justice"] = set_combine(sets.precast.WS, {})
 	sets.precast.WS["King's Justice"].Acc = set_combine(sets.precast.WS["King's Justice"], {})
 	sets.precast.WS["King's Justice"].HighAcc = set_combine(sets.precast.WS["King's Justice"].HighAcc, {})	
+	sets.precast.WS["King's Justice"].LowTP = set_combine(sets.precast.WS["King's Justice"], {})
 	sets.precast.WS["King's Justice"].FullTP = set_combine(sets.precast.WS["King's Justice"], {})
 	
 	-- Axe --
