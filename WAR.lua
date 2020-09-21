@@ -43,7 +43,7 @@ function user_setup()
     state.CastingMode:options('Normal','Acc','HighAcc')
     state.HybridMode:options('Normal','DT')
     state.RangedMode:options('Normal','Acc')
-    state.WeaponskillMode:options('Normal','Acc','HighAcc','FullTP')
+    state.WeaponskillMode:options('Normal','Acc','HighAcc','LowTP','FullTP')
     state.IdleMode:options('Normal','Refresh','Weak')
 	
 	options.ninja_tool_warning_limit = 10
