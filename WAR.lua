@@ -65,7 +65,11 @@ end
 function job_precast(spell, action, spellMap, eventArgs)
 	-- Compensate for TP bonuses during weaponskills.
 	if spell.type == 'WeaponSkill' then
-		if state.CombatWeapon.current == 'Chango' then  -- Change To whatever weapon you like
+		if spell.name == "King's Justice" or spell.name == "Upheaval" then
+			if player.tp < 2000 then
+				state.WeaponskillMode:set('LowTP')
+			end	
+		elseif state.CombatWeapon.current == 'Chango' then  -- Change To whatever weapon you like
 			if player.tp >= 2500 then -- 500 tp bonus from Chango.
 				state.WeaponskillMode:set('FullTP')
 			end
