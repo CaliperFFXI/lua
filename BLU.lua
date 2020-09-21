@@ -54,7 +54,7 @@ function user_setup()
 	send_command('bind !l gs c toggle Learning')
     
 	include('Mote-TreasureHunter')
-	state.TreasureMode:set('Tag')
+	--state.TreasureMode:set('Tag')
 	
 end
 

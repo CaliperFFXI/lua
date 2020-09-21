@@ -21,11 +21,13 @@ function job_setup()
 	
 	state.WeaponSet = M{['description']='Weapon Set',
 		'Gastraphetes',
+		'Gandiva',
 		'Annihilator',
 		'Fomalhaut',
-		'Gandiva',
 		'FailNot',
-		'TpBonus'
+		'SavageBlade',
+		'Decimation',
+		'Evisceration'
 	}
 	classes.rangedSkill = ranged_weapons
 	
@@ -92,7 +94,7 @@ function job_precast(spell, action, spellMap, eventArgs)
 	if spell.type == 'WeaponSkill' or spell.action_type == 'Ranged Attack' then
 			handle_ammo(spell, action, spellMap, eventArgs)	
 			set_trueShot_range()
-		if spell.name ~= "Savage Blade" then
+		if spell.name ~= "Savage Blade"  or spell.name~= "Decimation" then
 			if player.equipment.ammo == "Hauksbok Arrow" then
 				add_to_chat(123, 'Cancelled action: "'..player.equipment.ammo..'" was equipped!')
 				eventArgs.cancel = true 

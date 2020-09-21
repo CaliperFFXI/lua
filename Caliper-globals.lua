@@ -119,6 +119,7 @@ function define_global_sets()
 	gear.RNG_AGI_WS_Magic = { name="Belenus's Cape", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
 	gear.RNG_Snapshot = { name="Belenus's Cape", augments={'"Snapshot"+10',}}
 	gear.RNG_DEX_WS = { name="Belenus's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+	gear.RNG_CRIT_WS = { name="Belenus's Cape", augments={'DEX+20','Rng.Acc.+20 Rng.Atk.+20','DEX+10','Crit.hit rate+10',}}
 
 	-- SAM
 	gear.SAM_TP = {	name="Takaha Mantle"}

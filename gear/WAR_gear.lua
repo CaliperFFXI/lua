@@ -18,9 +18,18 @@ function init_gear_sets()
     sets.precast.JA['Warcry'] = {}
     sets.precast.JA['Warrior\'s Charge'] = {}
 	
+			--Define Restraint Hands
+    sets.Restraint = {}
+	
     sets.precast.FC = {}
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {})
 
+
+	sets.precast.Tomahawk = {}	
+	sets.precast.MightyStrikes = {}	
+	
+	
+	sets.MightyS = {}
     -- Weaponskill sets	
 	
 	-- Example 'FullTP' set :
@@ -87,6 +96,7 @@ function init_gear_sets()
     sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Upheaval'].Acc = set_combine(sets.precast.WS['Upheaval'], {})
 	sets.precast.WS['Upheaval'].HighAcc = set_combine(sets.precast.WS['Upheaval'].HighAcc, {})
+	sets.precast.WS["Upheaval"].FullTP = set_combine(sets.precast.WS["Upheaval"], {})
 	
 	-- Metatron Torment 	STR 80%
     sets.precast.WS['Metatron Torment'] = set_combine(sets.precast.WS, {})
@@ -97,11 +107,13 @@ function init_gear_sets()
     sets.precast.WS["Ukko's Fury"] = set_combine(sets.precast.WS, {})
 	sets.precast.WS["Ukko's Fury"].Acc = set_combine(sets.precast.WS["Ukko's Fury"], {})
 	sets.precast.WS["Ukko's Fury"].HighAcc = set_combine(sets.precast.WS["Ukko's Fury"].HighAcc, {})
+	sets.precast.WS["Ukko's Fury"].FullTP = set_combine(sets.precast.WS["Ukko's Fury"], {})
 	
 	-- King's Justice		STR 50%
     sets.precast.WS["King's Justice"] = set_combine(sets.precast.WS, {})
 	sets.precast.WS["King's Justice"].Acc = set_combine(sets.precast.WS["King's Justice"], {})
-	sets.precast.WS["King's Justice"].HighAcc = set_combine(sets.precast.WS["King's Justice"].HighAcc, {})
+	sets.precast.WS["King's Justice"].HighAcc = set_combine(sets.precast.WS["King's Justice"].HighAcc, {})	
+	sets.precast.WS["King's Justice"].FullTP = set_combine(sets.precast.WS["King's Justice"], {})
 	
 	-- Axe --
 	
@@ -170,10 +182,10 @@ function init_gear_sets()
 	sets.precast.WS['Cloudsplitter'].Acc = set_combine(sets.precast.WS['Cloudsplitter'], {})
 	sets.precast.WS['Cloudsplitter'].HighAcc = set_combine(sets.precast.WS['Cloudsplitter'].HighAcc, {})
 	
-	-- Primal Rend			DEX 30% CHR 60%
-	sets.precast.WS['Primal Rend'] = set_combine(sets.precast.WS, {})
-	sets.precast.WS['Primal Rend'].Acc = set_combine(sets.precast.WS['Primal Rend'], {})
-	sets.precast.WS['Primal Rend'].HighAcc = set_combine(sets.precast.WS['Primal Rend'].HighAcc, {})
+	-- Raging Fist				STR 30% / DEX 30%
+	sets.precast.WS['Raging Fists'] = set_combine(sets.precast.WS, {})
+	sets.precast.WS['Raging Fists'].Acc = set_combine(sets.precast.WS['Raging Fists'], {})
+	sets.precast.WS['Raging Fists'].HighAcc = set_combine(sets.precast.WS['Raging Fists'].HighAcc, {})
 
 	-- Polearm --
 
@@ -186,13 +198,22 @@ function init_gear_sets()
 	sets.precast.WS['Sonic Thrust'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Sonic Thrust'].Acc = set_combine(sets.precast.WS['Sonic Thrust'], {})
 	sets.precast.WS['Sonic Thrust'].HighAcc = set_combine(sets.precast.WS['Sonic Thrust'].HighAcc, {})
-
-	-- Sword --				50% STR 50% MND
-	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
-	sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {})
-	sets.precast.WS['Savage Blade'].HighAcc = set_combine(sets.precast.WS['Savage Blade'].HighAcc, {})
 	
-	--Savage Blade
+	
+	
+	
+	-- Resolution		STR 73%-85%
+    sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {})
+	sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Rsolution'], {})
+	sets.precast.WS['Resolution'].HighAcc = set_combine(sets.precast.WS['Resolution'].HighAcc, {})
+	
+	-- Spiral Hell 			STR 60%
+	sets.precast.WS['Spiral Hell'] = set_combine(sets.precast.WS, {})
+	sets.precast.WS['Spiral Hell'].Acc = set_combine(sets.precast.WS['Spiral Hell'], {})
+	sets.precast.WS['Spiral Hell'].HighAcc = set_combine(sets.precast.WS['Spiral Hell'].HighAcc, {})
+	
+	
+	
 
     -- Resting --
     sets.resting = {}
@@ -211,6 +232,7 @@ function init_gear_sets()
     -- Defense -- These sets are overlayed over any equipped set, if enabled.
 	-- can be used as a panic button by toggling defenseMode
     sets.defense.PDT = {}
+	
     sets.defense.MDT = set_combine(sets.defense.PDT, {})
 
     -- Engaged --
@@ -223,9 +245,48 @@ function init_gear_sets()
 	
 	-- Engaged --
     sets.engaged = {}
-	
+		
 	-- Acc --
     sets.engaged.Acc = set_combine(sets.engaged, {})
+
+	   
+	sets.engaged.Restraint = set_combine(sets.engaged, {})
+	
+	----------------- BRANCHES OF ENGAGED WEAPON SETS ---------------------
+	
+	-- Greatsword --
+	
+	
+		-- CombatWeapon Karambit --
+	sets.engaged.Karambit = set_combine(sets.engaged, {})
+	sets.engaged.Karambit.Acc = set_combine(sets.engaged.Karambit, {})	
+	sets.engaged.Karambit.HighAcc = set_combine(sets.engaged.Karambit, sets.engaged.Acc, {})
+	
+	-- Bravura --
+	
+	sets.engaged.Bravura = set_combine(sets.engaged, {})
+	sets.engaged.Bravura.Acc = set_combine(sets.engaged.Bravura, {})
+	sets.engaged.Bravura.HighAcc = set_combine(sets.engaged.Bravura.Acc, {})
+	
+	
+	-- Polearm --
+	
+	sets.engaged.Polearm = set_combine(sets.engaged, {})
+	sets.engaged.Polearm.Acc = set_combine(sets.engaged.Polearm, {})
+	sets.engaged.Polearm.HighAcc = set_combine(sets.engaged.Polearm.Acc, {})
+	
+	
+	-- Axe --
+	sets.engaged.Axe = set_combine(sets.engaged, {})
+	sets.engaged.Axe.Acc = set_combine(sets.engaged.Axe, {})
+	sets.engaged.Axe.HighAcc = set_combine(sets.engaged.Axe.Acc, {})
+	
+	-- Scythe --
+	sets.engaged.Scythe = set_combine(sets.engaged, {})
+	sets.engaged.Scythe.Acc = set_combine(sets.engaged.Scythe, {})
+	sets.engaged.Scythe.HighAcc = set_combine(sets.engaged.Scythe.Acc, {})
+
+	
 	
 	-- HighAcc --
     sets.engaged.HighAcc = set_combine(sets.engaged.Acc, {})
@@ -240,17 +301,19 @@ function init_gear_sets()
     sets.buff.Doom = {}
 	-- 'Tag' TreasureHunter
     sets.TreasureHunter = {}
-		
+	
+	sets.FullTP = {}
+	
 	-- Capacity point cape	
 	sets.CP = {}
 	-- Equipped at Night time to left earring --
-	sets.LugraLeft = {left_ear="Lugra Earring +1"}
+	sets.Lugra = {}
 	-- Elemental Sash --
-	sets.Obi = {waist="Hachirin-no-Obi"}
+	sets.Obi = {}
 	-- Kiting Mode --
-    sets.Kiting = {legs="Carmine Cuisses +1"}
+    sets.Kiting = {}
 	
-	-- Weapon sets -- determined by state.WeaponSet
-	sets.Ukonvasara = {main="Ukonvasara"}
-	sets.Bravura = {main="Bravura"}
+	-- Weapon sets -- determined by state.WeaponSet  : Please Note You should customize your sets.Greataxe to whatever weapon you are using. example: sets.Ukonvasara = {} add more if needed.
+	sets.GreatAxe = {}
+
 end

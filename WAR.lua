@@ -21,11 +21,6 @@ function job_setup()
 	state.Buff['Hasso'] = buffactive.Hasso or false
 	state.Buff['Seigan'] = buffactive.Seigan or false
 	
-	-- Aftermath
-	state.Buff['Aftermath'] = buffactive.AM or false
-	state.Buff["Aftermath: Lv.1"] = buffactive.AM1 or false
-	state.Buff["Aftermath: Lv.2"] = buffactive.AM2 or false
-	state.Buff["Aftermath: Lv.3"] = buffactive.AM3 or false
 	
 	state.DualWield = M(false, 'Dual Wield Mode')
 	state.WeaponLock = M(false, 'Weapon Lock')	
@@ -33,14 +28,13 @@ function job_setup()
     state.warned = M(false)
 	
 	-- order of weapons is determined as they appear in this table
-	state.WeaponSet = M{['description']='Weapon Set','Ukonvasara','Bravura'}
+	state.WeaponSet = M{['description']='Weapon Set'}
 	elemental_ws = S{''}
 	
 	--place weaponskills in this table to be used with lugra swaps 
     lugra_ws = S{''}
 
-    include('Mote-TreasureHunter')
-	state.TreasureMode:set('Tag')
+	include('organizer-lib')
 
 end
 
@@ -50,7 +44,7 @@ function user_setup()
     state.HybridMode:options('Normal','DT')
     state.RangedMode:options('Normal','Acc')
     state.WeaponskillMode:options('Normal','Acc','HighAcc','FullTP')
-    state.IdleMode:options('Normal','Refresh')
+    state.IdleMode:options('Normal','Refresh','Weak')
 	
 	options.ninja_tool_warning_limit = 10
 	
@@ -69,12 +63,17 @@ function job_pretarget(spell, action, spellMap, eventArgs)
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
+	-- Compensate for TP bonuses during weaponskills.
 	if spell.type == 'WeaponSkill' then
-		if player.tp > 2750 then 
-			state.WeaponskillMode:set('FullTP')
+		if state.CombatWeapon.current == 'Chango' then  -- Change To whatever weapon you like
+			if player.tp >= 2500 then -- 500 tp bonus from Chango.
+				state.WeaponskillMode:set('FullTP')
+			end
+		elseif player.tp >= 2750 then -- 250 Moonshade Bonus
+				state.WeaponskillMode:set('FullTP')
 		end
 	end
-	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
+	
 	if spell.skill == "Ninjutsu" then
 		do_ninja_tool_checks(spell, spellMap, eventArgs)
 		if spellMap == 'Utsusemi' then
@@ -99,7 +98,7 @@ end
 function job_post_precast(spell, action, spellMap, eventArgs)
 	if spell.type == 'WeaponSkill' then
 		if lugra_ws:contains(spell.english) and (world.time >= (17*60) or world.time <= (7*60)) then
-			equip(sets.LugraLeft)
+			equip(sets.Lugra)
         end
 		if elemental_ws:contains(spell.english) then
 			if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
@@ -123,6 +122,7 @@ end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
 	update_combat_weapon()
+	state.WeaponskillMode:reset() -- Resets Custom WS mode 
 end
 
 function customize_defense_set(defenseSet) 
@@ -141,12 +141,11 @@ function customize_melee_set(meleeSet)
 	if ( buffactive.doom or buffactive['Doom'] ) then
         meleeSet = set_combine(meleeSet, sets.buff.Doom)
     end
-    if (buffactive['Aftermath: Lv.3'] or
-		buffactive['Aftermath: Lv.2'] or		
-		buffactive['Aftermath: Lv.1'])
-		and player.equipment.main == "" then
-        meleeSet = set_combine(meleeSet, sets.engaged.Aftermath)
+	
+	if ( buffactive.Restraint or buffactive['Restraint'] ) then
+        meleeSet = set_combine(meleeSet, sets.engaged.Restraint)
     end
+	
 	return meleeSet
 end
 
@@ -167,11 +166,21 @@ function job_buff_change(buff,gain)
 		handle_equipping_gear(player.status) -- Forces gear change at state change.
 		add_to_chat(122, '~~~~You are Doomed~~~~') 
 	end
+	
+	local force_equip = nil  
+	
+	if ( force_equip == true and player.status ~= 'idle' ) then
+		handle_equipping_gear(player.status)
+	end
+
+
+	
 	if player.status ~= 'Idle' then
 		if not midaction() then
             handle_equipping_gear(player.status)
 		end
     end
+	
 end
 
 function job_status_change(newStatus, oldStatus)

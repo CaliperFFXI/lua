@@ -328,20 +328,19 @@ end
 function default_precast(spell, spellMap)
     equip(get_precast_set(spell, spellMap))
 	if player.target == 'MONSTER' then
-	if state.TreasureMode.value ~= 'None' and not info.tagged_mobs[spell.target.id] --[[and not TH_WS_exceptions:contains(spell.target.name)]] then
-		equip(sets.TreasureHunter)
-	end
+		if state.TreasureMode.value ~= 'None' and not info.tagged_mobs[spell.target.id] --[[and not TH_WS_exceptions:contains(spell.target.name)]] then
+			equip(sets.TreasureHunter)
+		end
 	end
 end
 
 function default_midcast(spell, spellMap)
     equip(get_midcast_set(spell, spellMap))
 	if player.target == 'MONSTER' then
-	if state.TreasureMode.value ~= 'None' and spell.target.type == 'MONSTER' and not info.tagged_mobs[spell.target.id] then
-		equip(sets.TreasureHunter)
+		if state.TreasureMode.value ~= 'None' and spell.target.type == 'MONSTER' and not info.tagged_mobs[spell.target.id] then
+			equip(sets.TreasureHunter)
+		end
 	end
-	end
-	
 end
 
 function default_aftercast(spell, spellMap)

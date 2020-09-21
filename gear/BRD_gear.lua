@@ -258,6 +258,44 @@ function init_gear_sets()
     sets.midcast.Shell = sets.midcast.Protect
     sets.midcast.Shellra = sets.midcast.Shell
 	sets.midcast.Haste = set_combine(sets.midcast['Enhancing Magic'], {})
+	
+	sets.midcast.Enfeeble = {
+	    main="Daybreak",
+		sub="Ammurapi Shield",
+		ammo="Pemphredo Tathlum",
+		head="C. Palug Crown",
+		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
+		hands={ name="Bihu Cuffs +3", augments={'Enhances "Con Brio" effect',}},
+		legs={ name="Bihu Cannions +3", augments={'Enhances "Soul Voice" effect',}},
+		feet={ name="Bihu Slippers +3", augments={'Enhances "Nightingale" effect',}},
+		neck="Mnbw. Whistle +1",
+		waist="Luminary Sash",
+		left_ear="Digni. Earring",
+		right_ear="Regal Earring",
+		left_ring="Kishar Ring",
+		right_ring="Stikini Ring",
+		back=gear.BRD_FC_Idle,
+	}
+	
+	sets.midcast['Dark Magic'] = {}
+	sets.midcast.Aspir = {
+		main="Daybreak",
+		sub="Ammurapi Shield",
+		ammo="Pemphredo Tathlum",
+		head="Pixie Hairpin +1",
+		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
+		hands={ name="Bihu Cuffs +3", augments={'Enhances "Con Brio" effect',}},
+		legs={ name="Bihu Cannions +3", augments={'Enhances "Soul Voice" effect',}},
+		feet={ name="Bihu Slippers +3", augments={'Enhances "Nightingale" effect',}},
+		neck="Incanter's Torque",
+		waist="Fucho-no-Obi",
+		left_ear="Digni. Earring",
+		right_ear="Regal Earring",
+		left_ring="Archon Ring",
+		right_ring="Evanescence Ring",
+		back="Aurist's Cape +1",
+	}
+	sets.midcast.Drain = set_combine(sets.midcast.Aspir, {})
 
 	-- idle sets
     sets.idle = {
@@ -293,6 +331,8 @@ function init_gear_sets()
 	}
 	
     sets.defense.MDT = {
+		main="Daybreak",
+		sub="Genmei Shield",
 		head="Inyanga Tiara +2",
 		body="Inyanga Jubbah +2",
 		hands="Inyan. Dastanas +2",
@@ -300,7 +340,7 @@ function init_gear_sets()
 		feet="Inyan. Crackows +2",
 		neck="Warder's Charm +1",
 		waist="Carrier's Sash",
-		left_ear="Odnowa Earring",
+		left_ear="Tuisto Earring",
 		right_ear="Odnowa Earring +1",
 		left_ring="Defending Ring",
 		right_ring="Gelatinous Ring +1",
