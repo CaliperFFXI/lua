@@ -104,7 +104,13 @@ function job_midcast(spell, action, spellMap, eventArgs)
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
-	--	Composure Buff for Party/Alliance
+	--Saboteur Handling
+	if spell.skill == 'Enfeebling Magic' or spell.skill == 'Dark Magic' then
+		if buffactive.Saboteur then
+			equip(sets.buff.Saboteur)
+		end
+	end	
+	--Composure Buff for Party/Alliance
 	if spellMap == 'Enhancing Magic' then
 		if (spell.target.type == 'PLAYER' or spell.target.type == 'NPC') and buffactive.Composure then
 			equip(sets.buff.ComposureOther)

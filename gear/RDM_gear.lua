@@ -213,7 +213,9 @@ function init_gear_sets()
 		feet="Leth. Houseaux +1",
 	})
 	
-    sets.buff.Saboteur = {}
+    sets.buff.Saboteur = {
+		hands={ name="Taeon Gloves", augments={'Phalanx +3',}},
+	}
 	
 	
 	sets.midcast.Enfeeble = {
