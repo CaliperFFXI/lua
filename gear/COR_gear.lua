@@ -176,16 +176,15 @@ function init_gear_sets()
     sets.midcast.RA = {
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
-		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
+		hands="Malignance Gloves",
 		legs="Malignance Tights",
-		feet="Meg. Jam. +2",
+		feet="Malignance Boots",
 		neck="Iskur Gorget",
 		waist="Yemaya Belt",
 		left_ear="Enervating Earring",
 		right_ear="Dedition Earring",
 		left_ring="Dingir Ring",
 		right_ring="Ilabrat Ring",
-		back="Gunslinger's Cape"
 	}
 
     sets.midcast.RA.Acc = set_combine(sets.midcast.RA, {
@@ -251,31 +250,32 @@ function init_gear_sets()
 		left_ear="Suppanomimi",
 		right_ear="Brutal Earring",
 		left_ring="Epona's Ring",
-		right_ring="Petrov Ring",
+		right_ring="Chirich Ring +1",
 		back="Relucent Cape",
 	}
 
     sets.engaged.Acc = set_combine(sets.engaged, {
 		right_ear="Telos Earring",
-		right_ring="Ilabrat Ring",
+		left_ring="Chirich Ring +1",
 	})
-
-    sets.engaged.MidAcc = set_combine(sets.engaged.Acc, {})
-
-    sets.engaged.HighAcc = set_combine(sets.engaged.MidAcc, {})
-
-    sets.engaged.STP = set_combine(sets.engaged, {})
 		
 	--Hybrid Set
-    sets.engaged.Hybrid = {}
+    sets.engaged.DT = set_combine(sets.engaged, {
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
+	})
+	
+	sets.engaged.Acc.DT = set_combine(sets.engaged.DT, {})
 
 	--Special Sets
     sets.buff.Doom = {}
 
-	sets.FullTP = {}
     sets.Obi = {waist="Hachirin-no-Obi"}
     sets.CP = {back="Mecisto. Mantle"}
-    sets.TreasureHunter = {body=gear.Herculean_Body_TH,head="Volte Cap", waist="Chaac Belt"}
+    sets.TreasureHunter = {body=gear.Herculean_Body_TH, waist="Chaac Belt"}
 	
 	sets.Fomalhaut = {range="Fomalhaut",ammo=gear.RAbullet}
 	sets.Doomsday = {range="Doomsday",ammo=gear.RAbullet}
