@@ -69,9 +69,7 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
         equip(sets.buff['Divine Caress'])
     end
     if spellMap == 'Banish' or spellMap == "Holy" then
-        if (world.weather_element == 'Light' or world.day_element == 'Light') then
-            equip(sets.Obi)
-        end
+        handle_elemental_skills(spell,spellMap)
     end
 end
 

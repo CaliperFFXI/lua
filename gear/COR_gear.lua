@@ -272,11 +272,18 @@ function init_gear_sets()
 	
 	-- DualWield Sets
 	sets.engaged.DualWield = set_combine(sets.engaged, {    
+		left_ear="Suppanomimi",
+	})
+	sets.engaged.DualWield.Acc = set_combine(sets.DualWield, {})
+	sets.engaged.DualWield.DT = set_combine(sets.DualWield, {
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
 		waist="Reiki Yotai",
 		left_ear="Eabani Earring",
 	})
-	sets.engaged.DualWield.Acc = set_combine(sets.DualWield, {})
-	sets.engaged.DualWield.DT = set_combine(sets.DualWield, {})
 	sets.engaged.DualWield.Acc.DT = set_combine(sets.engaged.DualWield.DT, {})
 
 	--Special Sets

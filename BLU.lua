@@ -93,16 +93,6 @@ function job_precast(spell, action, spellMap, eventArgs)
         -- eventArgs.cancel = true
         -- windower.send_command('@input /ja "Unbridled Learning" <me>; wait 1.5; input /ma "'..spell.name..'" '..spell.target.name)
     -- end
-    if spellMap == 'Utsusemi' then
-        if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-            cancel_spell()
-            add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-            eventArgs.handled = true
-            return
-        elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-            send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-        end
-    end
 end
 
 -- Run after the default midcast() is done.
@@ -121,19 +111,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 			end
         end
     end	
-    if spell.skill == 'Enhancing Magic' then
-		equip(sets.midcast.EnhancingDuration)
-    end
-	-- Matching double weather (w/o day conflict).
-	if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-		equip(sets.Obi)
-	-- Matching day and weather.
-	elseif spell.element == world.day_element and spell.element == world.weather_element then
-		equip(sets.Obi)
-	-- Match day or weather.
-	elseif spell.element == world.day_element or spell.element == world.weather_element then
-		equip(sets.Obi)
-	end
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)

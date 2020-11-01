@@ -144,7 +144,41 @@ data.weaponskills.empyrean = {
     ["Hvergelmir"] = "Myrkr",
     ["Gandiva"] = "Jishnu's Radiance",
     ["Armageddon"] = "Wildfire"}
-
+	
+	
+--Table of 1000 TP bonus Weapons, used to check max TP values	
+magian_weapons = S{
+	"Sparrowhawk +2",
+	"Makhila +2",
+	"Anarchy +2",
+	"Uzura +2",
+	"Renaud's Axe +2",
+	"Machaera +2",
+	"Fusetta +2"
+}	
+	
+--Table of 500 TP bonus Aeonic Weapons, used to check max TP values.	
+aeonic_weapons = S{
+	"Godhands",
+	"Aeneas",
+	"Sequence",
+	"Lionheart",
+	"Tri-Edge",
+	"Chango",
+	"Anguta",
+	"Trishula",
+	"Heishi Shorinken",
+	"Dojikiri Yasutsuna",
+	"Tishtrya",
+	"Khatvanga",
+	"Fail-Not",
+	"Fomalhaut"
+}	
+	
+	
+-- Table of elemental WS, for use with elemental Obi under the effect of day/weather.	
+elemental_ws = S{"Sanguine Blade","Seraph Blade","Aeolian Edge","Trueflight","Leaden Salute", "Flaming Arrow",
+				"Wildfire"}
 -- Weaponskills that can be used at range.
 data.weaponskills.ranged = S{"Flaming Arrow", "Piercing Arrow", "Dulling Arrow", "Sidewinder", "Arching Arrow",
     "Empyreal Arrow", "Refulgent Arrow", "Apex Arrow", "Namas Arrow", "Jishnu's Radiance",
@@ -152,8 +186,7 @@ data.weaponskills.ranged = S{"Flaming Arrow", "Piercing Arrow", "Dulling Arrow",
     "Coronach", "Trueflight", "Leaden Salute", "Wildfire",
     "Myrkr"}
 	
-elemental_ws = S{"Sanguine Blade","Seraph Blade","Aeolian Edge","Trueflight","Leaden Salute", "Flaming Arrow",
-				"Wildfire"}
+
 				
 ranged_weapons = {
 	["Gastraphetes"]='Marksmanship',

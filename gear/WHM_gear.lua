@@ -368,7 +368,6 @@ function init_gear_sets()
 
     sets.buff.Doom = set_combine(sets.midcast.Cursna,{waist="Gishdubar Sash",right_ring="Purity Ring"})
 
-    sets.Obi = {waist="Hachirin-no-Obi"}
     sets.CP = {back="Mecisto. Mantle"}
 
 end

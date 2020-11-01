@@ -495,14 +495,14 @@ end
 -- or the gear isn't in the player inventory), or the name of the piece of
 -- gear that matches the query.
 function get_elemental_item_name(item_type, valid_elements, restricted_to_elements)
-    local potential_elements = restricted_to_elements or elements.list
-    local item_map = elements[item_type:lower()..'_of']
+    -- local potential_elements = restricted_to_elements or elements.list
+    -- local item_map = elements[item_type:lower()..'_of']
     
-    for element in (potential_elements.it or it)(potential_elements) do
-        if valid_elements:contains(element) and (player.inventory[item_map[element]] or player.wardrobe[item_map[element]] or player.wardrobe2[item_map[element]]) then
-            return item_map[element]
-        end
-    end
+    -- for element in (potential_elements.it or it)(potential_elements) do
+        -- if valid_elements:contains(element) and (player.inventory[item_map[element]] or player.wardrobe[item_map[element]] or player.wardrobe2[item_map[element]]) then
+            -- return item_map[element]
+        -- end
+    -- end
 end
 
 
@@ -663,7 +663,7 @@ function time_change(new_time, old_time)
 end
 
 -- Function to handle shadows and check ninja tool count, reports low under 10.
-function handle_ninjitsu()
+function handle_ninjitsu(spell, spellMap)
 	if spellMap == 'Utsusemi' then
 		if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
 			eventArgs.cancel = true 

@@ -319,7 +319,7 @@ end
 function default_precast(spell, spellMap)
     equip(get_precast_set(spell, spellMap))
 	if spell.skill == 'Ninjitsu' then
-		handle_ninjitsu() -- located in Mote-Utility
+		handle_ninjitsu(spell, spellMap) -- located in Mote-Utility
 	end
 	if spell.type == 'WeaponSkill' and elemental_ws:contains(spell.name) then
 		handle_elemental_skills(spell, spellMap)
@@ -329,7 +329,7 @@ end
 
 function default_midcast(spell, spellMap)
     equip(get_midcast_set(spell, spellMap))
-    if spell.skill == 'Elemental Magic' then
+    if spell.skill == 'Elemental Magic' or spell.skill == 'Blue Magic' then
 		handle_elemental_skills(spell, spellMap)
 	end
 	force_th()-- located in Mote-TreasureHunter
@@ -974,14 +974,26 @@ function get_named_set(equipSet, spell, spellMap)
 end
 
 function handle_elemental_skills(spell, spellMap)
+
 	local Obi
 	local Orpheus
-	if player.inventory['Hachirin-no-Obi'] or player.wardrobe['Hachirin-no-Obi'] or player.wardrobe2['Hachirin-no-Obi'] or player.wardrobe3['Hachirin-no-Obi'] or player.wardrobe4['Hachirin-no-Obi'] then
+	
+	if 	player.inventory['Hachirin-no-Obi'] or 
+		player.wardrobe['Hachirin-no-Obi'] or 
+		player.wardrobe2['Hachirin-no-Obi'] or 
+		player.wardrobe3['Hachirin-no-Obi'] or 
+		player.wardrobe4['Hachirin-no-Obi'] then
 		Obi = true
 	end
-	if player.inventory["Orpheus's Sash"] or player.wardrobe["Orpheus's Sash"] or player.wardrobe2["Orpheus's Sash"] or player.wardrobe3["Orpheus's Sash"] or player.wardrobe4["Orpheus's Sash"] then
+	
+	if 	player.inventory["Orpheus's Sash"] or 
+		player.wardrobe["Orpheus's Sash"] or 
+		player.wardrobe2["Orpheus's Sash"] or 
+		player.wardrobe3["Orpheus's Sash"] or 
+		player.wardrobe4["Orpheus's Sash"] then
 		Orpheus = true
 	end
+	
 	if _settings.debug_mode then add_to_chat(123,'Debug: Elemental WS detected ['..spell.name..']') end
 		-- Matching double weather (w/o day conflict). 25% Bonus
 		if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) and Obi then
