@@ -6,7 +6,7 @@ Additionally, the globals file contains macrobook and lockstyle settings for eac
 
 You must download and replace the following library files for full intended functionality:
 
-Library locations: Addons\Gearswap\libs
+Library locations: Windower\Addons\Gearswap\libs
 
 **Mote-Include.lua**
 
@@ -15,8 +15,6 @@ Library locations: Addons\Gearswap\libs
 **Mote-Utility.lua**
 
 **Mote-TreasureHunter.lua** 
-
-The original libs files are located in the gearswap\libs folder.
 
 The libs files see regular updates, so it is best to regularly check for updates.
 
