@@ -4,7 +4,17 @@ All of my job and gear files are built around the "Kinematics" framework. (thank
 ### You must rename "Caliper-Globals.lua" to match your characters name.
 Additionally, the globals file contains macrobook and lockstyle settings for each job, as well as keybindings.
 
-**Mote-Mappings.lua** , **Mote-Utility.lua**, and **Mote-TreasureHunter.lua** must be replaced in order to get full functionality. 
+You must download and replace the following library files for full intended functionality:
+
+Library locations: Addons\Gearswap\libs
+
+**Mote-Include.lua**
+
+**Mote-Mappings.lua** 
+
+**Mote-Utility.lua**
+
+**Mote-TreasureHunter.lua** 
 
 The original libs files are located in the gearswap\libs folder.
 
