@@ -11,22 +11,18 @@ The libs files see regular updates, so it is best to regularly check for updates
 List of features for all jobs...
 
 ### Handling of "Hachirin-no-Obi" / "Orpheus's Sash" for matching spells and weaponskills. 
->Location of Logic: 
->Mote-Include.lua
-function: handle_elemental_skills(spell,spellMap)
+>Location of Logic: Mote-Include.lua *function: handle_elemental_skills(spell,spellMap)
 - No additional sets definitions are required.
 - If conditions are met correctly, the items will equip appropriately.
 - Exceptions: Curing magic, Enspells (in development)
 
 ### Handling of basic Ninjitsu Sub-Job actions.
-Location of logic: Mote-Utility.lua
-function: handle_ninjitsu(spell, spellMap)
+>Location of logic: Mote-Utility.lua *function: handle_ninjitsu(spell, spellMap)
 - Checks when casting of Utsusemi occurs, if buff exists or is weaker than 2 shadows, action is cancelled.
 - Tracks Utsusemi / Sneak / Invis tools, then warns if low.
 	
 ### Cancellation of "conflicting" buffs. (requires "cancel" addon)
-Location of logic: Mote-Utility.lua
-function: cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
+>Location of logic: Mote-Utility.lua *function: cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
 - Checks occur when casting most sneak variations, stoneskin, saber/fan dance.
 - If the buffs are up, they will be cancelled, creating the effect of "refreshing" the buff.
 
