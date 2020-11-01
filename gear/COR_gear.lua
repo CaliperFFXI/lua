@@ -110,6 +110,8 @@ function init_gear_sets()
 		right_ring="Archon Ring",
 	})
 
+    sets.precast.WS['Leaden Salute'].FullTP = set_combine(sets.precast.WS['Wildfire'], {right_ear="Hermetic Earring"})
+
     sets.precast.WS['Evisceration'] = {
 	    head="Meghanada Visor +2",
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
@@ -129,15 +131,13 @@ function init_gear_sets()
 
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {neck="Caro Necklace",})
 
-    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {})
+    sets.precast.WS['Savage Blade'].FullTP = set_combine(sets.precast.WS, {neck="Caro Necklace",})
 
     sets.precast.WS['Swift Blade'] = set_combine(sets.precast.WS, {})
 
-    sets.precast.WS['Swift Blade'].Acc = set_combine(sets.precast.WS['Swift Blade'], {})
 
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS['Swift Blade'], {}) 
 
-    sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS['Requiescat'], {})
 
     sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS['Wildfire'], {})
 
@@ -245,10 +245,10 @@ function init_gear_sets()
 		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
 		legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
 		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
-		neck="Lissome Necklace",
-		waist="Kentarch +1 Belt",
-		left_ear="Suppanomimi",
-		right_ear="Brutal Earring",
+		neck="Iskur Gorget",
+		waist="Windbuffet Belt +1",
+		left_ear="Brutal Earring",
+		right_ear="Telos Earring",
 		left_ring="Epona's Ring",
 		right_ring="Chirich Ring +1",
 		back="Relucent Cape",
@@ -259,7 +259,7 @@ function init_gear_sets()
 		left_ring="Chirich Ring +1",
 	})
 		
-	--Hybrid Set
+	-- Hybrid Set
     sets.engaged.DT = set_combine(sets.engaged, {
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
@@ -268,16 +268,24 @@ function init_gear_sets()
 		feet="Malignance Boots",
 	})
 	
-	sets.engaged.Acc.DT = set_combine(sets.engaged.DT, {})
+	sets.engaged.Acc.DT = set_combine(sets.engaged.DT, sets.engaged.Acc, {})
+	
+	-- DualWield Sets
+	sets.engaged.DualWield = set_combine(sets.engaged, {    
+		waist="Reiki Yotai",
+		left_ear="Eabani Earring",
+	})
+	sets.engaged.DualWield.Acc = set_combine(sets.DualWield, sets.engaged.Acc,{})
+	sets.engaged.DualWield.DT = set_combine(sets.DualWield, sets.engaged.DT,{})
+	sets.engaged.DualWield.Acc.DT = set_combine(sets.DualWield, sets.engaged.Acc, sets.engaged.DT,{})
 
 	--Special Sets
     sets.buff.Doom = {}
 
-    sets.Obi = {waist="Hachirin-no-Obi"}
     sets.CP = {back="Mecisto. Mantle"}
-    sets.TreasureHunter = {body=gear.Herculean_Body_TH, waist="Chaac Belt"}
+    sets.TreasureHunter = {body=gear.Herculean_Body_TH,waist="Chaac Belt",feet="Volte boots"}
 	
-	sets.Fomalhaut = {range="Fomalhaut",ammo=gear.RAbullet}
+	sets.LeadenSalute = {main="Naegling",sub="Tauret",range="Fomalhaut",ammo=gear.RAbullet}
 	sets.Doomsday = {range="Doomsday",ammo=gear.RAbullet}
 
 end
