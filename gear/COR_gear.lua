@@ -275,9 +275,9 @@ function init_gear_sets()
 		waist="Reiki Yotai",
 		left_ear="Eabani Earring",
 	})
-	sets.engaged.DualWield.Acc = set_combine(sets.DualWield, sets.engaged.Acc,{})
-	sets.engaged.DualWield.DT = set_combine(sets.DualWield, sets.engaged.DT,{})
-	sets.engaged.DualWield.Acc.DT = set_combine(sets.DualWield, sets.engaged.Acc, sets.engaged.DT,{})
+	sets.engaged.DualWield.Acc = set_combine(sets.DualWield, {})
+	sets.engaged.DualWield.DT = set_combine(sets.DualWield, {})
+	sets.engaged.DualWield.Acc.DT = set_combine(sets.engaged.DualWield.DT, {})
 
 	--Special Sets
     sets.buff.Doom = {}

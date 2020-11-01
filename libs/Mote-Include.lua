@@ -330,9 +330,7 @@ end
 function default_midcast(spell, spellMap)
     equip(get_midcast_set(spell, spellMap))
     if spell.skill == 'Elemental Magic' then
-        if (spell.element == world.day_element or spell.element == world.weather_element) then
-			equip(sets.Obi)
-		end
+		handle_elemental_skills(spell, spellMap)
 	end
 	force_th()-- located in Mote-TreasureHunter
 end
