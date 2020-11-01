@@ -125,16 +125,7 @@ function init_include()
 
     gear = {}
     gear.default = {}
-
-    gear.ElementalGorget = {name=""}
-    gear.ElementalBelt = {name=""}
-    gear.ElementalObi = {name=""}
-    gear.ElementalCape = {name=""}
-    gear.ElementalRing = {name=""}
-    gear.FastcastStaff = {name=""}
-    gear.RecastStaff = {name=""}
-
-
+		
     -- Load externally-defined information (info that we don't want to change every time this file is updated).
 
     -- Used to define misc utility functions that may be useful for this include or any job files.
@@ -327,20 +318,23 @@ end
 
 function default_precast(spell, spellMap)
     equip(get_precast_set(spell, spellMap))
-	if player.target == 'MONSTER' then
-		if state.TreasureMode.value ~= 'None' and not info.tagged_mobs[spell.target.id] --[[and not TH_WS_exceptions:contains(spell.target.name)]] then
-			equip(sets.TreasureHunter)
-		end
+	if spell.skill == 'Ninjitsu' then
+		handle_ninjitsu() -- located in Mote-Utility
 	end
+	if spell.type == 'WeaponSkill' and elemental_ws:contains(spell.name) then
+		handle_elemental_skills(spell, spellMap)
+	end
+	force_th() -- located in Mote-TreasureHunter
 end
 
 function default_midcast(spell, spellMap)
     equip(get_midcast_set(spell, spellMap))
-	if player.target == 'MONSTER' then
-		if state.TreasureMode.value ~= 'None' and spell.target.type == 'MONSTER' and not info.tagged_mobs[spell.target.id] then
-			equip(sets.TreasureHunter)
+    if spell.skill == 'Elemental Magic' then
+        if (spell.element == world.day_element or spell.element == world.weather_element) then
+			equip(sets.Obi)
 		end
 	end
+	force_th()-- located in Mote-TreasureHunter
 end
 
 function default_aftercast(spell, spellMap)
@@ -682,7 +676,6 @@ function get_precast_set(spell, spellMap)
     -- Handle automatic selection of set based on spell class/name/map/skill/type.
     equipSet = select_specific_set(equipSet, spell, spellMap)
 
-    
     -- Once we have a named base set, do checks for specialized modes (casting mode, weaponskill mode, etc).
     
     if spell.action_type == 'Magic' then
@@ -981,6 +974,40 @@ function get_named_set(equipSet, spell, spellMap)
         end
     end
 end
+
+function handle_elemental_skills(spell, spellMap)
+	local Obi
+	local Orpheus
+	if player.inventory['Hachirin-no-Obi'] or player.wardrobe['Hachirin-no-Obi'] or player.wardrobe2['Hachirin-no-Obi'] or player.wardrobe3['Hachirin-no-Obi'] or player.wardrobe4['Hachirin-no-Obi'] then
+		Obi = true
+	end
+	if player.inventory["Orpheus's Sash"] or player.wardrobe["Orpheus's Sash"] or player.wardrobe2["Orpheus's Sash"] or player.wardrobe3["Orpheus's Sash"] or player.wardrobe4["Orpheus's Sash"] then
+		Orpheus = true
+	end
+	if _settings.debug_mode then add_to_chat(123,'Debug: Elemental WS detected ['..spell.name..']') end
+		-- Matching double weather (w/o day conflict). 25% Bonus
+		if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) and Obi then
+			equip({waist="Hachirin-no-Obi"})
+		if _settings.debug_mode then add_to_chat(123,'Debug: Matching double weather (Obi).') end
+		-- Matching day and weather. 20%
+		elseif spell.element == world.day_element and spell.element == world.weather_element and Obi then
+			equip({waist="Hachirin-no-Obi"})
+		if _settings.debug_mode then add_to_chat(123,'Debug: Matching day and weather. (Obi)') end
+		-- Target distance under 1.7 yalms. 15%
+		elseif spell.target.distance < (1.7 + spell.target.model_size) and Orpheus then
+			equip({waist="Orpheus's Sash"})
+		if _settings.debug_mode then add_to_chat(123,'Debug: Target distance under 1.7 yalms. (Orpheus)') end
+		-- Match day or weather. 10%
+		elseif spell.element == world.day_element or spell.element == world.weather_element and Obi then
+			equip({waist="Hachirin-no-Obi"})
+		if _settings.debug_mode then add_to_chat(123,'Debug: Match day or weather. (Obi)') end
+		-- Target distance under 8 yalms. ~8-1.7%
+		 elseif spell.target.distance < (8 + spell.target.model_size) and Orpheus then
+			equip({waist="Orpheus's Sash"})
+		if _settings.debug_mode then add_to_chat(123,'Debug: Target distance under 8 yalms. (Orpheus)') end
+	end
+end
+
 
 
 -------------------------------------------------------------------------------------------------------------------

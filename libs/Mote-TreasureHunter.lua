@@ -318,6 +318,14 @@ function cleanup_tagged_mobs()
     end
 end
 
+-- Forces TH equipment if any TH mode is active and the target is an untagged monster.
+function force_th()
+	if player.target == 'MONSTER' then
+		if state.TreasureMode.value ~= 'None' and spell.target.type == 'MONSTER' and not info.tagged_mobs[spell.target.id] then
+			equip(sets.TreasureHunter)
+		end
+	end
+end
 
 -------------------------------------------------------------------------------------------------------------------
 -- Event function registration calls.

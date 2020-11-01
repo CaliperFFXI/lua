@@ -24,8 +24,6 @@ function job_setup()
     -- Whether a warning has been given for low ammo
     state.warned = M(false)
 
-    elemental_ws = S{'Aeolian Edge', 'Leaden Salute', 'Wildfire'}
-
     include('Mote-TreasureHunter')
 
     -- For th_action_check():
@@ -48,14 +46,14 @@ function user_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.HybridMode:options('Normal', 'DT')
     state.RangedMode:options('STP', 'Normal', 'Acc', 'HighAcc', 'Critical')
-    state.WeaponskillMode:options('Normal', 'Acc')
+    state.WeaponskillMode:options('Normal','FullTP','Acc')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'DT', 'Refresh')
 
 	state.DualWield = M(false, 'Dual Wield Mode')
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.CP = M(false, 'Capacity Points Mode')
-	state.WeaponSet = M{['description']='Weapon Set','Fomalhaut','Doomsday'}
+	state.WeaponSet = M{['description']='Weapon Set','LeadenSalute'}
 
 
     gear.RAbullet = "Chrono Bullet"
@@ -67,6 +65,20 @@ function user_setup()
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
+	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
+	if spell.type == 'WeaponSkill' then
+		if state.CombatWeapon.current == 'TpBonus' then
+			if player.tp >= 2000 then --1000 TP Bonus from Sparrowhawk
+				state.WeaponskillMode:set('FullTP')
+			end
+		elseif player.equipment.range == "Fomalhaut" then
+			if player.tp >= 2500 then -- 500 TP Bonus from Aeonic Weapons
+				state.WeaponskillMode:set('FullTP')
+			end
+		elseif player.tp == 3000 then 
+			state.WeaponskillMode:set('FullTP')
+		end
+	end
     -- Check that proper ammo is available if we're using ranged attacks or similar.
     if spell.action_type == 'Ranged Attack' or spell.type == 'WeaponSkill' or spell.type == 'CorsairShot' then
         do_bullet_checks(spell, spellMap, eventArgs)
@@ -89,19 +101,10 @@ function job_precast(spell, action, spellMap, eventArgs)
             eventArgs.handled = true
         end
     end
-    if spellMap == 'Utsusemi' then
-        if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-            cancel_spell()
-            add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-            eventArgs.handled = true
-            return
-        elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-            send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-        end
-    end
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
+	classes.CustomRangedGroups:clear()
     if (spell.type == 'CorsairRoll' or spell.english == "Double-Up") then
         if player.status ~= 'Engaged' then
             equip(sets.precast.CorsairRoll.Gun)
@@ -112,51 +115,14 @@ function job_post_precast(spell, action, spellMap, eventArgs)
         elseif flurry == 1 then
             equip(sets.precast.RA.Flurry1)
         end
-    elseif spell.type == 'WeaponSkill' then
-        -- Replace TP-bonus gear if not needed.
-        if spell.english == 'Leaden Salute' or spell.english == 'Aeolian Edge' and player.tp > 2900 then
-            equip(sets.FullTP)
-        end
-        if elemental_ws:contains(spell.name) then
-            -- Matching double weather (w/o day conflict).
-            if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-                equip({waist="Hachirin-no-Obi"})
-            -- Target distance under 1.7 yalms.
-            -- elseif spell.target.distance < (1.7 + spell.target.model_size) then
-                -- equip({waist="Orpheus's Sash"})
-            -- Matching day and weather.
-            elseif spell.element == world.day_element and spell.element == world.weather_element then
-                equip({waist="Hachirin-no-Obi"})
-            -- Target distance under 8 yalms.
-            -- elseif spell.target.distance < (8 + spell.target.model_size) then
-                -- equip({waist="Orpheus's Sash"})
-            -- Match day or weather.
-            elseif spell.element == world.day_element or spell.element == world.weather_element then
-                equip({waist="Hachirin-no-Obi"})
-            end
-        end
-    end
+	end
 end
+
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
     if spell.type == 'CorsairShot' then
 		if (spell.english ~= 'Light Shot' and spell.english ~= 'Dark Shot') then
-			-- Matching double weather (w/o day conflict).
-			if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-				equip({waist="Hachirin-no-Obi"})
-			-- Target distance under 1.7 yalms.
-			-- elseif spell.target.distance < (1.7 + spell.target.model_size) then
-				-- equip({waist="Orpheus's Sash"})
-			-- Matching day and weather.
-			elseif spell.element == world.day_element and spell.element == world.weather_element then
-				equip({waist="Hachirin-no-Obi"})
-			-- Target distance under 8 yalms.
-			-- elseif spell.target.distance < (8 + spell.target.model_size) then
-				-- equip({waist="Orpheus's Sash"})
-			-- Match day or weather.
-			elseif spell.element == world.day_element or spell.element == world.weather_element then
-				equip({waist="Hachirin-no-Obi"})
-			end
+			handle_elemental_skills(spell, spellMap)
 		end
         if state.QDMode.value == 'Enhance' then
             equip(sets.midcast.CorsairShot.Enhance)
@@ -180,7 +146,8 @@ end
 
 -- Set eventArgs.handled to true if we don't want any automatic gear equipping to be done.
 function job_aftercast(spell, action, spellMap, eventArgs)
-    if (spell.type == 'CorsairRoll' or spell.english == "Double-Up") and not spell.interrupted then
+	state.WeaponskillMode:reset() -- reset WS mode for next round.
+	if (spell.type == 'CorsairRoll' or spell.english == "Double-Up") and not spell.interrupted then
         display_roll_info(spell)
     end
     if spell.english == "Light Shot" then
@@ -264,7 +231,6 @@ function update_combat_weapon()
 	end
 end
 
-
 -- Handle auto-targetting based on local setup.
 function job_auto_change_target(spell, action, spellMap, eventArgs)
     if spell.type == 'CorsairShot' then
@@ -306,7 +272,6 @@ windower.register_event('action',
             end
         end
     end)
-
 
 function job_self_command(cmdParams, eventArgs)
     if cmdParams[1] == 'qd' then
