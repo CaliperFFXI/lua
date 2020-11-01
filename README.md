@@ -5,13 +5,18 @@ All of my job and gear files are built around the "Kinematics" framework. (thank
 Additionally, the globals file contains macrobook and lockstyle settings for each job, as well as keybindings.
 
 **Mote-Mappings.lua** , **Mote-Utility.lua**, and **Mote-TreasureHunter.lua** must be replaced in order to get full functionality. 
+
 The original libs files are located in the gearswap\libs folder.
+
 The libs files see regular updates, so it is best to regularly check for updates.
 
 List of features for all jobs...
 
 ### Handling of "Hachirin-no-Obi" / "Orpheus's Sash" for matching spells and weaponskills. 
->Location of Logic: Mote-Include.lua *function: handle_elemental_skills(spell,spellMap)
+>Location of Logic: Mote-Include.lua 
+
+>function: handle_elemental_skills(spell,spellMap)
+
 - No additional sets definitions are required.
 - If conditions are met correctly, the items will equip appropriately.
 - Exceptions: Curing magic, Enspells (in development)
