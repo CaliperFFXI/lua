@@ -31,13 +31,22 @@ List of features for all jobs...
 - If conditions are met correctly, the items will equip appropriately.
 - Exceptions: Curing magic, Enspells (in development)
 
+### Handling of Treasure Hunter "Tag" mode.
+>Location of logic: Mote-TreasureHunter.lua
+- If a TH mode is active, TH+ gear will be equipped for the "first hit", this includes ranged, melee, and magic.
+- requires sets.TreasureHunter={} being defined in the job_gear.lua file. 
+
 ### Handling of basic Ninjitsu Sub-Job actions.
->Location of logic: Mote-Utility.lua *function: handle_ninjitsu(spell, spellMap)
+>Location of logic: Mote-Utility.lua 
+
+>function: handle_ninjitsu(spell, spellMap)
 - Checks when casting of Utsusemi occurs, if buff exists or is weaker than 2 shadows, action is cancelled.
 - Tracks Utsusemi / Sneak / Invis tools, then warns if low.
 	
 ### Cancellation of "conflicting" buffs. (requires "cancel" addon)
->Location of logic: Mote-Utility.lua *function: cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
+>Location of logic: Mote-Utility.lua 
+
+>function: cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
 - Checks occur when casting most sneak variations, stoneskin, saber/fan dance.
 - If the buffs are up, they will be cancelled, creating the effect of "refreshing" the buff.
 
