@@ -13,25 +13,29 @@ List of features for all jobs...
 ### Handling of "Hachirin-no-Obi" / "Orpheus's Sash" for matching spells and weaponskills. 
 Location of Logic: Mote-Include.lua
 function: handle_elemental_skills(spell,spellMap)
-	a.) No additional sets definitions are required.
-	b.) If conditions are met correctly, the items will equip appropriately.
-	c.) Exceptions: Curing magic, Enspells (in development)
+-No additional sets definitions are required.
+-If conditions are met correctly, the items will equip appropriately.
+-Exceptions: Curing magic, Enspells (in development)
 
 ### Handling of basic Ninjitsu Sub-Job actions.
 Location of logic: Mote-Utility.lua
 function: handle_ninjitsu(spell, spellMap)
-	a.) Checks when casting of Utsusemi occurs, if buff exists or is weaker than 2 shadows, action is cancelled.
-	b.) Tracks Utsusemi / Sneak / Invis tools, then warns if low.
+-Checks when casting of Utsusemi occurs, if buff exists or is weaker than 2 shadows, action is cancelled.
+-Tracks Utsusemi / Sneak / Invis tools, then warns if low.
 	
 ### Cancellation of "conflicting" buffs. (requires "cancel" addon)
 Location of logic: Mote-Utility.lua
 function: cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
-	a.) Checks occur when casting most sneak variations, stoneskin, saber/fan dance.
-	b.) If the buffs are up, they will be cancelled, creating the effect of "refreshing" the buff.
+-Checks occur when casting most sneak variations, stoneskin, saber/fan dance.
+-If the buffs are up, they will be cancelled, creating the effect of "refreshing" the buff.
 
+### In Devlopment :
+-Handling of "Max TP" weaponskilling, to include aeonic and TP bonus weapons.
+-Enspell handler
+-Ammo Handlers for ranged jobs
 
 Design Philosophy:
-  1.) Maintain player engagement, while improving quality of life.
-  2.) Centralize common functionality, leaving job specific functions to their respective files.
-  3.) Find the simplest solution to complex gearing situations.
-  4.) Maintain readability and logical flow of job and job_gear files.
+-Maintain player engagement, while improving quality of life.
+-Centralize common functionality, leaving job specific functions to their respective files.
+-Find the simplest solution to complex gearing situations.
+-Maintain readability and logical flow of job and job_gear files.
