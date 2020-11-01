@@ -56,35 +56,22 @@ function user_setup()
 end
 
 function job_pretarget(spell, action, spellMap, eventArgs)
-    if spell.action_type == 'Magic' and buffactive.silence then -- Auto Use Echo Drops If You Are Silenced --
+    if spell.action_type == 'Magic' and buffactive.silence then -- Auto Use Echo Drops If You Are Silenced
 		eventArgs.cancel = true 
         send_command('input /item "Echo Drops" <me>')
 	end
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
-	if spell.skill == "Ninjutsu" then
-		do_ninja_tool_checks(spell, spellMap, eventArgs)
-		if spellMap == 'Utsusemi' then
-			if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-				eventArgs.cancel = true 
-				add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-				eventArgs.handled = true
-				return
-			elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-				send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-			end
-		end
-	end
 	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
 	-- Compensate for TP bonuses during weaponskills.
 	if spell.type == 'WeaponSkill' then
 		if state.CombatWeapon.current == 'TpBonus' then
-			if player.tp >= 2000 then --1000 TP Bonus from Sparrowhawk
+			if player.tp >= 2000 then 
 				state.WeaponskillMode:set('FullTP')
 			end
-		elseif state.CombatWeapon.current == 'Fomalhaut' then
-			if player.tp >= 2500 then -- 500 TP Bonus from Aeonic Weapons
+		elseif player.equipment.range == "Fomalhaut" then
+			if player.tp >= 2500 then 
 				state.WeaponskillMode:set('FullTP')
 			end
 		elseif player.tp == 3000 then 
@@ -127,28 +114,6 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 		elseif flurry == 1 then
 			classes.CustomRangedGroups:append('Flurry1')
 		end
-    -- Equip obi if weather/day matches for WS.
-	elseif spell.type == 'WeaponSkill' then
-     if elemental_ws:contains(spell.name) then
-			-- Unlimited shot bullet.
-            -- Matching double weather (w/o day conflict).
-            if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-                equip(sets.Obi)
-            -- Target distance under 1.7 yalms.
-            --elseif spell.target.distance < (1.7 + spell.target.model_size) then
-            --    equip({waist="Orpheus's Sash"})
-            -- Matching day and weather.
-            elseif spell.element == world.day_element and spell.element == world.weather_element then
-                equip(sets.Obi)
-            -- Target distance under 8 yalms.
-            --elseif spell.target.distance < (8 + spell.target.model_size) then
-                --equip({waist="Orpheus's Sash"})
-            -- Match day or weather.
-            elseif spell.element == world.day_element or spell.element == world.weather_element then
-                equip(sets.Obi)			
-            end
-        end
-    end
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)

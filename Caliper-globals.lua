@@ -25,7 +25,7 @@ job_user_settings = {
 	-- page = macro page
 	['BLU'] = {num=4,book=14,page=1},
 	['BLM'] = {num=nil,book=nil,page=nil},
-	['BRD'] = {num=7,book=16,page=1},
+	['BRD'] = {num=19,book=16,page=1},
 	['BST'] = {num=nil,book=nil,page=nil},
 	['COR'] = {num=nil,book=6,page=9},
 	['DNC'] = {num=nil,book=nil,page=nil},
@@ -36,7 +36,7 @@ job_user_settings = {
 	['NIN'] = {num=nil,book=1,page=1},
 	['PLD'] = {num=13,book=3,page=2},
 	['PUP'] = {num=nil,book=nil,page=nil},
-	['RDM'] = {num=nil,book=15,page=1},
+	['RDM'] = {num=9,book=15,page=1},
 	['RNG'] = {num=5,book=6,page=1},
 	['RUN'] = {num=nil,book=3,page=5},
 	['SAM'] = {num=14,book=4,page=1},
@@ -80,12 +80,16 @@ function define_global_sets()
 	gear.Herculean_Legs_MAB = { name="Herculean Trousers", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Weapon skill damage +1%','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
 	gear.Herculean_Feet_MAB = { name="Herculean Boots", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
 
-
 	-- Valourous
 	gear.Valorous_Head_WSD = { name="Valorous Mask", augments={'Accuracy+20','Weapon skill damage +4%','AGI+2','Attack+14',}}
 	gear.Valorous_Hands_WSD = { name="Valorous Mitts", augments={'Accuracy+6 Attack+6','Weapon skill damage +4%','STR+1','Accuracy+11',}}
 	gear.Valorous_Feet_WSD = { name="Valorous Greaves", augments={'Accuracy+18','Weapon skill damage +3%','Attack+10',}}
 	
+	-- Merlinic
+	gear.Merlinic_Head_MB = { name="Merlinic Hood", augments={'Mag. Acc.+12 "Mag.Atk.Bns."+12','Magic burst dmg.+8%','CHR+5','Mag. Acc.+7','"Mag.Atk.Bns."+15',}}
+	gear.Merlinic_Body_MB = { name="Merlinic Jubbah", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Magic burst dmg.+8%','MND+4','"Mag.Atk.Bns."+15',}}
+	gear.Merlinic_Legs_MB = { name="Merlinic Shalwar", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Magic burst dmg.+9%','CHR+5','Mag. Acc.+7','"Mag.Atk.Bns."+10',}}
+
 	-- TH2 Gear
 	gear.Herculean_Hands_TH = {}
 	gear.Herculean_Body_TH = { name="Herculean Vest", augments={'Weapon Skill Acc.+6','Sklchn.dmg.+2%','"Treasure Hunter"+2','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
@@ -98,7 +102,7 @@ function define_global_sets()
 	-- JSE -- 
 	
 	-- BRD 
-	gear.BRD_FC_Idle = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Occ. inc. resist. to stat. ailments+10',}}
+	gear.BRD_FC_Idle = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Phys. dmg. taken-10%',}}
 	gear.BRD_TP = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Damage taken-5%',}}
 	gear.BRD_DEX_WS = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
 	gear.BRD_CRIT_WS = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}}
@@ -110,6 +114,11 @@ function define_global_sets()
 	gear.MNK_Crit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
 	gear.MNK_STR_WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}}
 	gear.MNK_VIT_WS = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%',}}
+
+	-- RDM
+	gear.RDM_TP = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}}
+	gear.RDM_MACC = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}
+	gear.RDM_STR_WS = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
 
 	-- RNG
 	gear.RNG_TP_Melee = { name="Belenus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Damage taken-5%',}}
@@ -180,6 +189,7 @@ function global_on_load()
 	-- Extra Load's
 	send_command('lua l partybuffs') -- requires partybuffs.
 	send_command('lua l equipviewer') -- requires equipviewer.
+	send_command('lua l STFU') -- requires STFU
 	
 	handle_lockstyle()
 	set_macros()

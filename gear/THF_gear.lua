@@ -83,7 +83,20 @@ function init_gear_sets()
 
     sets.precast.WS['Evisceration'].Acc = set_combine(sets.precast.WS['Evisceration'], {})
 
-    sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, {
+		head={ name="Lustratio Cap +1", augments={'INT+35','STR+8','DEX+8',}},
+		body="Meg. Cuirie +2",
+		hands={ name="Lustr. Mittens +1", augments={'Accuracy+30','VIT+13','DEX+10',}},
+		legs={ name="Lustr. Subligar +1", augments={'Accuracy+20','DEX+8','Crit. hit rate+3%',}},
+		feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
+		neck="Caro Necklace",
+		waist="Grunfeld Rope",
+		left_ear="Sherida Earring",
+		right_ear="Ishvara Earring",
+		left_ring="Regal Ring",
+		right_ring="Ilabrat Ring",
+		back="Sacro Mantle",
+	})
 
     sets.precast.WS['Rudra\'s Storm'].Acc = set_combine(sets.precast.WS['Rudra\'s Storm'], {})
 
@@ -106,17 +119,18 @@ function init_gear_sets()
 	})
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-		head="Meghanada Visor +2",
+		head={ name="Lustratio Cap +1", augments={'INT+35','STR+8','DEX+8',}},
 		body="Meg. Cuirie +2",
-		hands="Meg. Gloves +2",
-		legs="Meg. Chausses +2",
-		feet="Meg. Jam. +2",
+		hands={ name="Lustr. Mittens +1", augments={'Accuracy+30','VIT+13','DEX+10',}},
+		legs={ name="Lustr. Subligar +1", augments={'Accuracy+20','DEX+8','Crit. hit rate+3%',}},
+		feet={ name="Lustra. Leggings +1", augments={'HP+65','STR+15','DEX+15',}},
 		neck="Caro Necklace",
 		waist="Grunfeld Rope",
 		left_ear="Sherida Earring",
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ring="Regal Ring",
 		right_ring="Rufescent Ring",
+		back="Sacro Mantle",
 	})
 	
     sets.midcast.FastRecast = sets.precast.FC
@@ -205,7 +219,11 @@ function init_gear_sets()
 	}
 	
 	sets.engaged.DT = set_combine(sets.engaged, {
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
 		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
 		neck="Loricate Torque +1",
 		right_ring="Defending Ring",
 	})
@@ -226,5 +244,6 @@ function init_gear_sets()
 	
 	sets.Normal = {main="Aeneas",sub="Ternion Dagger +1",range="Antitail +1"}
 	sets.Cleave = {main="Malevolence",sub="Malevolence",range="Antitail +1"}
+	sets.Sword = {main="Naegling",sub="Ternion Dagger +1", range="Antitail +1"}
 
 end

@@ -24,7 +24,9 @@ function user_setup()
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.CP = M(false, 'Capacity Points Mode')
 	
-	state.WeaponSet = M{['description']='Weapon Set','Verethragna','Godhands','Staff'}
+	state.WeaponSet = M{['description']='Weapon Set','Verethragna','Godhands','Staff',
+										'Proc_H2H','Proc_Club','Proc_Staff',
+	}
 	
 	Previous_Weapon = nil
 	
@@ -53,12 +55,11 @@ end
 function job_post_precast(spell, action, spellMap, eventArgs)
 	if spell.type == 'WeaponSkill' then
         if state.Buff.Impetus and (spell.english == "Ascetic's Fury" or spell.english == "Victory Smite") then
-            --equip(sets.Impetus)
 			equip(sets.VictorySmite_Impetus)
 		end
-        elseif state.Buff.Footwork and (spell.english == "Dragon's Kick" or spell.english == "Tornado Kick") then
+        elseif state.Buff['Footwork'] and (spell.english == "Dragon's Kick" or spell.english == "Tornado Kick") then
             equip(sets.Footwork)
-        end
+	end
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)

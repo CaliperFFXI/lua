@@ -357,5 +357,10 @@ function init_gear_sets()
 	-- sets.Karambit = {main="Karambit"}
 	sets.Verethragna = {main="Verethragna"}
 	sets.Staff = {main="Reikikon", sub="Flanged Grip"}
+	-- Abyssea Proc
+	sets.Proc_H2H = {main="Trainee Scissors"}
+	sets.Proc_Club = {main="Club Hammer"}
+	sets.Proc_Staff = {main="Caver's Shovel",sub="Flanged Grip"}
+	
 	
 end

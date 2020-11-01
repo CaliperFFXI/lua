@@ -19,16 +19,15 @@ function job_setup()
 	state.Buff.EnthunderII = buffactive['Enthunder II'] or false
 	state.Buff.Enwater = buffactive['Enwater'] or false
 	state.Buff.EnwaterII = buffactive['Enwater II'] or false
-    state.Buff.Saboteur = buffactive.Saboteur or false
+    state.Buff.Saboteur = buffactive['Saboteur'] or false
+	state.Buff.Silence = buffactive['Silence'] or false
 	
     include('Mote-TreasureHunter')
-	state.TreasureMode:set('Tag')
+	--state.TreasureMode:set('Tag')
 		
 	-- This var is used to store EnSpell Element for logic functions.
 	EnSpell_Element = nil
 	
-	gear.FC_MACC_Cape = {name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}
-
 end
 
 function user_setup()
@@ -40,17 +39,32 @@ function user_setup()
     state.IdleMode:options('Normal','Refresh')
 	
 	state.WeaponLock = M(false, 'Weapon Lock')	
-	state.WeaponSet = M{['description']='Weapon Set',}
 	state.CP = M(false, 'Capacity Points Mode')
     state.warned = M(false)
 	
 	state.DualWield = M(false, 'Dual Wield Mode')
 	state.RangeLock = M(false, 'Range Lock')
     state.MagicBurst = M(false, 'Magic Burst')
+	
+	state.WeaponSet = M{['description']='Weapon Set',
+		'Idle',
+		'SavageBlade',
+		'SeraphBlade',
+	}
 		
 	-- Low ninja tool threshhold
 	options.ninja_tool_warning_limit = 10
 	
+end
+
+function job_pretarget(spell, action, spellMap, eventArgs)
+    if spell.action_type == 'Magic' and buffactive.silence then -- Auto Use Echo Drops If You Are Silenced --
+		eventArgs.cancel = true 
+        send_command('input /item "Echo Drops" <me>')
+	end
+end
+
+function job_precast(spell, action, spellMap, eventArgs)	
 end
 
 -- Custom spell mapping.
@@ -65,39 +79,9 @@ function job_get_spell_map(spell, default_spell_map)
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
-	if spellMap == 'Utsusemi' then
-		do_ninja_tool_checks(spell, spellMap, eventArgs)
-		if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-			cancel_spell()
-			add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-			eventArgs.handled = true
-			return
-		elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-			send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-		end
-	end
 end
 		
 function job_post_precast(spell, action, spellMap, eventArgs)
-    -- Equip obi if weather/day matches for WS.
-    if spell.type == 'WeaponSkill' then
-        -- Replace TP-bonus gear if not needed.
-        if spell.english == 'Sanguine Blade' or spell.english == 'Aeolian Edge' and player.tp > 2900 then
-            equip(sets.FullTP)
-        end
-        if elemental_ws:contains(spell.name) then
-            -- Matching double weather (w/o day conflict).
-            if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-                equip(sets.Obi)
-            -- Matching day and weather.
-            elseif spell.element == world.day_element and spell.element == world.weather_element then
-                equip(sets.Obi)
-            -- Match day or weather.
-            elseif spell.element == world.day_element or spell.element == world.weather_element then
-                equip(sets.Obi)
-			end
-		end
-	end
 end
 
 function job_midcast(spell, action, spellMap, eventArgs)
@@ -116,21 +100,15 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 			equip(sets.buff.ComposureOther)
 		end
 	end	
-	--Elemental
-    if spell.skill == 'Elemental Magic' then
-        if (spell.element == world.day_element or spell.element == world.weather_element) then
-            equip(sets.Obi)
-        end
-    end
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
 end
 
 function job_update(cmdParams, eventArgs)
-	update_combat_weapon()
-	update_combat_form()
     handle_equipping_gear(player.status)
+	update_combat_form()
+	update_combat_weapon()
 end
 
 function update_combat_form()
@@ -180,7 +158,6 @@ function customize_defense_set(defenseSet)
     if state.CP.current == 'on' then
 	    idleSet = set_combine(idleSet, sets.CP)
     end
-	
     return defenseSet
 end
 
@@ -201,7 +178,9 @@ function customize_melee_set(meleeSet)
 	if state.CP.current == 'on' then
         meleeSet = set_combine(meleeSet, sets.CP)
     end
-	
+	if player.status == 'Engaged' then
+		meleeSet = set_combine(meleeSet, sets[state.WeaponSet.current])
+	end		
 	return meleeSet
 end
 
@@ -214,7 +193,9 @@ function customize_idle_set(idleSet)
 	if ( buffactive.doom or buffactive['Doom'] ) then
         idleSet = set_combine(idleSet, sets.buff.Doom)
     end
-	
+	if player.status == 'Idle' then
+		idleSet = set_combine(idleSet, sets[state.WeaponSet.current])
+	end			
     return idleSet
 end
 

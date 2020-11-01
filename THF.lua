@@ -16,7 +16,7 @@ function job_setup()
 
     include('Mote-TreasureHunter')
 	
-	state.WeaponSet = M{['description']='Weapon Set','Normal','Cleave'}
+	state.WeaponSet = M{['description']='Weapon Set','Normal','Sword','Cleave'}
 
 
     -- For th_action_check():

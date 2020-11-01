@@ -216,7 +216,7 @@ function init_gear_sets()
 	-- Sword
 	sets.precast.WS['Savage Blade'] = {
 		ammo="Hauksbok Arrow",
-		head="Meghanada Visor +2",
+		head="Orion beret +3",
 		body="Meg. Cuirie +2",
 		hands="Meg. Gloves +2",
 		legs={ name="Arc. Braccae +3", augments={'Enhances "Eagle Eye Shot" effect',}},
@@ -357,13 +357,13 @@ function init_gear_sets()
 		left_ear="Dedition Earring",
 		right_ear="Sherida Earring",
 		left_ring="Epona's Ring",
-		right_ring="Petrov Ring",
+		right_ring="Chirich Ring +1",
 		back=gear.RNG_TP_Melee,
 	}
 	sets.engaged.DualWield = set_combine(sets.engaged, {left_ear="Suppanomimi"})
 
 	--'Acc' Offense Mode
-    sets.engaged.Acc = set_combine(sets.engaged, {waist="Kentarch Belt +1"})
+    sets.engaged.Acc = set_combine(sets.engaged, {left_ring="Chirich Ring +1"})
 	sets.engaged.DualWield.Acc = set_combine(sets.engaged.Acc, {left_ear="Suppanomimi"})
 	
 	--'Hybrid' Modes
@@ -392,7 +392,6 @@ function init_gear_sets()
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.resting = {}
 	sets.Kiting = {legs="Carmine Cuisses +1"}    
-	sets.Obi = {waist="Hachirin-no-Obi"}
     sets.CP = {back="Mecisto. Mantle"}	
 	sets.TreasureHunter = {body=gear.Herculean_Body_TH,waist="Chaac Belt",feet="Volte Boots",}
 	

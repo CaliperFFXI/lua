@@ -26,7 +26,7 @@ function user_setup()
 	Placeholders = M{['description']='Dummy Song','Warding Round','Fowl Aubade','Herb Pastoral','Shining Fantasia','Scop\'s Operetta','Puppet\'s Operetta'}
 	Enfeeble_Song = M{['description']='Threnody','Finale','Elegy','Nocturne','Requiem','Lullaby'}
 
-	state.WeaponSet = M{['description']='Weapon Set','Dagger','Shield','Sword','DaggerMAB'}
+	state.WeaponSet = M{['description']='Weapon Set','Rudras','Evisceration','SavageBlade','DaggerMAB'}
 	
 	-- Instrument variables --
 	-- These placeholders can be modified with the name of the instrument to support RMEA options and otherwise.

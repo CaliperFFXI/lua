@@ -111,7 +111,7 @@ function init_gear_sets()
 	sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {
 		ammo="Pemphredo Tathlum",
 		head="C. Palug Crown",
-		body={ name="Chironic Doublet", augments={'Pet: INT+1','Pet: Phys. dmg. taken -2%','"Treasure Hunter"+1','Accuracy+16 Attack+16',}},
+		body="Bihu Jstcorps. +3",
 		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 		legs={ name="Lengo Pants", augments={'INT+10','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Refresh"+1',}},
 		feet={ name="Chironic Slippers", augments={'Accuracy+18 Attack+18','"Dbl.Atk."+2','MND+7','Accuracy+8','Attack+7',}},
@@ -119,9 +119,9 @@ function init_gear_sets()
 		waist="Eschan Stone",
 		left_ear="Regal Earring",
 		right_ear="Friomisi Earring",
-		left_ring="Arvina Ringlet +1",
-		right_ring="Ilabrat Ring",
-		back=BRD_DEX_WS,
+		left_ring="Ilabrat Ring",
+		right_ring="Arvina Ringlet +1",
+		back="Izdubar Mantle",
 	})
 	
 	--set for testing equipment swaps
@@ -136,6 +136,21 @@ function init_gear_sets()
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ring="Ilabrat Ring",
 		right_ring="Rufescent Ring",
+		back=gear.BRD_DEX_WS,
+	})
+	
+	sets.precast.WS['Circle Blade'] = set_combine(sets.precast.WS, {		
+		head="Bihu Roundlet +3",
+		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
+		hands="Bihu Cuffs +3",
+		legs="Bihu Cannions +3",
+		feet="Bihu Slippers +3",
+		neck="Combatant's Torque",
+		waist="Grunfeld Rope",
+		left_ear="Regal Earring",
+		right_ear="Brutal Earring",
+		left_ring="Ilabrat Ring",
+		right_ring="Begrudging Ring",
 		back=gear.BRD_DEX_WS,
 	})
     
@@ -205,9 +220,6 @@ function init_gear_sets()
 
     -- Curing and White Magic Spells
     sets.midcast.Cure = {
-		main="Chatoyant Staff",
-		sub="Mensch Strap +1",
-		ammo="Pemphredo Tathlum",
 		head={ name="Gende. Caubeen +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -3%',}},
 		body={ name="Gende. Bilaut +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -2%','Song spellcasting time -4%',}},
 		hands={ name="Gende. Gages +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -4%','Song spellcasting time -3%',}},
@@ -226,6 +238,8 @@ function init_gear_sets()
 	
 	-- Cure with Weather
 	sets.midcast.CureWeather = set_combine(sets.midcast.Cure,{
+		main="Chatoyant Staff",
+		sub="Mensch Strap +1",
 		waist="Hachirin-no-Obi"
 	})
 	
@@ -244,6 +258,7 @@ function init_gear_sets()
 	})
     
     sets.midcast['Enhancing Magic'] = {
+		main="Kali",
 		sub="Ammurapi Shield",
 		head=gear.Telchine_Head,
 		body=gear.Telchine_Body,
@@ -331,8 +346,8 @@ function init_gear_sets()
 	}
 	
     sets.defense.MDT = {
-		main="Daybreak",
-		sub="Genmei Shield",
+		-- main="Daybreak",
+		-- sub="Genmei Shield",
 		head="Inyanga Tiara +2",
 		body="Inyanga Jubbah +2",
 		hands="Inyan. Dastanas +2",
@@ -367,8 +382,8 @@ function init_gear_sets()
 		waist="Reiki Yotai",
 		left_ear="Suppanomimi",
 		right_ear="Dedition Earring",
-		left_ring="Ilabrat Ring",
-		right_ring="Petrov Ring",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
 		back=gear.BRD_TP,
 	}
 
@@ -378,7 +393,7 @@ function init_gear_sets()
 	})
 	
 	-- CombatForm DualWield
-	sets.engaged.DualWield = set_combine(sets.engaged,{left_ear="Suppanomimi",waist="Reiki Yotai"})
+	sets.engaged.DualWield = set_combine(sets.engaged,{left_ear="Eabani Earring",waist="Reiki Yotai"})
 	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield,{
 		neck="Lissome Necklace",
 		right_ear="Telos Earring",
@@ -401,10 +416,11 @@ function init_gear_sets()
     sets.CP = {back="Mecisto. Mantle"}
     sets.TreasureHunter = {body=gear.Chironic_Body_TH,waist="Chaac belt", feet="Volte Boots"}
 	
-	sets.Sword = {main="Naegling",sub="Ternion Dagger +1"}
-	sets.Dagger = {main="Aeneas",sub="Ternion Dagger +1"}
+	sets.SavageBlade = {main="Naegling",sub="Ternion Dagger +1"}
+	sets.Evisceration = {main="Tauret",sub="Ternion Dagger +1"}
+	sets.Rudras = {main="Aeneas",sub="Ternion Dagger +1"}
 	sets.DaggerMAB = {main="Aeneas",sub="Malevolence"}
-	sets.Shield = {sub="Genmei Shield"}
+	--sets.Shield = {sub="Genmei Shield"}
 
 	
 end
