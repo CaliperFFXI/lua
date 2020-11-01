@@ -11,7 +11,8 @@ The libs files see regular updates, so it is best to regularly check for updates
 List of features for all jobs...
 
 ### Handling of "Hachirin-no-Obi" / "Orpheus's Sash" for matching spells and weaponskills. 
-Location of Logic: Mote-Include.lua
+>Location of Logic: 
+>Mote-Include.lua
 function: handle_elemental_skills(spell,spellMap)
 - No additional sets definitions are required.
 - If conditions are met correctly, the items will equip appropriately.
