@@ -413,69 +413,67 @@ end
 
 -- General handler function to set all the elemental gear for an action.
 function set_elemental_gear(spell)
-    -- set_elemental_gorget_belt(spell)
-    -- set_elemental_obi_cape_ring(spell)
-    -- set_elemental_staff(spell)
+    set_elemental_gorget_belt(spell)
+    set_elemental_obi_cape_ring(spell)
+    set_elemental_staff(spell)
 end
 
 
--- -- Set the name field of the predefined gear vars for gorgets and belts, for the specified weaponskill.
--- function set_elemental_gorget_belt(spell)
-    -- if spell.type ~= 'WeaponSkill' then
-        -- return
-    -- end
+-- Set the name field of the predefined gear vars for gorgets and belts, for the specified weaponskill.
+function set_elemental_gorget_belt(spell)
+    if spell.type ~= 'WeaponSkill' then
+        return
+    end
 
-    -- -- Get the union of all the skillchain elements for the weaponskill
-    -- local weaponskill_elements = S{}:
-        -- union(skillchain_elements[spell.skillchain_a]):
-        -- union(skillchain_elements[spell.skillchain_b]):
-        -- union(skillchain_elements[spell.skillchain_c])
+    -- Get the union of all the skillchain elements for the weaponskill
+    local weaponskill_elements = S{}:
+        union(skillchain_elements[spell.skillchain_a]):
+        union(skillchain_elements[spell.skillchain_b]):
+        union(skillchain_elements[spell.skillchain_c])
     
-    -- gear.ElementalGorget.name = get_elemental_item_name("gorget", weaponskill_elements) or gear.default.weaponskill_neck  or ""
-    -- gear.ElementalBelt.name   = get_elemental_item_name("belt", weaponskill_elements)   or gear.default.weaponskill_waist or ""
--- end
+    gear.ElementalGorget.name = get_elemental_item_name("gorget", weaponskill_elements) or gear.default.weaponskill_neck  or ""
+    gear.ElementalBelt.name   = get_elemental_item_name("belt", weaponskill_elements)   or gear.default.weaponskill_waist or ""
+end
 
 
--- -- Function to get an appropriate obi/cape/ring for the current action.
--- function set_elemental_obi_cape_ring(spell)
-	-- -- If spell has an associated element, continue
-    -- if spell.element == 'None' then
-        -- return
-    -- end
-    -- -- storage of world weather value
-    -- local world_elements = S{world.day_element}
-    -- if world.weather_element ~= 'None' then
-        -- world_elements:add(world.weather_element)
-    -- end
-
-	
-    -- local obi_name = get_elemental_item_name("obi", S{spell.element}, world_elements)
-    -- gear.ElementalObi.name = obi_name or gear.default.obi_waist  or ""
+-- Function to get an appropriate obi/cape/ring for the current action.
+function set_elemental_obi_cape_ring(spell)
+    if spell.element == 'None' then
+        return
+    end
     
-    -- if obi_name then
-        -- if player.inventory['Twilight Cape'] or player.wardrobe['Twilight Cape'] or player.wardrobe2['Twilight Cape'] or player.wardrobe3['Twilight Cape'] or player.wardrobe4['Twilight Cape'] then
-            -- gear.ElementalCape.name = "Twilight Cape"
-        -- end
-        -- if (player.inventory['Zodiac Ring'] or player.wardrobe['Zodiac Ring'] or player.wardrobe2['Zodiac Ring'] or player.wardrobe3['Zodiac Ring'] or player.wardrobe4['Zodiac Ring']) and spell.english ~= 'Impact' and
-            -- not S{'Divine Magic','Dark Magic','Healing Magic'}:contains(spell.skill) then
-            -- gear.ElementalRing.name = "Zodiac Ring"
-        -- end
-    -- else
-        -- gear.ElementalCape.name = gear.default.obi_back
-        -- gear.ElementalRing.name = gear.default.obi_ring
-    -- end
--- end
+    local world_elements = S{world.day_element}
+    if world.weather_element ~= 'None' then
+        world_elements:add(world.weather_element)
+    end
+
+    local obi_name = get_elemental_item_name("obi", S{spell.element}, world_elements)
+    gear.ElementalObi.name = obi_name or gear.default.obi_waist  or ""
+    
+    if obi_name then
+        if player.inventory['Twilight Cape'] or player.wardrobe['Twilight Cape'] or player.wardrobe2['Twilight Cape'] or player.wardrobe3['Twilight Cape'] or player.wardrobe4['Twilight Cape'] then
+            gear.ElementalCape.name = "Twilight Cape"
+        end
+        if (player.inventory['Zodiac Ring'] or player.wardrobe['Zodiac Ring'] or player.wardrobe2['Zodiac Ring'] or player.wardrobe3['Zodiac Ring'] or player.wardrobe4['Zodiac Ring']) and spell.english ~= 'Impact' and
+            not S{'Divine Magic','Dark Magic','Healing Magic'}:contains(spell.skill) then
+            gear.ElementalRing.name = "Zodiac Ring"
+        end
+    else
+        gear.ElementalCape.name = gear.default.obi_back
+        gear.ElementalRing.name = gear.default.obi_ring
+    end
+end
 
 
--- -- Function to get the appropriate fast cast and/or recast staves for the current spell.
--- function set_elemental_staff(spell)
-    -- if spell.action_type ~= 'Magic' then
-        -- return
-    -- end
+-- Function to get the appropriate fast cast and/or recast staves for the current spell.
+function set_elemental_staff(spell)
+    if spell.action_type ~= 'Magic' then
+        return
+    end
 
-    -- gear.FastcastStaff.name = get_elemental_item_name("fastcast_staff", S{spell.element}) or gear.default.fastcast_staff  or ""
-    -- gear.RecastStaff.name   = get_elemental_item_name("recast_staff", S{spell.element})   or gear.default.recast_staff    or ""
--- end
+    gear.FastcastStaff.name = get_elemental_item_name("fastcast_staff", S{spell.element}) or gear.default.fastcast_staff  or ""
+    gear.RecastStaff.name   = get_elemental_item_name("recast_staff", S{spell.element})   or gear.default.recast_staff    or ""
+end
 
 
 -- Gets the name of an elementally-aligned piece of gear within the player's
@@ -495,14 +493,14 @@ end
 -- or the gear isn't in the player inventory), or the name of the piece of
 -- gear that matches the query.
 function get_elemental_item_name(item_type, valid_elements, restricted_to_elements)
-    -- local potential_elements = restricted_to_elements or elements.list
-    -- local item_map = elements[item_type:lower()..'_of']
+    local potential_elements = restricted_to_elements or elements.list
+    local item_map = elements[item_type:lower()..'_of']
     
-    -- for element in (potential_elements.it or it)(potential_elements) do
-        -- if valid_elements:contains(element) and (player.inventory[item_map[element]] or player.wardrobe[item_map[element]] or player.wardrobe2[item_map[element]]) then
-            -- return item_map[element]
-        -- end
-    -- end
+    for element in (potential_elements.it or it)(potential_elements) do
+        if valid_elements:contains(element) and (player.inventory[item_map[element]] or player.wardrobe[item_map[element]] or player.wardrobe2[item_map[element]]) then
+            return item_map[element]
+        end
+    end
 end
 
 
@@ -529,7 +527,7 @@ function set_macro_page(set,book)
             add_to_chat(123,'Error setting macro page: Macro book ('..tostring(book)..') must be between 1 and 20.')
             return
         end
-        send_command('@input /macro book '..tostring(book)..';wait .1;input /macro set '..tostring(set))
+        send_command('@input /macro book '..tostring(book)..';wait 1.1;input /macro set '..tostring(set))
     else
         send_command('@input /macro set '..tostring(set))
     end
@@ -714,4 +712,14 @@ function handle_ninjitsu(spell, spellMap)
     elseif available_ninja_tools.count > options.ninja_tool_warning_limit and state.warned then
         state.warned:reset()
     end
+end
+
+-- Utility function to determine if DualWield will be given by the subjob.
+-- This function runs on intial load, and allows for nuanced engaged and weapon sets.
+function get_combat_form()
+	if player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
+		state.CombatForm:set('DualWield')
+	else
+		state.CombatForm:reset()
+	end
 end

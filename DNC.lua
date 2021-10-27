@@ -67,8 +67,6 @@ function job_setup()
 	state.WeaponSet = M{['description']='Weapon Set','Twashtar','TpBonus'}
 	elemental_ws = S{'Aeolian Edge'}
 	
-	include('organizer-lib')
-    include('Mote-TreasureHunter')
 	state.TreasureMode:set('Tag')
 
 end
@@ -121,17 +119,6 @@ function job_pretarget(spell, action, spellMap, eventArgs)
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
-	-- Shdow Check (requires cancel.lua)
-    if spellMap == 'Utsusemi' then
-        if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-            cancel_spell()
-            add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-            eventArgs.handled = true
-            return
-        elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-            send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-        end
-    end
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
@@ -143,20 +130,6 @@ function job_post_precast(spell, action, spellMap, eventArgs)
     if spell.type=='Waltz' and spell.english:startswith('Curing') and spell.target.type == 'SELF' then
         equip(sets.precast.WaltzSelf)
     end
-	-- Obi Check for Weaponskills
-	if spell.type == 'WeaponSkill' then
-		if elemental_ws:contains(spell.english) then
-			if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-				equip(sets.Obi)
-			-- Matching day and weather.
-			elseif spell.element == world.day_element and spell.element == world.weather_element then
-				equip(sets.Obi)
-			-- Match day or weather.
-			elseif spell.element == world.day_element or spell.element == world.weather_element then
-				equip(sets.Obi)			
-			end
-		end
-	end
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
@@ -164,23 +137,10 @@ function job_aftercast(spell, action, spellMap, eventArgs)
 end
 
 function job_handle_equipping_gear(playerStatus, eventArgs)
-    -- check_gear()
-    -- determine_haste_group()
-    -- check_moving()
 end
 
 function job_update(cmdParams, eventArgs)
-	update_combat_weapon()
-	update_combat_form()
     handle_equipping_gear(player.status)
-end
-
-function update_combat_form()
-    -- if DW == true then
-        -- state.CombatForm:set('DW')
-    -- elseif DW == false then
-        -- state.CombatForm:reset()
-    -- end
 end
 
 function get_custom_wsmode(spell, spellMap, defaut_wsmode)
@@ -237,57 +197,6 @@ function job_buff_change(buff,gain)
     end
 end
 
-function update_combat_weapon()
-	state.CombatWeapon:set(state.WeaponSet.current)
-	equip(sets[state.WeaponSet.current])
-end
-
-function do_ninja_tool_checks(spell, spellMap, eventArgs)
-    local ninja_tool_name
-    local ninja_tool_min_count = 1
-
-    -- Checks: sneak/invis and shadows.
-    if spell.skill == "Ninjutsu" then
-        if spellMap == 'Utsusemi' then
-            ninja_tool_name = "Shihei"
-        elseif spellMap == 'Monomi' then
-            ninja_tool_name = "Sanjaku-Tenugui"
-        elseif spellMap == 'Tonko' then
-            ninja_tool_name = "Shinobi-Tabi"
-        else
-            return
-        end
-    end
-
-    local available_ninja_tools = player.inventory[ninja_tool_name]
-
-    -- If no tools are available, end.
-    if not available_ninja_tools then
-        if spell.skill == "Ninjutsu" then
-            return
-        end
-    end
-
-    -- Low ninja tools warning.
-    if spell.skill == "Ninjutsu" and state.warned.value == false
-        and available_ninja_tools.count > 1 and available_ninja_tools.count <= options.ninja_tool_warning_limit then
-        local msg = '*****  LOW TOOLS WARNING: '..ninja_tool_name..' *****'
-        --local border = string.repeat("*", #msg)
-        local border = ""
-        for i = 1, #msg do
-            border = border .. "*"
-        end
-
-        add_to_chat(104, border)
-        add_to_chat(104, msg)
-        add_to_chat(104, border)
-
-        state.warned:set()
-    elseif available_ninja_tools.count > options.ninja_tool_warning_limit and state.warned then
-        state.warned:reset()
-    end
-end
-
 -- Handle auto-targetting based on local setup.
 function job_auto_change_target(spell, action, spellMap, eventArgs)
     if spell.type == 'Step' then
@@ -316,68 +225,4 @@ function job_self_command(cmdParams, eventArgs)
 
         send_command('@input /ja "'..doStep..'" <t>')
     end
-
-    -- gearinfo(cmdParams, eventArgs)
 end
-
-
--- Requires: Gearinfo.lua
--- function determine_haste_group()
-    -- classes.CustomMeleeGroups:clear()
-    -- if DW == true then
-        -- if DW_needed <= 1 then
-            -- classes.CustomMeleeGroups:append('MaxHaste')
-        -- elseif DW_needed > 1 and DW_needed <= 9 then
-            -- classes.CustomMeleeGroups:append('HighHaste')
-        -- elseif DW_needed > 9 and DW_needed <= 21 then
-            -- classes.CustomMeleeGroups:append('MidHaste')
-        -- elseif DW_needed > 21 and DW_needed <= 39 then
-            -- classes.CustomMeleeGroups:append('LowHaste')
-        -- elseif DW_needed > 39 then
-            -- classes.CustomMeleeGroups:append('')
-        -- end
-    -- end
--- end
--- Requires: Gearinfo.lua
--- function gearinfo(cmdParams, eventArgs)
-    -- if cmdParams[1] == 'gearinfo' then
-        -- if type(tonumber(cmdParams[2])) == 'number' then
-            -- if tonumber(cmdParams[2]) ~= DW_needed then
-            -- DW_needed = tonumber(cmdParams[2])
-            -- DW = true
-            -- end
-        -- elseif type(cmdParams[2]) == 'string' then
-            -- if cmdParams[2] == 'false' then
-                -- DW_needed = 0
-                -- DW = false
-            -- end
-        -- end
-        -- if type(tonumber(cmdParams[3])) == 'number' then
-            -- if tonumber(cmdParams[3]) ~= Haste then
-                -- Haste = tonumber(cmdParams[3])
-            -- end
-        -- end
-        -- if type(cmdParams[4]) == 'string' then
-            -- if cmdParams[4] == 'true' then
-                -- moving = true
-            -- elseif cmdParams[4] == 'false' then
-                -- moving = false
-            -- end
-        -- end
-        -- if not midaction() then
-            -- job_update()
-        -- end
-    -- end
--- end
--- Requires: Gearinfo.lua
--- function check_moving()
-    -- if state.DefenseMode.value == 'None'  and state.Kiting.value == false then
-        -- if state.Auto_Kite.value == false and moving then
-            -- state.Auto_Kite:set(true)
-        -- elseif state.Auto_Kite.value == true and moving == false then
-            -- state.Auto_Kite:set(false)
-        -- end
-    -- end
--- end
-
-

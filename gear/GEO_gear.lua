@@ -14,10 +14,8 @@ function init_gear_sets()
     -- Fast cast sets for spells
     sets.precast.FC = {
 		main="C. Palug Hammer",
-		sub="Chanter's Shield",
 		range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
 		head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
-		body="Shango Robe",
 		hands=gear.Telchine_Hands,
 		legs=gear.Telchine_Legs,
 		feet="Regal Pumps +1",
@@ -53,20 +51,20 @@ function init_gear_sets()
     sets.midcast.FastRecast = sets.precast.FC 
 
 	sets.midcast.Geomancy = {  
-		main={ name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
+		--main={ name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
 		sub="Genmei Shield",
 		range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
 		head="Azimuth Hood +1",
 		body="Azimuth Coat +1",
 		hands="Geo. Mitaines +1",
 		legs={ name="Lengo Pants", augments={'INT+10','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Refresh"+1',}},
-		feet={ name="Medium's Sabots", augments={'MP+25','"Conserve MP"+5',}},
+		feet="Herald's Gaiters",
 		neck="Loricate Torque +1",
 		waist="Luminary Sash",
 		left_ear="Mendi. Earring",
 		right_ear="Genmei Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		left_ring="Stikini Ring",
+		right_ring="Stikini Ring",
 		back="Solemnity Cape",
 	}
 
@@ -99,15 +97,6 @@ function init_gear_sets()
 	})
 
     sets.midcast['Enhancing Magic'] = {
-		head="Befouled Crown",
-		feet="Regal Pumps +1",
-		waist="Olympus Sash",
-		left_ear="Andoaa Earring",
-		back="Fi Follet Cape +1",
-		neck="Incanter's Torque",
-	}
-
-    sets.midcast.EnhancingDuration = {
 		sub="Ammurapi shield",
 		head=gear.Telchine_Head,
 		body=gear.Telchine_Body,
@@ -117,19 +106,7 @@ function init_gear_sets()
 		waist="Embla Sash",
 	}
 
-    sets.midcast.Regen = set_combine(sets.midcast.EnhancingDuration, {})
-	sets.midcast.Flurry = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Refresh = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Stoneskin = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Aquaveil = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Protect = set_combine(sets.midcast.EnhancingDuration, {})
-	sets.midcast.Phalanx = set_combine(sets.midcast.EnhancingDuration, {})
-    sets.midcast.Protectra = sets.midcast.Protect
-    sets.midcast.Shell = sets.midcast.Protect
-    sets.midcast.Shellra = sets.midcast.Protect
-
-
-    sets.midcast.MndEnfeebles = {
+    sets.midcast.Enfeeble = {
 		main="Daybreak",
 		sub="Ammurapi Shield",
 		range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
@@ -146,8 +123,6 @@ function init_gear_sets()
 		right_ring="Kishar Ring",
 		back="Aurist's Cape +1",
 	} -- MND/Magic accuracy
-
-    sets.midcast.IntEnfeebles = set_combine(sets.midcast.MndEnfeebles, {}) -- INT/Magic accuracy
 
     sets.midcast['Dark Magic'] = {
 		main="Daybreak",
@@ -190,11 +165,7 @@ function init_gear_sets()
 		back="Aurist's Cape +1",
 	}
 
-    sets.midcast['Elemental Magic'].Resistant = set_combine(sets.midcast['Elemental Magic'], {})
-
     sets.midcast.GeoElem = set_combine(sets.midcast['Elemental Magic'], {})
-
-    sets.midcast['Elemental Magic'].Seidr = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
 
     sets.midcast.GeoElem.Seidr = set_combine(sets.midcast['Elemental Magic'].Seidr, {})
 
@@ -205,13 +176,13 @@ function init_gear_sets()
 
 	-- Idle Sets
     sets.idle = {
-		main={ name="Solstice", augments={'Mag. Acc.+20','Pet: Damage taken -4%','"Fast Cast"+5',}},
+		main="Daybreak",
 		sub="Genmei Shield",
 		range={ name="Dunna", augments={'MP+20','Mag. Acc.+10','"Fast Cast"+3',}},
 		head="Azimuth Hood +1",
-		body="Azimuth Coat +1",
+		body="Mallquis Saio +2",
 		hands="Geo. Mitaines +1",
-		legs={ name="Lengo Pants", augments={'INT+10','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Refresh"+1',}},
+		legs="Lengo Pants",
 		feet="Volte Boots",
 		neck="Loricate Torque +1",
 		waist="Carrier's Sash",
@@ -228,16 +199,11 @@ function init_gear_sets()
 
     -- .Pet sets are for when Luopan is present.
 	sets.idle.Pet = set_combine(sets.idle, {   
-		head="Azimuth Hood +1",
-		body="Azimuth Coat +1",
-		hands="Geo. Mitaines +1",
-		legs="Lengo Pants",
 		feet="Bagua Sandals +1",
-		neck="Loricate Torque +1",
 		waist="Isa Belt",
 		left_ear="Handler's Earring +1",
 		right_ear="Handler's Earring",
-		back=gear.LifeStreamCape,
+		back="Lifestream Cape",
 	})
 
     sets.idle.Refresh.Pet = set_combine(sets.idle.Pet, {body="Jhakri Robe +2"})

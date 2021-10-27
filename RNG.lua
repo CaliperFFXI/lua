@@ -11,13 +11,8 @@ function job_setup()
     state.Buff.Barrage = buffactive.Barrage or false
     state.Buff.Camouflage = buffactive.Camouflage or false
     state.Buff['Unlimited Shot'] = buffactive['Unlimited Shot'] or false
-    state.Buff['Velocity Shot'] = buffactive['Velocity Shot'] or false
+    state.Buff['Velocity Shot'] = buffactive.velocityshot or false
     state.Buff['Double Shot'] = buffactive['Double Shot'] or false
-
-	state.DualWield = M(false, 'Dual Wield Mode')
-	state.WeaponLock = M(false, 'Weapon Lock')	
-	state.CP = M(false, 'Capacity Points Mode')
-    state.warned = M(false)
 	
 	state.WeaponSet = M{['description']='Weapon Set',
 		'Gastraphetes',
@@ -31,27 +26,23 @@ function job_setup()
 	}
 	classes.rangedSkill = ranged_weapons
 	
-	-- Variable for tracking trueshot distance (requires distanceplus addon)
+	-- Variables for tracking trueshot distance (requires distanceplus addon)
 	dpsetting = nil
 	-- Variable for tracking flurry buff
 	flurry = nil
 
-    include('Mote-TreasureHunter')
-
 end
 
--- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.HybridMode:options('Normal', 'DT')
     state.RangedMode:options('Normal', 'Acc')
     state.WeaponskillMode:options('Normal', 'Acc', 'FullTP')
     state.IdleMode:options('Normal','Regen')
-	
+		
+	-- Threshold by which to warn player for low ammunition or nin tools.	
     options.ammo_warning_limit = 10
 	options.ninja_tool_warning_limit = 10
-	
-	job_update()
 	
 end
 
@@ -70,7 +61,7 @@ function job_precast(spell, action, spellMap, eventArgs)
 			if player.tp >= 2000 then 
 				state.WeaponskillMode:set('FullTP')
 			end
-		elseif player.equipment.range == "Fomalhaut" then
+		elseif aeonic_weapons:contains(player.equipment.range) then
 			if player.tp >= 2500 then 
 				state.WeaponskillMode:set('FullTP')
 			end
@@ -80,7 +71,6 @@ function job_precast(spell, action, spellMap, eventArgs)
 	end
 	if spell.type == 'WeaponSkill' or spell.action_type == 'Ranged Attack' then
 			handle_ammo(spell, action, spellMap, eventArgs)	
-			set_trueShot_range()
 		if spell.name ~= "Savage Blade"  or spell.name~= "Decimation" then
 			if player.equipment.ammo == "Hauksbok Arrow" then
 				add_to_chat(123, 'Cancelled action: "'..player.equipment.ammo..'" was equipped!')
@@ -114,6 +104,7 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 		elseif flurry == 1 then
 			classes.CustomRangedGroups:append('Flurry1')
 		end
+	end
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
@@ -185,7 +176,18 @@ function job_buff_change(buff,gain)
 	end
 end
 
+function job_status_change(newStatus, oldStatus, eventArgs)
+	if newStatus == 'Engaged' then
+            --add_to_chat(123, 'detected engaged')
+		if state.Buff['Velocity Shot'] then
+			send_command('cancel Velocity Shot')
+            add_to_chat(123, 'Velocity Shot cancelled due to status (Engaged)')
+		end
+	end
+end
+
 function job_state_change(descrip, newVal, oldVal)
+	dpsetting = nil
 	if state.WeaponLock.value == true then
         disable('main','sub','range')
 	else
@@ -194,27 +196,14 @@ function job_state_change(descrip, newVal, oldVal)
 end
 
 function job_update(cmdParams, eventArgs)
-	update_combat_weapon()
-	update_combat_form()
+    handle_equipping_gear(player.status)
 end
 
-function update_combat_form()
-	if player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
-		state.DualWield:set(true)
-		state.CombatForm:set('DualWield')
-	else
-		state.DualWield:set(false)
-		state.CombatForm:reset()
-	end
-end
+-- function job_get_weapon_set(weaponSet)
+	-- return weaponSet
+-- end
 
-function update_combat_weapon()
-	state.CombatWeapon:set(state.WeaponSet.current)
-	equip(sets[state.WeaponSet.current])
-	dpsetting = nil -- reset distanceplus for new weapon
-end
-
---Read incoming packet to differentiate between Haste/Flurry I and II
+-- Read incoming packet to differentiate between Haste/Flurry I and II
 windower.register_event('action',
     function(act)
         --check if you are a target of spell
@@ -240,7 +229,7 @@ windower.register_event('action',
         end
     end)
 
--- checks ammunition stock
+-- checks ammunition stock and warns if low.
 function check_ammo_stock(spell, spellMap, eventArgs)
 	local stock
 	local stock_min_count = 1
@@ -273,6 +262,9 @@ function check_ammo_stock(spell, spellMap, eventArgs)
     end
 end
 
+-- equips the correct ammo for a given ranged action.
+-- Assigns distancePlus trueshot range
+
 function handle_ammo(spell, action, spellMap, eventArgs)
 	--add_to_chat(123, 'entered function handle_ammo()') 
 	skill = classes.rangedSkill[player.equipment.range]
@@ -296,11 +288,9 @@ function handle_ammo(spell, action, spellMap, eventArgs)
 		else -- ranged attack
 			equip({ammo="Artemis's Arrow"})
 		end
-	end		
-end
-
--- BETA
-function set_trueShot_range()
+	end
+	
+	-- dpsetting must be reset by job_state_change()
 	if not dpsetting then
 		-- Requires distancePlus
 		if skill == 'Marksmanship' and player.equipment.range == "Gastraphetes" then
@@ -308,14 +298,16 @@ function set_trueShot_range()
 		else
 			dpsetting = 'gun'
 		end
+		
 		if skill == 'Archery' then
 			dpsetting = 'Bow'
 		end
-		
+
 		if dpsetting then
 			send_command('dp '..dpsetting..'')
 		end
-	end
+	end	
 end
+
 
 

@@ -14,7 +14,6 @@ function job_setup()
     state.Buff.Innin = buffactive.Innin or false
     state.Buff.Futae = buffactive.Futae or false
 
-    include('Mote-TreasureHunter')
 	state.TreasureMode:set('Tag')
 	
     -- For th_action_check():
@@ -44,9 +43,6 @@ function user_setup()
 	state.WeaponSet = M{['description']='Weapon Set','Normal','Cleave','Dagger','Sword','GreatSword','Scythe','Polearm',
 										'Katana','GreatKatana','Club','Staff'}
 	
-	state.WeaponLock = M(false, 'Weapon Lock')	
-	state.CP = M(false, 'Capacity Points Mode')
-
     state.Night = M(false, "Dusk to Dawn")
     options.ninja_tool_warning_limit = 10
 
@@ -55,7 +51,6 @@ function user_setup()
     
 	select_movement_feet()
 	
-	gear.DEXcape = { name="Andartia's Mantle", augments={'DEX+18','Accuracy+20 Attack+20','DEX+2','"Dbl.Atk."+10',}}
 
 end
 
@@ -65,28 +60,10 @@ end
 -------------------------------------------------------------------------------------------------------------------
 
 function job_precast(spell, action, spellMap, eventArgs)	
-   if spell.skill == "Ninjutsu" then
-        do_ninja_tool_checks(spell, spellMap, eventArgs)
-    end
-    if spellMap == 'Utsusemi' then
-        if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-            cancel_spell()
-            add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-            eventArgs.handled = true
-            return
-        elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-            send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-        end
-    end
 	if spell.type == 'WeaponSkill' then
-		if spell.skill == 'Marksmanship' or spell.skill == 'Archery' then
-			if spell.target.distance > 22 then
-				eventArgs.cancel = true 
-				add_to_chat(123, 'Action Cancelled: Too far from target!')
-			end
-		elseif spell.target.distance > 6 then
-				eventArgs.cancel = true 
-				add_to_chat(123, 'Action Cancelled: Too far from target!')
+		if spell.target.distance > 6 then
+			eventArgs.cancel = true 
+			add_to_chat(123, 'Action Cancelled: Too far from target!')
 		end
 	end	
 end
@@ -112,9 +89,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
         if state.MagicBurst.value then
             equip(sets.magic_burst)
         end
-        if (spell.element == world.day_element or spell.element == world.weather_element) then
-            equip(sets.Obi)
-        end
         if state.Buff.Futae then
             equip(sets.precast.JA['Futae'])
         end
@@ -130,29 +104,6 @@ end
 
 function job_update(cmdParams, eventArgs)
     handle_equipping_gear(player.status)
-    th_update(cmdParams, eventArgs)
-    update_combat_weapon()
-end
-
-function update_combat_form()
---[[	if player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
-		state.DualWield:set(true)
-		state.CombatForm:set('DualWield')
-	else
-		state.DualWield:set(false)
-		state.CombatForm:reset()
-	end]]
-end
-
-function update_combat_weapon()
-	if state.WeaponSet.has_value then
-		equip(sets[state.WeaponSet.current])
-		state.CombatWeapon:set(state.WeaponSet.current)
-	end
-		local weapon = state.WeaponSet.current
-	if abyssea_procs[weapon] then
-		display_proc_info(weapon)
-	end
 end
 
 function customize_defense_set(defenseSet) 

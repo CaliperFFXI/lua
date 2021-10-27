@@ -157,17 +157,17 @@ function init_gear_sets()
     sets.resting = {}
 
     sets.idle = {
-	    head="Malignance Chapeau",
+		head="Malignance Chapeau",
 		body="Malignance Tabard",
 		hands="Malignance Gloves",
 		legs="Malignance Tights",
 		feet="Pillager's Poulaines",
 		neck="Loricate Torque +1",
 		waist="Flume Belt +1",
-		left_ear="Genmei Earring",
-		right_ear="Infused Earring",
+		left_ear="Eabani Earring",
+		right_ear="Tuisto Earring",
 		left_ring="Defending Ring",
-		right_ring="Warden's Ring",
+		right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
 		back="Reiki Cloak",
 	}
 
@@ -192,8 +192,11 @@ function init_gear_sets()
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
 		legs="Malignance Tights",
+		feet="Malignance Boots",
 		neck="Loricate Torque +1",
 		left_ring="Defending Ring",
+		neck="Warder's Charm +1",
+		waist="Carrier's Sash",
 	}
 	
     sets.defense.MDT = {}
@@ -242,8 +245,12 @@ function init_gear_sets()
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.TreasureHunter = {hands="Plunderer's Armlets +1", feet="Skulk. Poulaines +1",}
 	
-	sets.Normal = {main="Aeneas",sub="Ternion Dagger +1",range="Antitail +1"}
-	sets.Cleave = {main="Malevolence",sub="Malevolence",range="Antitail +1"}
-	sets.Sword = {main="Naegling",sub="Ternion Dagger +1", range="Antitail +1"}
-
+	sets.weapons.Normal = {main="Aeneas",sub="Ternion Dagger +1",range="Antitail +1"}
+	sets.weapons.DualWield.Normal = set_combine(sets.weapons.Normal, {})
+	
+	sets.weapons.Cleave = {main="Malevolence",sub="Malevolence",range="Antitail +1"}
+	sets.weapons.DualWield.Cleave = set_combine(sets.weapons.Cleave, {})
+	
+	sets.weapons.Sword = {main="Naegling",sub="Ternion Dagger +1", range="Antitail +1"}
+	sets.weapons.DualWield.Sword = set_combine(sets.weapons.Sword, {})
 end

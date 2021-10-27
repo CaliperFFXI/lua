@@ -25,7 +25,7 @@ job_user_settings = {
 	-- page = macro page
 	['BLU'] = {num=4,book=14,page=1},
 	['BLM'] = {num=nil,book=nil,page=nil},
-	['BRD'] = {num=19,book=16,page=1},
+	['BRD'] = {num=7,book=16,page=1},
 	['BST'] = {num=nil,book=nil,page=nil},
 	['COR'] = {num=nil,book=6,page=9},
 	['DNC'] = {num=nil,book=nil,page=nil},
@@ -79,12 +79,17 @@ function define_global_sets()
 	gear.Herculean_Head_MAB = { name="Herculean Helm", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Weapon skill damage +1%','INT+9','Mag. Acc.+12','"Mag.Atk.Bns."+10',}}
 	gear.Herculean_Legs_MAB = { name="Herculean Trousers", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Weapon skill damage +1%','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
 	gear.Herculean_Feet_MAB = { name="Herculean Boots", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
+	-- Herc WS
+	gear.Herculean_Body_WS = { name="Herculean Vest", augments={'Accuracy+29','Weapon skill damage +4%',}}
+	gear.Herculean_Feet_WS = { name="Herculean Boots", augments={'Accuracy+25','Weapon skill damage +4%','STR+6',}}
+
 
 	-- Valourous
 	gear.Valorous_Head_WSD = { name="Valorous Mask", augments={'Accuracy+20','Weapon skill damage +4%','AGI+2','Attack+14',}}
 	gear.Valorous_Hands_WSD = { name="Valorous Mitts", augments={'Accuracy+6 Attack+6','Weapon skill damage +4%','STR+1','Accuracy+11',}}
 	gear.Valorous_Feet_WSD = { name="Valorous Greaves", augments={'Accuracy+18','Weapon skill damage +3%','Attack+10',}}
-	
+	gear.Valorous_Legs_TH = { name="Valorous Hose", augments={'Attack+20','Chance of successful block +3','"Treasure Hunter"+2','Accuracy+2 Attack+2','Mag. Acc.+9 "Mag.Atk.Bns."+9',}}
+
 	-- Merlinic
 	gear.Merlinic_Head_MB = { name="Merlinic Hood", augments={'Mag. Acc.+12 "Mag.Atk.Bns."+12','Magic burst dmg.+8%','CHR+5','Mag. Acc.+7','"Mag.Atk.Bns."+15',}}
 	gear.Merlinic_Body_MB = { name="Merlinic Jubbah", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Magic burst dmg.+8%','MND+4','"Mag.Atk.Bns."+15',}}
@@ -140,10 +145,13 @@ function define_global_sets()
 	gear.BPdelayCape = {name="Conveyance Cape", augments={'Summoning magic skill +1','Blood Pact Dmg.+1','Blood Pact ab. del. II -3',}}
 	gear.MagMerlinic = {name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+20 Pet: "Mag.Atk.Bns."+20','Blood Pact Dmg.+10','Pet: STR+6','Pet: Mag. Acc.+15',}}
 
-	-- Ambuscade Capes
-	gear.PLD_Cure_SIRD = {name="Rudianos's Mantle", augments={'VIT+20','"Cure" potency +10%','Spell interruption rate down-10%',}}		
-	gear.PLD_FC_PDT = {name="Rudianos's Mantle", augments={'VIT+20','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','"Fast Cast"+10','Phys. dmg. taken-10%',}}
-	gear.PLD_TP= { name="Rudianos's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
+	-- PLD 
+	gear.PLD_Cure_SIRD = { name="Rudianos's Mantle", augments={'HP+60','HP+20','"Cure" potency +10%','Spell interruption rate down-10%',}}		
+	gear.PLD_FC_PDT = { name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Phys. dmg. taken-10%',}}
+	gear.PLD_TP = { name="Rudianos's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
+	gear.PLD_TP_DA = { name="Rudianos's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
+	gear.PLD_Idle_Enmity = { name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Chance of successful block +5',}}
+
 
 end
 
@@ -156,6 +164,7 @@ function global_on_load()
 	send_command('bind !t gs c cycle treasuremode')
 	send_command('bind !q gs c cycle OffenseMode')
     send_command('bind !` gs c toggle MagicBurst')
+	send_command('bind !z gs c cycle CastingMode')
 	
 	send_command('bind @q gs c reset WeaponSet')
 	send_command('bind @e gs c cycle WeaponSet')
@@ -190,12 +199,11 @@ function global_on_load()
 	send_command('lua l partybuffs') -- requires partybuffs.
 	send_command('lua l equipviewer') -- requires equipviewer.
 	send_command('lua l STFU') -- requires STFU
+	send_command('lua l React') 
 	
 	handle_lockstyle()
 	set_macros()
 	
-	include('organizer-lib')
-
 end
 
 function global_on_unload() -- Function to revert binds when unloading.
@@ -288,15 +296,3 @@ function display_current_job_state(eventArgs) -- Called by player update, displa
 	
 	handle_lockstyle()
 end
-
---[[
-function th_action_check(category, param)
-    if category == 2 or -- Ranged attacks
-	(category == 7 and param == 24931)-- Aeolian Edge
-	then return true
-    end
-end
-]]
--- category == 1=melee, 2=ranged, 3=weaponskill, 4=spell, 6=job ability, 14=unblinkable JA
-
-

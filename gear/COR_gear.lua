@@ -88,19 +88,18 @@ function init_gear_sets()
     sets.precast.WS['Last Stand'].Acc = set_combine(sets.precast.WS['Last Stand'], {})
 
     sets.precast.WS['Wildfire'] = {
-		ammo=gear.MAbullet,
-		head={ name="Herculean Helm", augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','AGI+2','Mag. Acc.+7','"Mag.Atk.Bns."+13',}},
+		head={ name="Herculean Helm", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Weapon skill damage +1%','INT+9','Mag. Acc.+12','"Mag.Atk.Bns."+10',}},
 		body={ name="Carm. Sc. Mail +1", augments={'Attack+20','"Mag.Atk.Bns."+12','"Dbl.Atk."+4',}},
 		hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
-		legs=gear.Herculean_Legs_MAB,
-		feet=gear.Herculean_Feet_MAB,
+		legs={ name="Carmine Cuisses +1", augments={'HP+80','STR+12','INT+12',}},
+		feet={ name="Herculean Boots", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Mag. Acc.+14','"Mag.Atk.Bns."+13',}},
 		neck="Sanctity Necklace",
 		waist="Eschan Stone",
 		left_ear="Friomisi Earring",
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ring="Dingir Ring",
 		right_ring="Ilabrat Ring",
-		back="Gunslinger's Cape"
+		back="Izdubar Mantle",
 	}
 
     sets.precast.WS['Hot Shot'] = sets.precast.WS['Wildfire']
@@ -292,7 +291,10 @@ function init_gear_sets()
     sets.CP = {back="Mecisto. Mantle"}
     sets.TreasureHunter = {body=gear.Herculean_Body_TH,waist="Chaac Belt",feet="Volte boots"}
 	
-	sets.LeadenSalute = {main="Naegling",sub="Tauret",range="Fomalhaut",ammo=gear.RAbullet}
-	sets.Doomsday = {range="Doomsday",ammo=gear.RAbullet}
+	sets.weapons.LeadenSalute = {main="Naegling",sub="Tauret",range="Fomalhaut",ammo=gear.RAbullet}
+	sets.weapons.DualWield.LeadenSalute = {main="Naegling",sub="Tauret",range="Fomalhaut",ammo=gear.RAbullet}
+	
+	sets.weapons.Aeolian = {main="Tauret",sub="Naegling",range="Doomsday",ammo=gear.RAbullet}
+	sets.weapons.DualWield.Aeolian = {main="Tauret",sub="Naegling",range="Doomsday",ammo=gear.RAbullet}
 
 end

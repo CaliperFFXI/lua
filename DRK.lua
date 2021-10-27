@@ -45,7 +45,6 @@ function job_setup()
 	--place weaponskills in this table to be used with lugra swaps 
     lugra_ws = S{''}
 
-    include('Mote-TreasureHunter')
 	state.TreasureMode:set('Tag')
 
 end
@@ -78,12 +77,12 @@ function job_pretarget(spell, action, spellMap, eventArgs)
     elseif spell.english == "Meditate" and player.tp > 2900 then -- Cancel Meditate If TP Is Above 2900 --
 		eventArgs.cancel = true 
         add_to_chat(123, spell.name .. ' Canceled: ['..player.tp..' TP]')
-	elseif (spell.english == "Stun" or spellMap == 'Drain' or spell.english == "Dread Spikes") then
-		if buffactive.Hasso or buffactive.Seigan then -- Cancel Hasso or Seigan When You Use Stun/Drain/Dread Spikes --
-			cast_delay(0.2)
-			send_command('cancel Hasso,Seigan')
-			add_to_chat(155,'Hasso/Seigan Canceled for Magic')
-		end
+	-- elseif (spell.english == "Stun" or spellMap == 'Drain' or spell.english == "Dread Spikes") then
+		-- if buffactive.Hasso or buffactive.Seigan then -- Cancel Hasso or Seigan When You Use Stun/Drain/Dread Spikes --
+			-- cast_delay(0.2)
+			-- send_command('cancel Hasso,Seigan')
+			-- add_to_chat(155,'Hasso/Seigan Canceled for Magic')
+		-- end
 	elseif buffactive.Stoneskin then
 		send_command('@wait 1.7;cancel stoneskin')
 	end

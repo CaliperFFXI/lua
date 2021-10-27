@@ -24,8 +24,6 @@ function job_setup()
     -- Whether a warning has been given for low ammo
     state.warned = M(false)
 
-    include('Mote-TreasureHunter')
-
     -- For th_action_check():
     -- JA IDs for actions that always have TH: Provoke, Animated Flourish
     info.default_ja_ids = S{35, 204}
@@ -53,7 +51,7 @@ function user_setup()
 	state.DualWield = M(false, 'Dual Wield Mode')
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.CP = M(false, 'Capacity Points Mode')
-	state.WeaponSet = M{['description']='Weapon Set','LeadenSalute'}
+	state.WeaponSet = M{['description']='Weapon Set','LeadenSalute','Aeolian'}
 
 
     gear.RAbullet = "Chrono Bullet"
@@ -86,7 +84,9 @@ function job_precast(spell, action, spellMap, eventArgs)
     -- Gear
     if (spell.type == 'CorsairRoll' or spell.english == "Double-Up") then
         if player.status ~= 'Engaged' then
-            equip(sets.precast.CorsairRoll.Gun)
+			equip({sub=empty}) -- remove sub weapon to free up the rostam
+            --equip(sets.precast.CorsairRoll.Gun)
+			equip(sets.precast.CorsairRoll) -- send equip command to the set again
         end
         if state.LuzafRing.value then
             equip(sets.precast.LuzafRing)
@@ -117,7 +117,6 @@ function job_post_precast(spell, action, spellMap, eventArgs)
         end
 	end
 end
-
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
     if spell.type == 'CorsairShot' then
@@ -153,7 +152,6 @@ function job_aftercast(spell, action, spellMap, eventArgs)
     if spell.english == "Light Shot" then
         send_command('@timers c "Light Shot ['..spell.target.name..']" 60 down abilities/00195.png')
     end
-	update_combat_weapon()
 end
 
 function customize_defense_set(defenseSet) 
@@ -209,26 +207,7 @@ end
 -- Called by the 'update' self-command, for common needs.
 -- Set eventArgs.handled to true if we don't want automatic equipping of gear.
 function job_update(cmdParams, eventArgs)
-	update_combat_weapon()
-	update_combat_form()
 	handle_equipping_gear(player.status) -- Forces gear change at state change.
-end
-
-function update_combat_form()
-	if player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
-		state.DualWield:set(true)
-		state.CombatForm:set('DualWield')
-	else
-		state.DualWield:set(false)
-		state.CombatForm:reset()
-	end
-end
-
-function update_combat_weapon()
-	if state.WeaponSet.has_value then
-		equip(sets[state.WeaponSet.current])
-		state.CombatWeapon:set(state.WeaponSet.current)
-	end
 end
 
 -- Handle auto-targetting based on local setup.
@@ -340,7 +319,6 @@ function display_roll_info(spell)
     end
 end
 
-
 -- Determine whether we have sufficient ammo for the action being attempted.
 function do_bullet_checks(spell, spellMap, eventArgs)
     local bullet_name
@@ -419,16 +397,3 @@ windower.register_event('zone change',
         end
     end
 )
-
--- Check for various actions that we've specified in user code as being used with TH gear.
--- This will only ever be called if TreasureMode is not 'None'.
--- Category and Param are as specified in the action event packet.
-function th_action_check(category, param)
-    if category == 2 or -- any ranged attack
-        --category == 4 or -- any magic action
-        (category == 3 and param == 30) or -- Aeolian Edge
-        (category == 6 and info.default_ja_ids:contains(param)) or -- Provoke, Animated Flourish
-        (category == 14 and info.default_u_ja_ids:contains(param)) -- Quick/Box/Stutter Step, Desperate/Violent Flourish
-        then return true
-    end
-end

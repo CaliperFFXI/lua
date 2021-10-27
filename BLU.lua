@@ -48,13 +48,12 @@ function user_setup()
 	state.Learning = M(false, 'Learning Mode')
 	state.MagicBurst = M(false, 'Magic Burst')
 
-	state.WeaponSet = M{['description']='Weapon Set','Magic','Melee'}
+	state.WeaponSet = M{['description']='Weapon Set','Magic','Melee','Proc','Fish'}
 
     send_command('lua l azureSets')
 	send_command('bind !l gs c toggle Learning')
     
-	include('Mote-TreasureHunter')
-	--state.TreasureMode:set('Tag')
+	state.TreasureMode:set('Tag')
 	
 end
 
@@ -135,15 +134,6 @@ end
 
 function job_update(cmdParams, eventArgs)
     handle_equipping_gear(player.status)
-    th_update(cmdParams, eventArgs)
-	update_combat_weapon()
-end
-
-function update_combat_weapon()
-	if state.WeaponSet.has_value then
-		equip(sets[state.WeaponSet.current])
-		state.CombatWeapon:set(state.WeaponSet.current)
-	end
 end
 
 -- State buff checks that will equip buff gear and mark the event as handled.

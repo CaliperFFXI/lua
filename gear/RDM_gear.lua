@@ -5,8 +5,8 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
     sets.precast.FC = {
-		head="Atro. Chapeau +2",
-		body="Viti. Tabard +2",
+		head="Atrophy Chapeau +3",
+		body="Viti. Tabard +3",
 		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 		legs="Aya. Cosciales +2",
 		feet={ name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +2',}},
@@ -36,7 +36,7 @@ function init_gear_sets()
     sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 
     sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
-		head="Malignance Chapeau",
+		head={ name="Viti. Chapeau +3", augments={'Enfeebling Magic duration','Magic Accuracy',}},
 		body="Ayanmo Corazza +2",
 		hands="Aya. Manopolas +2",
 		legs="Aya. Cosciales +2",
@@ -56,14 +56,13 @@ function init_gear_sets()
     sets.precast.WS['Vorpal Blade'].Acc = sets.precast.WS['Chant du Cygne'].Acc
 
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-		ammo="Ginsen",
 		head={ name="Viti. Chapeau +3", augments={'Enfeebling Magic duration','Magic Accuracy',}},
-		body="Jhakri Robe +2",
+		body={ name="Viti. Tabard +3", augments={'Enhances "Chainspell" effect',}},
 		hands="Jhakri Cuffs +2",
 		legs="Jhakri Slops +2",
 		feet="Jhakri Pigaches +2",
-		neck="Caro Necklace",
-		waist="Grunfeld Rope",
+		neck={ name="Dls. Torque +1", augments={'Path: A',}},
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		right_ear="Regal Earring",
 		left_ring="Ilabrat Ring",
@@ -94,11 +93,12 @@ function init_gear_sets()
     sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS['Requiescat'], {})
 
 	sets.precast.WS['Empyreal Arrow'] = {
+		ammo="Demon Arrow",
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
-		hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
+		hands="Malignance Gloves",
 		legs="Malignance Tights",
-		feet="Volte Boots",
+		feet="Malignance Boots",
 		neck="Combatant's Torque",
 		waist="Yemaya Belt",
 		left_ear="Enervating Earring",
@@ -109,7 +109,6 @@ function init_gear_sets()
 	}
 	
 	sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS, {
-		ammo="Pemphredo Tathlum",
 		body={ name="Cohort Cloak +1", augments={'Path: A',}},
 		hands="Jhakri Cuffs +2",
 		legs="Jhakri Slops +2",
@@ -124,7 +123,6 @@ function init_gear_sets()
 	})
 
     sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, {
-		ammo="Pemphredo Tathlum",
 		head="Pixie Hairpin +1",
 		body="Jhakri Robe +2",
 		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
@@ -132,11 +130,40 @@ function init_gear_sets()
 		feet="Jhakri Pigaches +2",
 		neck="Sanctity Necklace",
 		waist="Sacro Cord",
-		left_ear="Friomisi Earring",
+		left_ear="Malignance Earring",
 		right_ear="Regal Earring",
-		left_ring="Evanescence Ring",
+		left_ring="Freke Ring",
 		right_ring="Archon Ring",
+		back=gear.RDM_STR_WS,
+	})
+	
+	sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, {
+		body={ name="Cohort Cloak +1", augments={'Path: A',}},
+		hands="Jhakri Cuffs +2",
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2",
+		neck="Sanctity Necklace",
+		waist="Sacro Cord",
+		left_ear="Friomisi Earring",
+		right_ear="Malignance Earring",
+		left_ring="Arvina Ringlet +1",
+		right_ring="Ilabrat Ring",
 		back="Izdubar Mantle",
+	})
+	
+	sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
+		head={ name="Viti. Chapeau +3", augments={'Enfeebling Magic duration','Magic Accuracy',}},
+		body="Ayanmo Corazza +2",
+		hands="Aya. Manopolas +2",
+		legs="Aya. Cosciales +2",
+		feet="Thereoid Greaves",
+		neck="Fotia Gorget",
+		waist="Fotia Belt",
+		left_ear="Sherida Earring",
+		right_ear="Mache Earring +1",
+		left_ring="Ilabrat Ring",
+		right_ring="Begrudging Ring",
+		back="Relucent Cape",
 	})
 		
 	-- Midcast
@@ -214,7 +241,7 @@ function init_gear_sets()
 	    sub="Ammurapi Shield",
 		ammo="Sapience Orb",
 		head=gear.Telchine_Head,
-		body="Viti. Tabard +2",
+		body="Viti. Tabard +3",
 		hands="Atrophy Gloves +2",
 		legs=gear.Telchine_Legs,
 		feet="Leth. Houseaux +1",
@@ -233,7 +260,7 @@ function init_gear_sets()
 		sub="Ammurapi Shield",
 		ammo="Sapience Orb",
 		head="Befouled Crown",
-		body={ name="Viti. Tabard +2", augments={'Enhances "Chainspell" effect',}},
+		body={ name="Viti. Tabard +3", augments={'Enhances "Chainspell" effect',}},
 		hands={ name="Viti. Gloves +2", augments={'Enhancing Magic duration',}},
 		legs="Atrophy Tights +2",
 		feet="Leth. Houseaux +1",
@@ -272,9 +299,9 @@ function init_gear_sets()
 	})	
 	
 	sets.midcast.Enfeeble = {
-		main="Naegling",
+		main="Crocea Mors",
 		sub="Ammurapi Shield",
-		range="Kaja Bow",
+		range="Ullr",
 		head="Atrophy Chapeau +3",
 		body="Atrophy Tabard +3",
 		hands="Regal Cuffs",
@@ -303,7 +330,7 @@ function init_gear_sets()
 	})
 
 	-- Effect based Enfeebles (Dia)
-	sets.midcast.EnfeebleEffect = set_combine(sets.midcast.Enfeeble,{
+	sets.midcast.EffectEnfeeble = set_combine(sets.midcast.Enfeeble,{
 		ammo="Regal Gem",
 		head="Viti. Chapeau +3",
 		body="Lethargy Sayon +1",
@@ -344,18 +371,39 @@ function init_gear_sets()
 		legs="Jhakri Slops +2",
 		feet="Jhakri Pigaches +2",
 		neck="Sanctity Necklace",
-		waist="Eschan Stone",
+		waist="Sacro Cord",
 		left_ear="Friomisi Earring",
 		right_ear="Regal Earring",
 		left_ring="Freke Ring",
 		right_ring="Jhakri Ring",
 		back="Izdubar Mantle",
+		
 	}
+	
+    sets.midcast['Elemental Magic'].Vagary = set_combine(sets.midcast.Enfeeble, {
+		main="Pukulatmuj +1",
+		sub="Genmei Shield",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Regal Cuffs",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
+		neck={ name="Dls. Torque +1", augments={'Path: A',}},
+		waist="Luminary Sash",
+		left_ear="Digni. Earring",
+		right_ear="Snotra Earring",
+		left_ring="Stikini Ring",
+	})
+	
+	sets.midcast['Elemental Magic'].Vagary2 = set_combine(sets.midcast['Elemental Magic'].Vagary, {
+		main="Daybreak",
+		sub="Ammurapi Shield",
+	})
 
     sets.midcast.Impact = {
 		main="Naegling",
 		sub="Ammurapi Shield",
-		range="Kaja Bow",
+		range="Ullr",
 		body="Twilight Cloak",
 		hands="Regal Cuffs",
 		legs={ name="Chironic Hose", augments={'Mag. Acc.+29','MND+7','"Mag.Atk.Bns."+15',}},
@@ -448,7 +496,6 @@ function init_gear_sets()
     -- EG: sets.engaged.CombatForm.CombatWeapon.OffenseMode.DefenseMode.CustomMeleeGroups
 
     sets.engaged = {
-		ammo="Ginsen",
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
 		hands="Malignance Gloves",
@@ -458,7 +505,7 @@ function init_gear_sets()
 		waist="Windbuffet Belt +1",
 		left_ear="Sherida Earring",
 		right_ear="Dedition Earring",
-		left_ring="Ilabrat Ring",
+		left_ring="Chirich Ring +1",
 		right_ring="Chirich Ring +1",
 		back=gear.RDM_TP,
 	}
@@ -473,21 +520,71 @@ function init_gear_sets()
 		left_ear="Eabani Earring",
 		waist="Reiki Yotai",
 	})
+	
+	sets.engaged.DualWield.CroceaMors = set_combine(sets.engaged.DualWield, {
+		range="Ullr",
+		ammo="Demon Arrow",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Aya. Manopolas +2",
+		legs={ name="Carmine Cuisses +1", augments={'Accuracy+20','Attack+12','"Dual Wield"+6',}},
+		feet="Malignance Boots",
+		neck="Sanctity Necklace",
+		waist="Windbuffet Belt +1",
+		left_ear="Suppanomimi",
+		right_ear="Digni. Earring",
+		left_ring="Defending Ring",
+		right_ring="Chirich Ring +1",
+	})
+	
 	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield, {
 		right_ear="Telos Earring",
 		left_ring="Chirich Ring +1",
 		right_ring="Chirich Ring +1",
 	})
+	
+	sets.engaged.EnSpell = {
+		range="Ullr",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Aya. Manopolas +2",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
+		neck={ name="Dls. Torque +1", augments={'Path: A',}},
+		waist="Sacro Cord",
+		left_ear="Cessance Earring",
+		right_ear="Sherida Earring",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
+		back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}},
+	}
 		
 	--Special and Conditional Sets
     sets.CP = {back="Mecisto. Mantle"}
+	sets.Obi = {waist="Hachirin-no-Obi"}
 	sets.buff.Saboteur = {hands="Leth. Gantherots +1"}
     sets.TreasureHunter = {body=gear.Chironic_Body_TH,waist="Chaac belt",feet="Volte Boots"}
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
 	
 	--Weapon Sets
-	sets.Idle = {main="Daybreak",sub="Genmei Shield"}
-	sets.SavageBlade = {main="Naegling", sub="Ternion Dagger +1"}
-	sets.SeraphBlade = {main="Naegling", sub="Daybreak"}
-	sets.Trial = {main="Vorpal Sword", sub="Ternion Dagger +1"}
+	sets.weapons.Idle = {main="Daybreak", sub="Genmei Shield"}
+	sets.weapons.DualWield.Idle = {main="Daybreak", sub="Genmei Shield"}
+	
+	sets.weapons.SavageBlade = {main="Naegling", sub="Genmei Shield", range="Ullr", ammo="Demon Arrow"}
+	sets.weapons.DualWield.SavageBlade = {main="Naegling", sub="Ternion Dagger +1", range="Ullr", ammo="Demon Arrow"}
+	
+	sets.weapons.SeraphBlade = {main="Crocea Mors", sub="Genmei Shield", range="Ullr", ammo="Demon Arrow"}
+	sets.weapons.DualWield.SeraphBlade = {main="Crocea Mors", sub="Daybreak", range="Ullr", ammo="Demon Arrow"}
+	
+	sets.weapons.CroceaMors = {main="Crocea Mors", sub="Genmei Shield", range="Ullr", ammo="Demon Arrow"}
+	sets.weapons.DualWield.CroceaMors = {main="Crocea Mors", sub="Ternion Dagger +1", range="Ullr", ammo="Demon Arrow"}
+	
+	sets.weapons.Evisceration = {main="Tauret",sub="Genmei Shield", range="Ullr", ammo="Demon Arrow"}
+	sets.weapons.DualWield.Evisceration = {main="Tauret",sub="Ternion Dagger +1", range="Ullr", ammo="Demon Arrow"}
+	
+	sets.weapons.AeolianEdge = {main="Malevolence",sub="Ammurapi Shield", range="Ullr", ammo="Demon Arrow"}
+	sets.weapons.DualWield.AeolianEdge = {main="Malevolence",sub="Ternion Dagger +1", range="Ullr", ammo="Demon Arrow"}
+	
+	sets.weapons.EnSpell = {main="Trainee Knife", sub="Qutrub Knife", range="Ullr", ammo="Demon Arrow"}
+	
 end

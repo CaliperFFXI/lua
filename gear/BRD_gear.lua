@@ -128,10 +128,14 @@ function init_gear_sets()
 	sets.rudras = sets.precast.WS['Rudra\'s Storm']
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-		ammo="Ginsen",
+		range={ name="Linos", augments={'Accuracy+14','"Store TP"+4','Quadruple Attack +3',}},
+		head={ name="Bihu Roundlet +3", augments={'Enhances "Con Anima" effect',}},
 		body={ name="Bihu Jstcorps. +3", augments={'Enhances "Troubadour" effect',}},
+		hands={ name="Bihu Cuffs +3", augments={'Enhances "Con Brio" effect',}},
+		legs={ name="Bihu Cannions +3", augments={'Enhances "Soul Voice" effect',}},
+		feet={ name="Bihu Slippers +3", augments={'Enhances "Nightingale" effect',}},
 		neck="Caro Necklace",
-		waist="Grunfeld Rope",
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear="Ishvara Earring",
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ring="Ilabrat Ring",
@@ -402,9 +406,14 @@ function init_gear_sets()
 	sets.engaged.DualWield.DT = set_combine(sets.engaged.DualWield, {    
 		neck="Loricate Torque +1",
 		right_ring="Defending Ring",
+		
 	})
 	
-	sets.engaged.DualWield.Acc.DT = set_combine(sets.engaged.DualWield.DT, {})
+	sets.engaged.DualWield.Acc.DT = set_combine(sets.engaged.DualWield.DT, {
+		neck="Loricate Torque +1",
+		right_ring="Defending Ring",
+		right_ear="Telos Earring",	
+	})
 	
 	--called in midcast() if combatform is DualWield
 	sets.SongDualWieldDuration = {main="Kali",sub="Kali"}
@@ -416,11 +425,19 @@ function init_gear_sets()
     sets.CP = {back="Mecisto. Mantle"}
     sets.TreasureHunter = {body=gear.Chironic_Body_TH,waist="Chaac belt", feet="Volte Boots"}
 	
-	sets.SavageBlade = {main="Naegling",sub="Ternion Dagger +1"}
-	sets.Evisceration = {main="Tauret",sub="Ternion Dagger +1"}
-	sets.Rudras = {main="Aeneas",sub="Ternion Dagger +1"}
-	sets.DaggerMAB = {main="Aeneas",sub="Malevolence"}
-	--sets.Shield = {sub="Genmei Shield"}
-
+	sets.weapons.Idle = {sub="Genmei Shield"}
+	sets.weapons.DualWield.Idle = {sub="Genmei Shield"}	
 	
+	sets.weapons.SavageBlade = {main="Naegling",sub="Genmei Shield"}
+	sets.weapons.DualWield.SavageBlade = {main="Naegling",sub="Ternion Dagger +1"}
+	
+	sets.weapons.Evisceration = {main="Tauret",sub="Genmei Shield"}
+	sets.weapons.DualWield.Evisceration = {main="Tauret",sub="Ternion Dagger +1"}
+
+	sets.weapons.Rudras = {main="Aeneas",sub="Genmei Shield"}
+	sets.weapons.DualWield.Rudras = {main="Aeneas",sub="Ternion Dagger +1"}
+
+	sets.weapons.DaggerMAB = {main="Aeneas",sub="Genmei Shield"}
+	sets.weapons.DualWield.DaggerMAB = {main="Aeneas",sub="Malevolence"}
+
 end

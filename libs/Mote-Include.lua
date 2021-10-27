@@ -51,8 +51,12 @@ function init_include()
     state.DefenseMode         = M{['description'] = 'Defense Mode', 'None', 'Physical', 'Magical'}
     state.PhysicalDefenseMode = M{['description'] = 'Physical Defense Mode', 'PDT'}
     state.MagicalDefenseMode  = M{['description'] = 'Magical Defense Mode', 'MDT'}
-
+	
     state.Kiting              = M(false, 'Kiting')
+	state.WeaponLock 		  = M(false, 'Weapon Lock')	
+	state.CP 				  = M(false, 'Capacity Points Mode')
+    state.warned 			  = M(false)
+	
     state.SelectNPCTargets    = M(false, 'Select NPC Targets')
     state.PCTargetMode        = M{['description'] = 'PC Target Mode', 'default', 'stpt', 'stal', 'stpc'}
 
@@ -60,7 +64,7 @@ function init_include()
 
     state.CombatWeapon        = M{['description']='Combat Weapon', ['string']=''}
     state.CombatForm          = M{['description']='Combat Form', ['string']=''}
-
+	
     -- Non-mode vars that are used for state tracking.
     state.MaxWeaponskillDistance = 0
     state.Buff = {}
@@ -87,11 +91,10 @@ function init_include()
     classes.CustomRangedGroups = L{}
     classes.CustomIdleGroups = L{}
     classes.CustomDefenseGroups = L{}
-
+		
     -- Class variables for time-based flags
     classes.Daytime = false
     classes.DuskToDawn = false
-
 
     -- Var for tracking misc info
     info = {}
@@ -121,6 +124,10 @@ function init_include()
     sets.resting = {}
     sets.engaged = {}
     sets.defense = {}
+	--BETA
+	sets.weapons = {}
+	sets.weapons.DualWield = {}
+	--endBETA
     sets.buff = {}
 
     gear = {}
@@ -140,6 +147,9 @@ function init_include()
     include('Mote-Globals')
     optional_include({'user-globals.lua'})
     optional_include({player.name..'-globals.lua'})
+	
+	include('organizer-lib') -- requires organizer addon
+    include('Mote-TreasureHunter')
 
     -- *-globals.lua may define additional sets to be added to the local ones.
     if define_global_sets then
@@ -151,7 +161,7 @@ function init_include()
 
     -- Load a sidecar file for the job (if it exists) that may re-define init_gear_sets and file_unload.
     load_sidecar(player.main_job)
-
+	
     -- General var initialization and setup.
     if job_setup then
         job_setup()
@@ -175,8 +185,10 @@ if not mote_include_version or mote_include_version < current_mote_include_versi
     return
 end
 
--- Auto-initialize the include
+-- Load up what was built above.
 init_include()
+-- get combat form if applicable (found in mote-utility.lua)
+get_combat_form()	
 
 -- Called when this job file is unloaded (eg: job change)
 -- Conditional definition so that it doesn't overwrite explicit user
@@ -203,7 +215,6 @@ end
 ------------------------------------------------------------------------
 -- Generic function to map a set processing order to all action events.
 ------------------------------------------------------------------------
-
 
 -- Process actions in a specific order of events:
 -- Filter  - filter_xxx() functions determine whether to run any of the code for this action.
@@ -273,7 +284,6 @@ function handle_actions(spell, action)
     end
 end
 
-
 --------------------------------------
 -- Action hooks called by GearSwap.
 --------------------------------------
@@ -324,15 +334,18 @@ function default_precast(spell, spellMap)
 	if spell.type == 'WeaponSkill' and elemental_ws:contains(spell.name) then
 		handle_elemental_skills(spell, spellMap)
 	end
-	force_th() -- located in Mote-TreasureHunter
+	-- if state.TreasureMode.value ~= 'None' and spell.target.type == 'MONSTER' and not info.tagged_mobs[spell.target.id] then
+		-- equip(sets.TreasureHunter)
+	-- end
+	--force_th(spell) -- located in Mote-TreasureHunter
 end
 
 function default_midcast(spell, spellMap)
     equip(get_midcast_set(spell, spellMap))
-    if spell.skill == 'Elemental Magic' or spell.skill == 'Blue Magic' then
+    if spell.skill == 'Elemental Magic' or spell.skill == 'Blue Magic' or spell.skill == 'Ninjitsu' then
 		handle_elemental_skills(spell, spellMap)
 	end
-	force_th()-- located in Mote-TreasureHunter
+	--force_th(spell)-- located in Mote-TreasureHunter
 end
 
 function default_aftercast(spell, spellMap)
@@ -429,14 +442,15 @@ function reset_transitory_classes()
     classes.JAMode = nil
 end
 
-
-
 -------------------------------------------------------------------------------------------------------------------
 -- High-level functions for selecting and equipping gear sets.
 -------------------------------------------------------------------------------------------------------------------
 
 -- Central point to call to equip gear based on status.
 -- Status - Player status that we're using to define what gear to equip.
+-- setting eventArgs.handled = true will cancel any equipment swaps if place in the appropriate
+-- function (precast / midcast / aftercast)
+
 function handle_equipping_gear(playerStatus, petStatus)
     -- init a new eventArgs
     local eventArgs = {handled = false}
@@ -452,14 +466,13 @@ function handle_equipping_gear(playerStatus, petStatus)
     end
 end
 
-
 -- Function to wrap logic for equipping gear on aftercast, status change, or user update.
 -- @param status : The current or new player status that determines what sort of gear to equip.
 function equip_gear_by_status(playerStatus, petStatus)
     if _global.debug_mode then add_to_chat(123,'Debug: Equip gear for status ['..tostring(status)..'], HP='..tostring(player.hp)) end
 
     playerStatus = playerStatus or player.status or 'Idle'
-    
+	    
     -- If status not defined, treat as idle.
     -- Be sure to check for positive HP to make sure they're not dead.
     if (playerStatus == 'Idle' or playerStatus == '') and player.hp > 0 then
@@ -469,8 +482,12 @@ function equip_gear_by_status(playerStatus, petStatus)
     elseif playerStatus == 'Resting' then
         equip(get_resting_set(petStatus))
     end
+	
+	-- As long as player is alive, add weapons to previous construction
+	if player.hp > 0 then
+		equip(get_weapon_set(petStatus))
+	end
 end
-
 
 -------------------------------------------------------------------------------------------------------------------
 -- Functions for constructing default gear sets based on status.
@@ -505,6 +522,12 @@ function get_idle_set(petStatus)
     if idleSet[idleScope] then
         idleSet = idleSet[idleScope]
         mote_vars.set_breadcrumbs:append(idleScope)
+    end
+	
+	-- adds a tag for hybrid mode (experimental)
+	if idleSet[state.HybridMode.current] then
+        idleSet = idleSet[state.HybridMode.current]
+        mote_vars.set_breadcrumbs:append(state.HybridMode.current)
     end
 
     if idleSet[state.IdleMode.current] then
@@ -543,7 +566,6 @@ function get_idle_set(petStatus)
 
     return idleSet
 end
-
 
 -- Returns the appropriate melee set based on current state values.
 -- Set construction order (all sets after sets.engaged are optional):
@@ -599,7 +621,6 @@ function get_melee_set()
     return meleeSet
 end
 
-
 -- Returns the appropriate resting set based on current state values.
 -- Set construction order:
 --   sets.resting[state.RestingMode]
@@ -621,6 +642,43 @@ function get_resting_set()
     return restingSet
 end
 
+-- Returns a weapon set based on state values.
+-- Set Construction order:
+-- 	sets.weapon[state.CombatForm.value][state.CombatWeapon.value][state.DefenseMode]
+function get_weapon_set()
+    local weaponSet = sets.weapons
+    
+    if not weaponSet then
+        return {}
+    end
+	
+	-- assign CombatWeapon based on state value.
+	if state.WeaponSet and state.WeaponSet.has_value then 
+		state.CombatWeapon:set(state.WeaponSet.current)
+	else return end
+
+	-- add CombatForm tag.
+    if state.CombatForm.has_value and weaponSet[state.CombatForm.value] then
+        weaponSet = weaponSet[state.CombatForm.value]
+    end
+
+	-- add CombatWeapon tag.
+    if state.CombatWeapon.has_value and weaponSet[state.CombatWeapon.value] then
+        weaponSet = weaponSet[state.CombatWeapon.value]
+    end
+	
+	-- add OffenseMode tag.
+    if weaponSet[state.OffenseMode.current] then
+        weaponSet = weaponSet[state.OffenseMode.current]
+    end
+
+	-- Allows for augmenting of code in job files if needed.
+    if job_get_weapon_set then
+        weaponSet = job_get_weapon_set(weaponSet)
+    end
+
+    return weaponSet
+end
 
 -------------------------------------------------------------------------------------------------------------------
 -- Functions for constructing default gear sets based on action.
@@ -693,13 +751,9 @@ function get_precast_set(spell, spellMap)
     end
 
     -- Update defintions for element-specific gear that may be used.
-    set_elemental_gear(spell)
-    
     -- Return whatever we've constructed.
     return equipSet
 end
-
-
 
 -- Get the default midcast gear set.
 -- This builds on sets.midcast.
@@ -755,7 +809,6 @@ function get_midcast_set(spell, spellMap)
     return equipSet
 end
 
-
 -- Get the default pet midcast gear set.
 -- This is built in sets.midcast.Pet.
 function get_pet_midcast_set(spell, spellMap)
@@ -793,7 +846,6 @@ function get_pet_midcast_set(spell, spellMap)
 
     return equipSet
 end
-
 
 -- Function to handle the logic of selecting the proper weaponskill set.
 function get_weaponskill_set(equipSet, spell, spellMap)
@@ -834,7 +886,6 @@ function get_weaponskill_set(equipSet, spell, spellMap)
     return equipSet
 end
 
-
 -- Function to handle the logic of selecting the proper ranged set.
 function get_ranged_set(equipSet, spell, spellMap)
     -- Attach Combat Form and Combat Weapon to set checks
@@ -864,7 +915,6 @@ function get_ranged_set(equipSet, spell, spellMap)
 
     return equipSet
 end
-
 
 -------------------------------------------------------------------------------------------------------------------
 -- Functions for optional supplemental gear overriding the default sets defined above.
@@ -905,7 +955,6 @@ function apply_kiting(baseSet)
     return baseSet
 end
 
-
 -------------------------------------------------------------------------------------------------------------------
 -- Utility functions for constructing default gear sets.
 -------------------------------------------------------------------------------------------------------------------
@@ -921,7 +970,6 @@ function get_spell_map(spell)
 
     return jobSpellMap or defaultSpellMap
 end
-
 
 -- Select the equipment set to equip from a given starting table, based on standard
 -- selection order: custom class, spell name, spell map, spell skill, and spell type.
@@ -951,7 +999,6 @@ function select_specific_set(equipSet, spell, spellMap)
     return namedSet or equipSet
 end
 
-
 -- Simple utility function to handle a portion of the equipment set determination.
 -- It attempts to select a sub-table of the provided equipment set based on the
 -- standard search order of custom class, spell name, and spell map.
@@ -973,6 +1020,9 @@ function get_named_set(equipSet, spell, spellMap)
     end
 end
 
+-- Utility to handle elemental actions such as weapon skills and spells.
+-- If you are the owner of obi or orpheus sash, it will be automatically added to 
+-- precast() and midcast() given that the conditions for such is appropriate.
 function handle_elemental_skills(spell, spellMap)
 
 	local Obi
@@ -1018,25 +1068,25 @@ function handle_elemental_skills(spell, spellMap)
 	end
 end
 
-
-
 -------------------------------------------------------------------------------------------------------------------
 -- Hooks for other events.
 -------------------------------------------------------------------------------------------------------------------
 
 -- Called when the player's subjob changes.
 function sub_job_change(newSubjob, oldSubjob)
+	
+	get_combat_form() -- Update CombatForm
+	
     if user_setup then
         user_setup()
     end
     
-    if job_sub_job_change then
+    if job_sub_job_change then -- allows for a modification of the function within job file.
         job_sub_job_change(newSubjob, oldSubjob)
     end
-    
+		
     send_command('gs c update')
 end
-
 
 -- Called when the player's status changes.
 function status_change(newStatus, oldStatus)
@@ -1063,7 +1113,6 @@ function status_change(newStatus, oldStatus)
     end
 end
 
-
 -- Called when a player gains or loses a buff.
 -- buff == buff gained or lost
 -- gain == true if the buff was gained, false if it was lost.
@@ -1088,7 +1137,6 @@ function buff_change(buff, gain)
     end
 end
 
-
 -- Called when a player gains or loses a pet.
 -- pet == pet gained or lost
 -- gain == true if the pet was gained, false if it was lost.
@@ -1107,7 +1155,6 @@ function pet_change(pet, gain)
     end
 end
 
-
 -- Called when the player's pet's status changes.
 -- Note that this is also called after pet_change when the pet is released.
 -- As such, don't automatically handle gear equips.  Only do so if directed
@@ -1121,7 +1168,6 @@ function pet_status_change(newStatus, oldStatus)
         job_pet_status_change(newStatus, oldStatus, eventArgs)
     end
 end
-
 
 -------------------------------------------------------------------------------------------------------------------
 -- Debugging functions.

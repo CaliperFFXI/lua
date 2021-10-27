@@ -67,7 +67,6 @@ function init_gear_sets()
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		left_ear="Mache Earring +1",
 		right_ear="Telos Earring",
-		left_ring="Mummu Ring",
 	})
 
     sets.precast.WS['Blade: Hi'] = set_combine(sets.precast.WS, {

@@ -49,6 +49,8 @@ function init_gear_sets()
 		feet="Meg. Jam. +2",
 		neck="Scout's gorget +1",
 		waist="Impulse Belt",
+		left_ear="Tuisto Earring",
+		right_ear="Odnowa Earring +1",
 		back=gear.RNG_Snapshot,
 	} 
 	
@@ -117,7 +119,9 @@ function init_gear_sets()
 		left_ring="Regal Ring",
 		right_ring="Dingir Ring",
 	})
-	sets.precast.WS['Last Stand'].FullTP = set_combine(sets.precast.WS['Last Stand'], {})
+	sets.precast.WS['Last Stand'].FullTP = set_combine(sets.precast.WS['Last Stand'], {
+		right_ear="Beyla Earring",
+	})
 	
     sets.precast.WS['Coronach'] = set_combine(sets.precast.WS['Last Stand'], {    
 		right_ear="Sherida Earring",
@@ -126,7 +130,6 @@ function init_gear_sets()
 
 
     sets.precast.WS['Trueflight'] = {
-		--head=gear.Herculean_Head_MAB,
 		body={ name="Cohort Cloak +1", augments={'Path: A',}},
 		hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
 		legs={ name="Arc. Braccae +3", augments={'Enhances "Eagle Eye Shot" effect',}},
@@ -179,14 +182,14 @@ function init_gear_sets()
 	sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body="Abnoba Kaftan",
-		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
-		legs={ name="Carmine Cuisses +1", augments={'HP+80','STR+12','INT+12',}},
-		feet="Malignance Boots",
+		hands="Mummu Wrists +2",
+		legs="Jokushu Haidate",
+		feet="Thereoid Greaves",
 		neck="Fotia Gorget",
 		waist="Fotia Belt",
-		left_ear="Mache Earring +1",
+		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		right_ear="Odr Earring",
-		left_ring="Hetairoi Ring",
+		left_ring="Regal Ring",
 		right_ring="Begrudging Ring",
 		back=gear.RNG_CRIT_WS,
 	})
@@ -216,15 +219,15 @@ function init_gear_sets()
 	-- Sword
 	sets.precast.WS['Savage Blade'] = {
 		ammo="Hauksbok Arrow",
-		head="Orion beret +3",
-		body="Meg. Cuirie +2",
+		head="Orion Beret +3",
+		body=gear.Herculean_Body_WS,
 		hands="Meg. Gloves +2",
 		legs={ name="Arc. Braccae +3", augments={'Enhances "Eagle Eye Shot" effect',}},
-		feet="Meg. Jam. +2",
-		neck="Caro Necklace",
-		waist="Grunfeld Rope",
+		feet=gear.Herculean_Feet_WS,
+		neck={ name="Scout's Gorget +1", augments={'Path: A',}},
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
-		right_ear="Sherida Earring",
+		right_ear="Ishvara Earring",
 		left_ring="Regal Ring",
 		right_ring="Rufescent Ring",
 		back=gear.RNG_STR_WS,
@@ -260,6 +263,10 @@ function init_gear_sets()
 		body="Orion Jerkin +3",
 		right_ring="Regal Ring",
 		left_ear="Enervating Earring",
+	})
+	
+	sets.midcast.RA.Gandiva = set_combine(sets.midcast.RA, {
+		back=gear.RNG_CRIT_WS,
 	})
 
     sets.DoubleShot = {
@@ -326,18 +333,8 @@ function init_gear_sets()
 	}
 	
     sets.defense.MDT = set_combine(sets.defense.PDT, {
-		head="Malignance Chapeau",
-		body="Malignance Tabard",
-		hands="Meg. Gloves +2",
-		legs="Malignance Tights",
-		feet="Malignance Boots",
 		neck="Warder's Charm +1",
 		waist="Carrier's Sash",
-		left_ear="Tuisto Earring",
-		right_ear="Odnowa Earring +1",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back="Reiki Cloak",
 	})
 
     -- Engaged sets
@@ -350,8 +347,8 @@ function init_gear_sets()
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		hands="Adhemar Wrist. +1",
-		legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
-		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
+		legs={ name="Tatena. Haidate +1", augments={'Path: A',}},
+		feet={ name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck="Anu Torque",
 		waist="Windbuffet Belt +1",
 		left_ear="Dedition Earring",
@@ -394,15 +391,38 @@ function init_gear_sets()
 	sets.Kiting = {legs="Carmine Cuisses +1"}    
     sets.CP = {back="Mecisto. Mantle"}	
 	sets.TreasureHunter = {body=gear.Herculean_Body_TH,waist="Chaac Belt",feet="Volte Boots",}
+		
+	--BETA
+	-- Gastraphetes
+	sets.weapons.Gastraphetes = {main="Malevolence",sub="Nusku Shield",range="Gastraphetes",ammo="Quelling Bolt"}
+	sets.weapons.DualWield.Gastraphetes = {main="Malevolence",sub="Malevolence",range="Gastraphetes",ammo="Quelling Bolt"}
+	sets.weapons.DualWield.Gastraphetes.Acc = {main="Tauret",sub="Malevolence",range="Gastraphetes",ammo="Quelling Bolt"}
 	
-	-- CombatWeapon Sets
-	sets.Gastraphetes = {main="Malevolence",sub="Malevolence",range="Gastraphetes",ammo="Quelling Bolt"}
-	sets.Gandiva = {main="Kustawi +1",sub="Oneiros Knife",range="Gandiva",ammo="Chrono Arrow"}
-	sets.Annihilator = {main="Kustawi +1",sub="Nusku Shield",range="Annihilator",ammo="Eradicating Bullet"}
-	sets.Fomalhaut = {main="Kustawi +1",sub="Nusku Shield",range="Fomalhaut",ammo="Eradicating Bullet"}
-	sets.FailNot = {main="Kustawi +1",sub="Nusku Shield",range="Fail-Not",ammo="Chrono Arrow"}
-	sets.SavageBlade = {main="Naegling",sub="Ternion Dagger +1",range="Sparrowhawk +2",ammo="Chrono Arrow"}
-	sets.Decimation = {main="Kaja Axe",sub="Ternion Dagger +1", range="Kaja Bow"}
-	sets.Evisceration = {main="Tauret",sub="Ternion Dagger +1", range="Sparrowhawk +2"}
+	-- Gandiva
+	sets.weapons.Gandiva = {main="Kustawi +1",sub="Nusku Shield",range="Gandiva",ammo="Chrono Arrow"}
+	sets.weapons.DualWield.Gandiva = {main="Kustawi +1",sub="Oneiros Knife",range="Gandiva",ammo="Chrono Arrow"}
 	
+	-- Annihilator
+	sets.weapons.Annihilator = {main="Kustawi +1",sub="Nusku Shield",range="Annihilator",ammo="Eradicating Bullet"}
+	sets.weapons.DualWield.Annihilator = {main="Kustawi +1",sub="Ternion Dagger +1",range="Annihilator",ammo="Eradicating Bullet"}
+	
+	-- Fomalhaut
+	sets.weapons.Fomalhaut = {main="Kustawi +1",sub="Nusku Shield",range="Fomalhaut",ammo="Eradicating Bullet"}
+	sets.weapons.DualWield.Fomalhaut = {main="Kustawi +1",sub="Ternion Dagger +1",range="Fomalhaut",ammo="Eradicating Bullet"}
+	
+	-- Fail-Not
+	sets.weapons.FailNot = {main="Kustawi +1",sub="Nusku Shield",range="Fail-Not",ammo="Chrono Arrow"}
+	sets.weapons.DualWield.FailNot = {main="Kustawi +1",sub="Ternion Dagger +1",range="Fail-Not",ammo="Chrono Arrow"}
+	
+	-- Savage Blade
+	sets.weapons.SavageBlade = {main="Naegling",sub="Nusku Shield",range="Sparrowhawk +2",ammo="Chrono Arrow"}
+	sets.weapons.DualWield.SavageBlade = {main="Naegling",sub="Ternion Dagger +1",range="Sparrowhawk +2",ammo="Chrono Arrow"}
+	
+	-- Decimation
+	sets.weapons.Decimation = {main="Kaja Axe",sub="Nusku Shield", range="Ullr"}
+	sets.weapons.DualWield.Evisceration = {main="Kaja Axe",sub="Ternion Dagger +1", range="Ullr"}
+	
+	-- Evisceration
+	sets.weapons.Evisceration = {main="Tauret",sub="Nusku Shield", range="Sparrowhawk +2"}
+	sets.weapons.DualWield.Evisceration = {main="Tauret",sub="Ternion Dagger +1", range="Sparrowhawk +2"}
 end

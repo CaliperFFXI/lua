@@ -17,12 +17,10 @@ function user_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal')
-	state.DualWield = M(false, 'Dual Wield Mode')
 	
-	state.WeaponLock = M(false, 'Weapon Lock')	
 	--CombatWeapons
 	state.WeaponSet = M{['description']='Weapon Set','Yagrush'}
-	
+		
 	gear.JSE_Cape = { name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}}
 	gear.Reive_Cape = {name="Mending Cape"}
 
@@ -86,26 +84,6 @@ function job_aftercast(spell, action, spellMap, eventArgs)
 end
 
 function job_update(cmdParams, eventArgs)
-	update_combat_weapon()
-	update_combat_form()
-end
-
-function update_combat_form()
-	-- Subjob DNC or NIN - set CombatForm.
-	if player.sub_job_id == 13 or player.sub_job_id == 19 then 
-		state.DualWield:set(true)
-		state.CombatForm:set('DualWield')
-	else
-		state.DualWield:set(false)
-		state.CombatForm:reset()
-	end
-end
-
-function update_combat_weapon()
-	if state.WeaponSet.has_value then
-		equip(sets[state.WeaponSet.current])
-		state.CombatWeapon:set(state.WeaponSet.current)
-	end
 end
 
 function job_buff_change(buff,gain)  

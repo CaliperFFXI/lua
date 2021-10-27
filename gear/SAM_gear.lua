@@ -32,7 +32,7 @@ function init_gear_sets()
 	}
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {})
 	
-	sets.precast.RA = {range="Kaja Bow",ammo="Iron Arrow",}
+	sets.precast.RA = {range="Ullr",ammo="Demon Arrow",}
 
     -- Weaponskill sets	
 	
@@ -50,8 +50,8 @@ function init_gear_sets()
 		hands=gear.Valorous_Hands_WSD,
 		legs="Hiza. Hizayoroi +2",
 		feet=gear.Valorous_Feet_WSD,
-		neck="Fotia Gorget",
-		waist="Fotia Belt",
+		neck="Combatant's Torque",
+		waist="Sailfi Belt +1",
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		right_ear="Thrud Earring",
 		left_ring="Niqmaddu Ring",
@@ -192,14 +192,14 @@ function init_gear_sets()
 		head="Flam. Zucchetto +2",
 		body="Flamma Korazin +2",
 		hands="Flam. Manopolas +2",
-		legs="Flamma Dirs +2",
-		feet="Flam. Gambieras +2",
-		neck="Lissome Necklace",
-		waist="Sailfi Belt +1",
+		legs={ name="Tatena. Haidate +1", augments={'Path: A',}},
+		feet={ name="Tatena. Sune. +1", augments={'Path: A',}},
+		neck="Combatant's Torque",
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear="Telos Earring",
 		right_ear="Dedition Earring",
 		left_ring="Niqmaddu Ring",
-		right_ring="Flamma Ring",
+		right_ring="Chirich Ring +1",
 		back=gear.SAM_TP,
 	}
 		
@@ -235,7 +235,6 @@ function init_gear_sets()
     sets.Kiting = {feet="Danzo sune-ate"}
 	
 	-- Weapon sets -- determined by state.WeaponSet
-	sets.GreatKatana = {main="Norifusa +1",sub="Utu Grip"}
-	sets.Polearm = {main="Shining One",sub="Utu Grip"}
-	sets.SixStep = {main="Norifusa +1",sub="Nepenthe Grip +1",}
+	sets.weapons.GreatKatana = {main="Norifusa +1",sub="Utu Grip"}
+	sets.weapons.Polearm = {main="Shining One",sub="Utu Grip"}
 end

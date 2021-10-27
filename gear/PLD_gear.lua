@@ -6,42 +6,39 @@ function init_gear_sets()
 		mantles="Rudianos's Mantle",
 	}	
 	
-	--Full Enmity Set, place common items here to be combined into sets below.
+	--	Full Enmity Set, place common items here to be combined into sets below.
 	sets.Enmity = {
-		main="Brilliance",
-		-- sub="Srivatsa",
+		--sub="Srivatsa",
 		ammo="Sapience Orb",
-		head="Loess Barbuta +1",
-		body="Rev. Surcoat +3",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		feet={ name="Souveran Schuhs +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		neck="Unmoving Collar +1",
-		waist="Creed Baudrier",
-		left_ear="Tuisto Earring",
+		head={ name="Loess Barbuta +1", priority=10},
+		body={ name="Rev. Surcoat +3", priority=12},
+		hands={ name="Souv. Handsch. +1", priority=11},
+		legs={ name="Souv. Diechlings +1", priority=9},
+		feet={ name="Souveran Schuhs +1", priority=8},
+		neck={ name="Unmoving Collar +1", priority=15},
+		waist={ name="Creed Baudrier", priority=13},
+		left_ear={ name="Tuisto Earring", priority=14},
 		right_ear="Cryptic Earring",
 		left_ring="Apeile Ring +1",
 		right_ring="Apeile Ring",
-		back="Reiki Cloak",
+		back=gear.PLD_Idle_Enmity,
 	}
 	
 	-- Spell Interruption rate down Master Set // requires 102% to gaurantee spellcast.
 	sets.SIRD = {    
-		main="Brilliance",
-		-- sub="Aegis",
 		ammo="Staunch Tathlum",
-		head={ name="Souv. Schaller +1", augments={'HP+105','VIT+12','Phys. dmg. taken -4',}},
-		body="Rev. Surcoat +3",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Founder's Hose", augments={'MND+3','Breath dmg. taken -3%',}},
-		feet={ name="Odyssean Greaves", augments={'Phys. dmg. taken -4%','INT+10','Accuracy+3',}},
+		head={ name="Souv. Schaller +1", priority=13},
+		body={ name="Rev. Surcoat +3", priority=14},
+		hands={ name="Souv. Handsch. +1", priority=12},
+		legs="Founder's Hose",
+		feet={ name="Odyssean Greaves", augments={'Attack+21','Enmity+7',}},
 		neck="Loricate Torque +1",
-		waist="Rumination Sash",
-		left_ear="Tuisto Earring",
+		waist="Audumbla Sash",
+		left_ear={ name="Tuisto Earring", priority=10},
 		right_ear="Knightly Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back="Reiki Cloak",
+		left_ring={ name="Moonlight Ring", bag="wardrobe2", priority=11},
+		right_ring={ name="Gelatinous Ring +1", priority=15},
+		back=gear.PLD_FC_PDT,
 	}
 	
     -- Precast 
@@ -54,7 +51,7 @@ function init_gear_sets()
     sets.precast.JA['Divine Emblem'] = {}
     sets.precast.JA['Cover'] = {}
     sets.precast.JA['Chivalry'] = {hands="Cab. Gauntlets"}
-	sets.precast.JA['Majesty'] = sets.Enmity
+	sets.precast.JA['Majesty'] = {}
 	
 	sets.precast.JA['Provoke'] = sets.Enmity
 	sets.precast.JA['Warcry'] = sets.Enmity
@@ -62,14 +59,12 @@ function init_gear_sets()
   
     -- Fast cast sets for spells
     sets.precast.FC = {
-		-- main="Malignance Sword",
-		-- sub="Srivatsa",
 		ammo="Sapience Orb",
 		head={ name="Carmine Mask +1", augments={'Accuracy+20','Mag. Acc.+12','"Fast Cast"+4',}},
 		body={name="Rev. Surcoat +3", priority=15},
 		hands={name="Souv. Handsch. +1", priority=14}, 
-		legs={name="Souv. Diechlings +1", priority=13},
-		feet={name="Souveran Schuhs +1", priority=12},
+		legs={name="Souv. Diechlings +1", priority=12},
+		feet={name="Souveran Schuhs +1", priority=13},
 		neck="Voltsurge Torque",
 		waist="Creed Baudrier", 
 		left_ear={name="Tuisto Earring", priority=11},
@@ -80,333 +75,185 @@ function init_gear_sets()
 	}
     
 	-- Weaponskill sets
-    
-	-- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {}
-	-- Defaul set with state 'Acc'
-    sets.precast.WS.Acc = {}
+    sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 	
-    -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
+	sets.precast.WS['Atonement'] = set_combine(sets.Enmity, {})
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {})
-    sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS.Acc, {})
-	
-    sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
-		ammo="Ginsen",
-		head="Hjarrandi Helm",
-		body="Hjarrandi Breast.",
-		hands="Flam. Manopolas +2",
-		legs={ name="Lustr. Subligar +1", augments={'Accuracy+20','DEX+8','Crit. hit rate+3%',}},
-		feet="Thereoid Greaves",
-		neck="Fotia Gorget",
-		waist="Fotia Belt",
-		left_ear="Mache Earring +1",
-		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
-		left_ring="Regal Ring",
-		right_ring="Begrudging Ring",
-		back=gear.PLD_TP,
-	})
-	
-    sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS.Acc, {})
-	
-    sets.precast.WS['Sanguine Blade'] = {} 
-    
-	sets.precast.WS['Atonement'] = {
-		ammo="Staunch Tathlum",
-		head="Loess Barbuta +1",
-		body="Rev. Surcoat +3",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		feet={ name="Souveran Schuhs +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		neck="Fotia Gorget",
-		waist="Fotia Belt",
-		left_ear="Tuisto Earring",
-		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
-		left_ring="Rufescent Ring",
-		right_ring="Supershear Ring",
-		back="Reiki Cloak",
-	}
-	
-	sets.precast.WS['Savage Blade'] = {
-		ammo="Ginsen",
-		head="Hjarrandi Helm",
-		body="Hjarrandi Breast.",
-		hands="Sulev. Gauntlets +2",
-		legs="Sulevi. Cuisses +2",
-		feet="Sulev. Leggings +2",
-		neck="Lissome Necklace",
-		waist="Grunfeld Rope",
-		left_ear="Ishvara Earring",
-		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
-		left_ring="Rufescent Ring",
-		right_ring="Regal Ring",
-		back=gear,TP_CAPE,
-	}
-	
-	sets.precast.WS['Swift Blade'] = {
-		ammo="Ginsen",
-		head="Hjarrandi Helm",
-		body="Hjarrandi Breast.",
-		hands="Sulev. Gauntlets +2",
-		legs="Sulevi. Cuisses +2",
-		feet="Sulev. Leggings +2",
-		neck="Fotia Gorget",
-		waist="Fotia Belt",
-		left_ear="Ishvara Earring",
-		right_ear="Mache Earring +1",
-		left_ring="Rufescent Ring",
-		right_ring="Petrov Ring",
-		back=gear.PLD_TP,
-	}
-    
-	sets.precast.WS['Impulse Drive'] = {}
-	
-	sets.precast.WS['Shell Crusher'] = {}
-	
+    sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {})
+	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
+	    			
     -- Midcast sets	
+	sets.midcast['Blue Magic'] = set_combine(sets.SIRD, {})
+	sets.midcast['Divine Magic'] = set_combine(sets.SIRD, {})
+    sets.midcast['Enhancing Magic'] = set_combine(sets.SIRD, {hands="Regal Gauntlets"})
+	sets.midcast['White Magic'] = set_combine(sets.SIRD,{})
+	sets.midcast['Healing Magic'] = set_combine(sets.SIRD,{})
 	
-	sets.midcast['Blue Magic'] = set_combine(sets.SIRD,{})
+	sets.midcast.Poisonga = set_combine(sets.SIRD, {})
 	sets.midcast.Jettatura = sets.Enmity
 	sets.midcast.Flash = sets.Enmity
-	
-	-- Banishga set
-	sets.midcast['Divine Magic'] = set_combine(sets.SIRD,{
-		main={ name="Brilliance", augments={'Shield skill +10','Divine magic skill +15','Enmity+7','DMG:+15',}},
-		body="Rev. Surcoat +3",
-		neck="Incanter's Torque",
-		waist="Asklepian Belt",
-	})	
+	sets.midcast.Stun = sets.Enmity
 
-    sets.midcast['Enhancing Magic'] = set_combine(sets.SIRD,{
-		hands="Regal Gauntlets",
-		waist="Creed Baudrier", 
-	})
-	
-	sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {    
+	sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {
+		body={ name="Valorous Mail", augments={'Attack+5','"Snapshot"+3','Phalanx +5','Accuracy+5 Attack+5',}},
 		back="Weard Mantle",
 	})
 
-	sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {right_ring="Sheltered Ring"})
-    sets.midcast.Shell = sets.midcast.Protect
-	
-	sets.midcast['White Magic'] = set_combine(sets.SIRD,{})
-	sets.midcast['Healing Magic'] = set_combine(sets.SIRD,{})
-
-	-- Full cure potency set.	
-	sets.midcast.Cure = set_combine(sets.SIRD, {
-		-- main={ name="Brilliance", augments={'Shield skill +10','Divine magic skill +15','Enmity+7','DMG:+15',}},
-		-- sub="Aegis",
-		ammo="Staunch Tathlum",
-		head={ name="Souv. Schaller +1", augments={'HP+105','VIT+12','Phys. dmg. taken -4',}},
-		body={ name="Jumalik Mail", augments={'HP+50','Attack+13','Enmity+7','"Refresh"+1',}},
-		hands="Macabre Gaunt. +1",
-		legs={ name="Founder's Hose", augments={'MND+3','Breath dmg. taken -3%',}},
-		feet={ name="Odyssean Greaves", augments={'Phys. dmg. taken -4%','INT+10','Accuracy+3',}},
+	sets.midcast.Protect = set_combine(sets.SIRD, {
+		sub="Srivatsa",
+		head="Sakpata's Helm",
+		body="Sakpata's Plate",
+		hands="Regal Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sakpata's Leggings",
 		neck="Sacro Gorget",
-		waist="Rumination Sash",
-		left_ear="Nourish. Earring +1",
-		right_ear="Knightly Earring",
-		right_ring="Supershear Ring",
-		back=gear.PLD_Cure_SIRD,
-	})
-	
-	--Cure set for PDT/MDT Defense Mode, equip's when defense mode is Physical.
-	sets.midcast.Cure.PDT = {
-		-- main="Malignance Sword",
-		-- sub="Aegis",
-		ammo="Staunch Tathlum",
-		head={ name="Souv. Schaller +1", augments={'HP+105','VIT+12','Phys. dmg. taken -4',}},
-		body="Rev. Surcoat +3",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Founder's Hose", augments={'MND+3','Breath dmg. taken -3%',}},
-		feet="Odyssean Greaves",
-		neck="Loricate Torque +1",
-		waist="Rumination Sash",
-		left_ear="Tuisto Earring",
-		right_ear="Nourish. Earring +1",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back={ name="Rudianos's Mantle", augments={'VIT+20','"Cure" potency +10%','Spell interruption rate down-10%',}},
-	}
-	
-	sets.midcast.Cure.MDT = sets.midcast.Cure.PDT
-	
-    -- Defense sets
-    
-    -- Master Defense sets
-    sets.defense.PDT = {	    
-		-- main="Malignance Sword",
-		-- sub="Aegis",
-	    ammo="Staunch Tathlum",
-		head="Souv. Schaller +1",
-		body="Rev. Surcoat +3",
-		hands="Souv. Handsch. +1",
-		legs="Souv. Diechlings +1",
-		feet="Souveran Schuhs +1",
-		neck="Warder's Charm +1",
-		waist="Carrier's Sash",
+		waist="Audumbla Sash",
 		left_ear="Tuisto Earring",
 		right_ear="Thureous Earring",
 		left_ring="Defending Ring",
-		right_ring="Shadow Ring",
-		back=gear.PLD_FC_PDT,
-	}
+		right_ring="Sheltered Ring",
+	})
 	
+    sets.midcast.Shell = set_combine(sets.SIRD, {
+		hands="Regal Gauntlets",
+		right_ring="Sheltered Ring"
+	})
+	
+	sets.midcast.Cure = set_combine(sets.SIRD, {
+		body={ name="Sakpata's Plate", priority=15},
+		neck="Sacro Gorget",
+		back=gear.PLD_Cure_SIRD,
+	})
+				
+    -- Defense sets
+    
+	--	priorities Souveran
+	--	body head hands legs feet
+	--	priorities Sakpata
+	--	head={ name="Sakpata's Helm", priority=13},
+	--	body={ name="Sakpata's Plate", priority=15},
+	--	hands={ name="Sakpata's Gauntlets", priority=12},
+	--	legs={ name="Sakpata's Cuisses", priority=14},
+	--	feet={ name="Sakpata's Leggings", priority=11},
+
+    sets.defense.PDT = {}
     sets.defense.MDT = set_combine(sets.defense.PDT, {})
-	
-	------------------------------------------------
-    -- Idle/resting/defense/etc sets
-    ------------------------------------------------
-	
-	--Twilight Mail equips automatically if Doomed ( All states )
+		
+	-- Twilight Mail equips automatically if Doomed ( All states ) or if hybrid mode is 'Reraise'
 	sets.Reraise = {    
-		-- main="Malignance Sword",
-		-- sub="Aegis",
-		ammo="Staunch Tathlum",
 		head="Twilight Helm",
 		body="Twilight Mail",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		feet={ name="Souveran Schuhs +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		neck="Loricate Torque +1",
-		waist="Flume Belt +1",
-		left_ear="Tuisto Earring",
-		right_ear="Odnowa Earring +1",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back=gear.PLD_FC_PDT,
 	}
 
     -- Idle sets
     sets.idle = {
-		-- main="Malignance Sword",
-		-- sub="Aegis",
 		ammo="Homiliary",
-		head="Chev. Armet +1",
-		body="Rev. Surcoat +3",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		feet="Rev. Leggings +3",
-		neck="Loricate Torque +1",
-		waist="Flume Belt +1",
-		left_ear="Ethereal Earring",
+		head={ name="Sakpata's Helm", priority=10},
+		--body={ name="Rev. Surcoat +3", priority=12},
+		body={ name="Sakpata's Plate", priority=12},
+		hands={ name="Sakpata's Gauntlets", priority=9},
+		legs={ name="Sakpata's Cuisses", priority=11},
+		feet={ name="Sakpata's Leggings", priority=8},
+		neck={ name="Unmoving Collar +1", priority=15},
+		waist="Asklepian Belt",
+		left_ear="Eabani Earring",
 		right_ear="Thureous Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back=gear.PLD_FC_PDT,
+		left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
+		right_ring={ name="Moonlight Ring",bag="wardrobe2", priority=13},
+		back=gear.PLD_Idle_Enmity,
 	}
-	
-	-- Idle with state.DefenseMode 'Physical' 
-	sets.idle.PDT = sets.defense.PDT
-	
+		
 	-- Idle with state.IdleMode 'Refresh'
-	sets.idle.Refresh = set_combine(sets.idle, {})
+	sets.idle.HP = set_combine(sets.idle, {
+		left_ear={name="Tuisto Earring", priority=11},
+		right_ear={name="Odnowa Earring +1", priority=10},
+	})
 
-	--Movement speed item equipped when kiting mode on.
+	--Movement speed item equipped when kiting mode on.(All States)
     sets.Kiting = {legs="Carmine Cuisses +1"}
 
     sets.idle.Town = set_combine(sets.idle, sets.Kiting)
+	sets.idle.Town.HP = set_combine(sets.idle.HP, sets.Kiting)
     
-    sets.idle.Weak = sets.Reraise
+    sets.idle.Weak = {}
     
-    sets.idle.Weak.Reraise = set_combine(sets.idle.Weak, sets.Reraise)
+    sets.idle.Weak.Reraise = {}
     
     sets.resting = sets.idle.Refresh
 
     -- Engaged sets
-    -- Variations for TP weapon and (optional) offense/defense modes. 
+    -- Variations for TP weapon and offense/defense modes. 
 	-- If no defined set is available, default sets are chosen.
     -- EG: sets.engaged.CombatForm.CombatWeapon.OffenseMode.DefenseMode.CustomMeleeGroups
 	
 	-- Engaged with no specific DefenseMode or OffenseMode
     sets.engaged = {
-		main="Naegling",
-		sub="Aegis",
 		ammo="Ginsen",
-		head="Sulevia's Mask +2",
-		body="Hjarrandi Breast.",
-		hands="Sulev. Gauntlets +2",
-		legs="Valor. Hose",
-		feet="Sulev. Leggings +2",
-		neck="Lissome Necklace",
-		waist="Sailfi Belt +1",
+		head={ name="Sakpata's Helm", priority=10},
+		--body={ name="Rev. Surcoat +3", priority=12},
+		body={ name="Sakpata's Plate", priority=12},
+		hands={ name="Sakpata's Gauntlets", priority=9},
+		legs={ name="Sakpata's Cuisses", priority=11},
+		feet={ name="Sakpata's Leggings", priority=8},
+		neck={ name="Unmoving Collar +1", priority=15},
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear="Telos Earring",
-		right_ear="Mache Earring +1",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		right_ear="Dedition Earring",
+		left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
+		right_ring={ name="Moonlight Ring",bag="wardrobe2", priority=13},
 		back=gear.PLD_TP,
 	}
-	
 	-- Engaged with OffenseMode 'Acc'
-    sets.engaged.Acc = set_combine(sets.engaged, {})
-
-	-- Engaged with state.DefenseMode set 'Physical'
-    sets.engaged.PDT = set_combine(sets.defense.PDT, {})
+    sets.engaged.Acc = set_combine(sets.engaged, {})	
 	
-	-- Engaged with state.DefenseMode set 'Physical' and state.OffenseMode set 'Acc'
-    sets.engaged.Acc.PDT = set_combine(sets.engaged.Acc, {
-		ammo="Ginsen",
-		head="Hjarrandi Helm",
-		body="Hjarrandi Breast.",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		feet="Rev. Leggings +3",
-		neck="Lissome Necklace",
-		waist="Sailfi Belt +1",
-		left_ear="Tuisto Earring",
-		right_ear="Telos Earring",
-		left_ring="Defending Ring",
-		right_ring="Regal Ring",
-		back=gear.PLD_TP, 
-	})
+	-- Hybrid 'HP' mode
+    sets.engaged.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+    sets.engaged.HP.Acc = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
 	
-	-- Engaged with state.DefenseMode set 'Magical' and state.OffenseMode set 'Acc'
-    sets.engaged.Acc.MDT = set_combine(sets.engaged.Acc, {
-		ammo="Ginsen",
-		head="Hjarrandi Helm",
-		body="Hjarrandi Breast.",
-		hands={ name="Souv. Handsch. +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		legs={ name="Souv. Diechlings +1", augments={'HP+105','Enmity+9','Potency of "Cure" effect received +15%',}},
-		feet="Rev. Leggings +3",
-		neck="Warder's Charm +1",
-		waist="Sailfi Belt +1",
-		left_ear="Tuisto Earring",
-		right_ear="Telos Earring",
-		left_ring="Defending Ring",
-		right_ring="Regal Ring",
-		back=gear.PLD_TP, 
-	})	
+	-- Ochain Specific
+	sets.engaged.Ochain = set_combine(sets.engaged, {})
+	sets.engaged.Ochain.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+    sets.engaged.Ochain.Acc = set_combine(sets.engaged, {})	
+    sets.engaged.Ochain.Acc.HP = set_combine(sets.engaged.HP, {body="Hjarrandi Breast."})	
 	
-    -- Custom Weapon Sets
-	sets.engaged.Staff = {
-	    main="Malignance Pole",
-		sub="Flanged Grip",
-		ammo="Ginsen",
-		head="Flam. Zucchetto +2",
-		body="Flamma Korazin +2",
-		hands="Flam. Manopolas +2",
-		legs="Flamma Dirs +2",
-		feet="Flam. Gambieras +2",
-		neck="Lissome Necklace",
-		waist="Kentarch Belt +1",
-		left_ear="Telos Earring",
-		right_ear="Cessance Earring",
-		left_ring="Flamma Ring",
-		right_ring="Sulevia's Ring",
-		back=gear.PLD_TP,
-	}
+	-- Aegis Specific
+	sets.engaged.Aegis = set_combine(sets.engaged, {})
+	sets.engaged.Aegis.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+    sets.engaged.Aegis.Acc = set_combine(sets.engaged, {})	
+    sets.engaged.Aegis.Acc.HP = set_combine(sets.engaged.HP, {body="Hjarrandi Breast."})	
 	
-	sets.engaged.Staff.PDT = sets.engaged.Staff
-	sets.engaged.Staff.Acc = sets.engaged.Staff
-	sets.engaged.Staff.Acc.PDT = sets.engaged.Staff
-
+	-- Srivatsa Specific
+	sets.engaged.Srivatsa = set_combine(sets.engaged, {})
+	sets.engaged.Srivatsa.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+	sets.engaged.Srivatsa.Acc = set_combine(sets.engaged, {})
+	sets.engaged.Srivatsa.Acc.HP = set_combine(sets.engaged.HP, {body="Hjarrandi Breast."})
+	
     -- Conditional Sets
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
+	
+	-- React Sets
+	-- //react add Caliper "Cure V" ready "gs equip sets.CureRecieved"
+	sets.PhalanxReceived = {
+		body="Valorous Mail",
+		hands="Souv. Handsch. +1",
+		legs="Sakpata's Cuisses",
+		feet="Souveran Schuhs +1",
+		back="Weard Mantle",
+	}
+	
+	-- Regen Recieved requires React.lua
+	sets.RegenReceived = {neck="Sacro Gorget"}
+	
+	-- Cure Received requires React.lua
+	sets.CureReceived = {hands="Souv. Handsch. +1",feet="Souveran Schuhs +1"}
+
     sets.buff.Cover = {}
     sets.CP = {back="Mecisto. Mantle"}
-    sets.TreasureHunter = {waist="Chaac belt", feet="Volte Boots"}
+    sets.TreasureHunter = {waist="Chaac belt", legs=gear.Valorous_Legs_TH, feet="Volte Boots"}
 	
-	sets.MagicalShield = {main="Malignance Sword",sub="Aegis"}
-	sets.PhysicalShield = {main="Malignance Sword",sub="Srivatsa"}
-	sets.Staff = {main="Reikikon",sub="Flanged Grip"}
+	sets.weapons.Ochain = {main="Burtgang",sub="Ochain"}
+	sets.weapons.Aegis = {main="Burtgang",sub="Aegis"}
+	sets.weapons.Srivatsa = {main="Burtgang",sub="Srivatsa"}
 	
 end

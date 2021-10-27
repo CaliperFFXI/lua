@@ -21,10 +21,7 @@ function job_setup()
 	state.Buff.EnwaterII = buffactive['Enwater II'] or false
     state.Buff.Saboteur = buffactive['Saboteur'] or false
 	state.Buff.Silence = buffactive['Silence'] or false
-	
-    include('Mote-TreasureHunter')
-	--state.TreasureMode:set('Tag')
-		
+			
 	-- This var is used to store EnSpell Element for logic functions.
 	EnSpell_Element = nil
 	
@@ -35,14 +32,9 @@ function user_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Normal', 'Acc')
-    state.CastingMode:options('Normal')
+    state.CastingMode:options('Normal','Vagary','Vagary2')
     state.IdleMode:options('Normal','Refresh')
 	
-	state.WeaponLock = M(false, 'Weapon Lock')	
-	state.CP = M(false, 'Capacity Points Mode')
-    state.warned = M(false)
-	
-	state.DualWield = M(false, 'Dual Wield Mode')
 	state.RangeLock = M(false, 'Range Lock')
     state.MagicBurst = M(false, 'Magic Burst')
 	
@@ -50,6 +42,10 @@ function user_setup()
 		'Idle',
 		'SavageBlade',
 		'SeraphBlade',
+		'CroceaMors',
+		'Evisceration',
+		'AeolianEdge',
+		'EnSpell'
 	}
 		
 	-- Low ninja tool threshhold
@@ -107,25 +103,6 @@ end
 
 function job_update(cmdParams, eventArgs)
     handle_equipping_gear(player.status)
-	update_combat_form()
-	update_combat_weapon()
-end
-
-function update_combat_form()
-	if player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
-		state.DualWield:set(true)
-		state.CombatForm:set('DualWield')
-	else
-		state.DualWield:set(false)
-		state.CombatForm:reset()
-	end
-end
-
-function update_combat_weapon()
-	if state.WeaponSet.has_value then
-		equip(sets[state.WeaponSet.current])
-		state.CombatWeapon:set(state.WeaponSet.current)
-	end
 end
 
 function job_buff_change(buff,gain)
@@ -162,25 +139,24 @@ function customize_defense_set(defenseSet)
 end
 
 function customize_melee_set(meleeSet)
-	if EnSpell_Element ~= "None" or nil then
-		-- Matching double weather (w/o day conflict).
-		if EnSpell_Element == world.weather_element and (get_weather_intensity() == 2 and EnSpell_Element ~= elements.weak_to[world.day_element]) then
-			meleeSet = set_combine(meleeSet, sets.Obi)
-		-- Matching day and weather.
-		elseif EnSpell_Element == world.day_element and EnSpell_Element == world.weather_element then
-			meleeSet = set_combine(meleeSet, sets.Obi)
-		-- Match day or weather.
-		elseif EnSpell_Element == world.day_element or EnSpell_Element == world.weather_element then
-			meleeSet = set_combine(meleeSet, sets.Obi)
-		end		
+	if player.equipment.main == "Crocea Mors" then
+		if EnSpell_Element ~= "None" or nil then
+			-- Matching double weather (w/o day conflict).
+			if EnSpell_Element == world.weather_element and (get_weather_intensity() == 2 and EnSpell_Element ~= elements.weak_to[world.day_element]) then
+				meleeSet = set_combine(meleeSet, sets.Obi)
+			-- Matching day and weather.
+			elseif EnSpell_Element == world.day_element and EnSpell_Element == world.weather_element then
+				meleeSet = set_combine(meleeSet, sets.Obi)
+			-- Match day or weather.
+			elseif EnSpell_Element == world.day_element or EnSpell_Element == world.weather_element then
+				meleeSet = set_combine(meleeSet, sets.Obi)
+			end		
+		end
 	end
 	-- CP rule
 	if state.CP.current == 'on' then
         meleeSet = set_combine(meleeSet, sets.CP)
     end
-	if player.status == 'Engaged' then
-		meleeSet = set_combine(meleeSet, sets[state.WeaponSet.current])
-	end		
 	return meleeSet
 end
 

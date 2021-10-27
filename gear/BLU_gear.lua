@@ -67,10 +67,10 @@ function init_gear_sets()
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
 		ammo="Falcon Eye",
 		head="Jhakri Coronal +2",
-		body="Jhakri Robe +2",
+		body=gear.Herculean_Body_WS,
 		hands="Jhakri Cuffs +2",
 		legs="Jhakri Slops +2",
-		feet="Jhakri Pigaches +2",
+		feet=gear.Herculean_Feet_WS,
 		neck="Caro Necklace",
 		waist="Grunfeld Rope",
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
@@ -78,6 +78,18 @@ function init_gear_sets()
 		left_ring="Ilabrat Ring",
 		right_ring="Rufescent Ring",
 		back="Sacro Mantle",
+	})
+    sets.precast.WS['Seraph Blade'] = set_combine(sets.precast.WS, {
+	    body={ name="Cohort Cloak +1", augments={'Path: A',}},
+		hands="Jhakri Cuffs +2",
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2",
+		neck="Sanctity Necklace",
+		waist="Sacro Cord",
+		left_ear="Friomisi Earring",
+		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
+		left_ring="Jhakri Ring",
+		right_ring="Weather. Ring",
 	})
 
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {})
@@ -134,8 +146,8 @@ function init_gear_sets()
     
 	sets.midcast['Blue Magic'].Magical = {
 		ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +2",
-		body="Jhakri Robe +2",
+		--head="Jhakri Coronal +2",
+		body="Cohort Cloak +1",
 		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
 		legs="Jhakri Slops +2",
 		feet="Jhakri Pigaches +2",
@@ -225,7 +237,37 @@ function init_gear_sets()
 		legs=gear.Taeon_Legs,
 		feet=gear.Taeon_Feet,
 	})
-
+	
+    sets.midcast['Elemental Magic'] = {
+		ammo="Pemphredo Tathlum",
+		body="Cohort Cloak +1",
+		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+		legs="Jhakri Slops +2",
+		feet="Jhakri Pigaches +2",
+		neck="Sanctity Necklace",
+		waist="Sacro Cord",
+		left_ear="Friomisi Earring",
+		right_ear="Regal Earring",
+		left_ring="Freke Ring",
+		right_ring="Jhakri Ring",
+		back="Izdubar Mantle",
+	}
+	
+	sets.midcast.Enfeeble = {		
+		ammo="Pemphredo Tathlum",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Aya. Gambieras +2",
+		neck="Erra Pendant",
+		waist="Luminary Sash",
+		left_ear="Regal Earring",
+		right_ear="Digni. Earring",
+		left_ring="Jhakri Ring",
+		right_ring="Weather. Ring",
+		back="Izdubar Mantle",
+}
 	
     -- Resting sets
     sets.resting = {body="Jhakri Robe +2"}
@@ -278,19 +320,19 @@ function init_gear_sets()
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
 		legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
-		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
+		feet="Malignance Boots",
 		neck="Lissome Necklace",
 		waist="Windbuffet Belt +1",
 		left_ear="Dedition Earring",
 		right_ear="Brutal Earring",
-		left_ring="Ilabrat Ring",
-		right_ring="Epona's Ring",
+		left_ring="Epona's Ring",
+		right_ring="Chirich Ring +1",
 		back="Relucent Cape",
 	}
 
     sets.engaged.Acc = set_combine(sets.engaged, {
 		left_ear="Telos Earring",
-		left_ring="Ilabrat Ring",
+		left_ring="Chirich Ring +1",
 	})
 
     sets.engaged.Hybrid = set_combine(sets.engaged, {
@@ -300,8 +342,8 @@ function init_gear_sets()
 		legs="Malignance Tights",
 		feet="Malignance Boots",
 		waist="Reiki Yotai",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
 	})
 	
 	sets.engaged.Hybrid.Acc = set_combine(sets.engaged.Hybrid, {})
@@ -315,9 +357,20 @@ function init_gear_sets()
 	sets.Obi = {waist="Hachirin-no-Obi"}
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.TreasureHunter = {body=gear.Herculean_Body_TH, waist="Chaac belt", feet="Volte Boots"}
-	sets.midcast.Diaga = sets.TreasureHunter
+	--sets.midcast.Diaga = sets.TreasureHunter
+	--sets.midcast['Subduction'] = set_combine(sets.midcast['Blue Magic'].Magical, sets.TreasureHunter)
 	
-	sets.Magic = {main="Naegling",sub="Vampirism"}
-	sets.Melee = {main="Naegling",sub="Colada"}
+	
+	sets.weapons.Magic = {main="Naegling",sub="Vampirism"}
+	sets.weapons.DualWield.Magic = {main="Naegling",sub="Vampirism"}
+	
+	sets.weapons.Melee = {main="Naegling",sub="Colada"}
+	sets.weapons.DualWield.Melee = {main="Naegling",sub="Colada"}
+	
+	sets.weapons.Proc = {main="Trainee Knife", sub="Qutrub Knife"}
+	sets.weapons.DualWield.Proc = {main="Trainee Knife", sub="Qutrub Knife"}
+	
+	sets.weapons.Fish = {range="Lu Shang's F. Rod",ammo="Fly Lure"}
+	sets.weapons.DualWield.Fish = {range="Lu Shang's F. Rod",ammo="Fly Lure"}
 
 end

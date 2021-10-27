@@ -24,25 +24,16 @@ function job_setup()
 	state.Buff["Aftermath: Lv.1"] = buffactive.AM1 or false
 	state.Buff["Aftermath: Lv.2"] = buffactive.AM2 or false
 	state.Buff["Aftermath: Lv.3"] = buffactive.AM3 or false
-	
-	state.DualWield = M(false, 'Dual Wield Mode')
-	state.WeaponLock = M(false, 'Weapon Lock')	
-	state.CP = M(false, 'Capacity Points Mode')
-    state.warned = M(false)
-	
+		
 	-- order of weapons is determined as they appear in this table
 	state.WeaponSet = M{['description']='Weapon Set',
 		'GreatKatana',
-		'Polearm',
-		'SixStep'
+		'Polearm'
 	}
 	elemental_ws = S{''}
 	
 	--place weaponskills in this table to be used with lugra swaps 
     lugra_ws = S{'Tachi: Kasha','Tachi: Shoha','Tachi: Fudo','Impulse Drive'}
-
-    include('Mote-TreasureHunter')
-	state.TreasureMode:set('Tag')
 
 end
 
@@ -56,8 +47,6 @@ function user_setup()
 	
 	options.ninja_tool_warning_limit = 10
 	
-	update_combat_form()
-	update_combat_weapon()
 end
 
 function job_pretarget(spell, action, spellMap, eventArgs)
@@ -82,19 +71,6 @@ function job_precast(spell, action, spellMap, eventArgs)
 		end
 	end
 	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
-	if spell.skill == "Ninjutsu" then
-		do_ninja_tool_checks(spell, spellMap, eventArgs)
-		if spellMap == 'Utsusemi' then
-			if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-				eventArgs.cancel = true 
-				add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-				eventArgs.handled = true
-				return
-			elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-				send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-			end
-		end
-	end
 	if spell.type == 'WeaponSkill' then
 		if spell.target.distance > 6 then
 			eventArgs.cancel = true 
@@ -108,17 +84,6 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 		if lugra_ws:contains(spell.english) and (world.time >= (17*60) or world.time <= (7*60)) then
 			equip(sets.LugraLeft)
         end
-		if elemental_ws:contains(spell.english) then
-			if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) then
-				equip(sets.Obi)
-			-- Matching day and weather.
-			elseif spell.element == world.day_element and spell.element == world.weather_element then
-				equip(sets.Obi)
-			-- Match day or weather.
-			elseif spell.element == world.day_element or spell.element == world.weather_element then
-				equip(sets.Obi)			
-			end
-		end
 	end
 end
 
@@ -129,7 +94,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
-	update_combat_weapon()
 end
 
 function customize_defense_set(defenseSet) 
@@ -193,75 +157,7 @@ function job_state_change(descrip, newVal, oldVal)
 end
 
 function job_update(cmdParams, eventArgs)
-	update_combat_weapon()
-	update_combat_form()
-end
-
-function update_combat_form()
-	if player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
-		state.DualWield:set(true)
-		state.CombatForm:set('DualWield')
-	else
-		state.DualWield:set(false)
-		state.CombatForm:reset()
-	end
-end
-
-function update_combat_weapon()
-	state.CombatWeapon:set(state.WeaponSet.current)
-	equip(sets[state.WeaponSet.current])
 end
 
 function get_custom_wsmode(spell, spellMap, ws_mode)
 end
-
-function do_ninja_tool_checks(spell, spellMap, eventArgs)
-    local ninja_tool_name
-    local ninja_tool_min_count = 1
-
-    -- Checks: sneak/invis and shadows.
-    if spell.skill == "Ninjutsu" then
-        if spellMap == 'Utsusemi' then
-            ninja_tool_name = "Shihei"
-        elseif spellMap == 'Monomi' then
-            ninja_tool_name = "Sanjaku-Tenugui"
-        elseif spellMap == 'Tonko' then
-            ninja_tool_name = "Shinobi-Tabi"
-        else
-            return
-        end
-    end
-
-    local available_ninja_tools = player.inventory[ninja_tool_name]
-
-    -- If no tools are available, end.
-    if not available_ninja_tools then
-        if spell.skill == "Ninjutsu" then
-            return
-        end
-    end
-
-    -- Low ninja tools warning.
-    if spell.skill == "Ninjutsu" and state.warned.value == false
-        and available_ninja_tools.count > 1 and available_ninja_tools.count <= options.ninja_tool_warning_limit then
-        local msg = '*****  LOW TOOLS WARNING: '..ninja_tool_name..' *****'
-        --local border = string.repeat("*", #msg)
-        local border = ""
-        for i = 1, #msg do
-            border = border .. "*"
-        end
-
-        add_to_chat(104, border)
-        add_to_chat(104, msg)
-        add_to_chat(104, border)
-
-        state.warned:set()
-    elseif available_ninja_tools.count > options.ninja_tool_warning_limit and state.warned then
-        state.warned:reset()
-    end
-end
-
-
-
-
-

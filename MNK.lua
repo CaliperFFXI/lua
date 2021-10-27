@@ -30,7 +30,6 @@ function user_setup()
 	
 	Previous_Weapon = nil
 	
-    include('Mote-TreasureHunter')
 	--state.TreasureMode:set('Tag')
 	
 	update_combat_weapon()

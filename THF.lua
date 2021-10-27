@@ -13,19 +13,14 @@ function job_setup()
     state.Buff['Sneak Attack'] = buffactive['sneak attack'] or false
     state.Buff['Trick Attack'] = buffactive['trick attack'] or false
     state.Buff['Feint'] = buffactive['feint'] or false
-
-    include('Mote-TreasureHunter')
 	
 	state.WeaponSet = M{['description']='Weapon Set','Normal','Sword','Cleave'}
-
 
     -- For th_action_check():
     -- JA IDs for actions that always have TH: Provoke, Animated Flourish
     info.default_ja_ids = S{35, 204}
     -- Unblinkable JA IDs for actions that always have TH: Quick/Box/Stutter Step, Desperate/Violent Flourish
     info.default_u_ja_ids = S{201, 202, 203, 205, 207}
-
-    state.CP = M(false, "Capacity Points Mode")
 
 end
 
@@ -47,16 +42,6 @@ function user_setup()
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
-    if spellMap == 'Utsusemi' then
-        if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-            cancel_spell()
-            add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-            eventArgs.handled = true
-            return
-        elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-            send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-        end
-    end
     if spell.english=='Sneak Attack' or spell.english=='Trick Attack' then
         if state.TreasureMode.value == 'SATA' or state.TreasureMode.value == 'Fulltime' then
             equip(sets.TreasureHunter)
@@ -97,8 +82,6 @@ end
 
 function job_update(cmdParams, eventArgs)
     handle_equipping_gear(player.status)
-    th_update(cmdParams, eventArgs)
-	update_combat_weapon()
 end
 
 function get_custom_wsmode(spell, spellMap, defaut_wsmode)
@@ -112,13 +95,6 @@ function get_custom_wsmode(spell, spellMap, defaut_wsmode)
     end
 
     return wsmode
-end
-
-function update_combat_weapon()
-	if state.WeaponSet.has_value then
-		equip(sets[state.WeaponSet.current])
-		state.CombatWeapon:set(state.WeaponSet.current)
-	end
 end
 
 -- State buff checks that will equip buff gear and mark the event as handled.

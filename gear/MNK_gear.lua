@@ -58,6 +58,8 @@ function init_gear_sets()
 		head="Herculean Helm",
 		body={ name="Taeon Tabard", augments={'"Fast Cast"+3',}},
 		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
+		legs=gear.Taeon_Legs,
+		feet=gear.Taeon_Feet,
 		neck="Voltsurge Torque",
 		left_ear="Loquac. Earring",
 		right_ear="Etiolation Earring",
@@ -65,7 +67,9 @@ function init_gear_sets()
 		right_ring="Weather. Ring",
 	}
 
-    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {})
+    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {
+		body="Passion Jacket",
+	})
        
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
@@ -74,8 +78,8 @@ function init_gear_sets()
 		head={ name="Hes. Crown +3", augments={'Enhances "Penance" effect',}},
 		body="Ken. Samue",
 		hands="Adhemar Wrist. +1", 
-		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
-		feet=gear.HercFeetTP,
+		legs={ name="Tatena. Haidate +1", augments={'Path: A',}},
+		feet={ name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck="Mnk. Nodowa +1",
 		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
@@ -127,8 +131,6 @@ function init_gear_sets()
 		head="Ken. Jinpachi",
 		body="Adhemar Jacket +1",
 		hands="Ken. Tekko",
-		legs="Ken. Hakama",
-		feet="Ken. Sune-Ate",
 		neck="Fotia Gorget",
 		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
@@ -143,8 +145,6 @@ function init_gear_sets()
 		head={ name="Hes. Crown +3", augments={'Enhances "Penance" effect',}},
 		body="Ken. Samue",
 		hands="Anchor. Gloves +3",
-		legs="Ken. Hakama",
-		feet="Ken. Sune-Ate",
 		neck={ name="Mnk. Nodowa +1", augments={'Path: A',}},
 		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
@@ -172,7 +172,6 @@ function init_gear_sets()
 		body="Ken. Samue",
 		hands="Anchor. Gloves +3",
 		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
-		feet="Ken. Sune-Ate",
 		neck={ name="Mnk. Nodowa +1", augments={'Path: A',}},
 		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
@@ -274,8 +273,6 @@ function init_gear_sets()
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body="Ken. Samue",
 		hands="Adhemar Wrist. +1", 
---		legs={ name="Samnuha Tights", augments={'STR+10','DEX+10','"Dbl.Atk."+3','"Triple Atk."+3',}},
---		feet=gear.Herculean_Feet_TP,
 		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
 		feet="Anch. Gaiters +3",
 		neck="Mnk. Nodowa +1",
@@ -353,14 +350,14 @@ function init_gear_sets()
 	-- Mache Earring 'recommended for slower knuckles '
 	sets.Mache = {right_ear="Mache Earring +1"}
 	
-	sets.Godhands = {main="Godhands"}
+	sets.weapons.Godhands = {main="Godhands"}
 	-- sets.Karambit = {main="Karambit"}
-	sets.Verethragna = {main="Verethragna"}
-	sets.Staff = {main="Reikikon", sub="Flanged Grip"}
+	sets.weapons.Verethragna = {main="Verethragna"}
+	sets.weapons.Staff = {main="Reikikon", sub="Flanged Grip"}
 	-- Abyssea Proc
-	sets.Proc_H2H = {main="Trainee Scissors"}
-	sets.Proc_Club = {main="Club Hammer"}
-	sets.Proc_Staff = {main="Caver's Shovel",sub="Flanged Grip"}
+	sets.weapons.Proc_H2H = {main="Trainee Scissors"}
+	sets.weapons.Proc_Club = {main="Club Hammer"}
+	sets.weapons.Proc_Staff = {main="Caver's Shovel",sub="Flanged Grip"}
 	
 	
 end

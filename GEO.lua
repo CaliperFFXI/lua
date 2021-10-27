@@ -74,9 +74,6 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
                 equip(sets.midcast.Impact)
             end
         end
-        if (spell.element == world.day_element or spell.element == world.weather_element) then
-            equip(sets.Obi)
-        end
     elseif spell.skill == 'Enhancing Magic' and classes.NoSkillSpells:contains(spell.english) then
         equip(sets.midcast.EnhancingDuration)
         if spellMap == 'Refresh' then
@@ -148,22 +145,12 @@ end
 
 function job_get_spell_map(spell, default_spell_map)
     if spell.action_type == 'Magic' then
-        if spell.skill == 'Enfeebling Magic' then
-            if spell.type == 'WhiteMagic' then
-                return 'MndEnfeebles'
-            else
-                return 'IntEnfeebles'
-            end
-        elseif spell.skill == 'Geomancy' then
-            if spell.english:startswith('Indi') then
-                return 'Indi'
-            end
-        elseif spell.skill == 'Elemental Magic' then
-            if spellMap == 'GeoElem' then
-                return 'GeoElem'
-            end
-        end
-    end
+        if spell.skill == 'Geomancy' then
+            if spell.english:startswith('Indi') then return "Indi" end
+		end
+    elseif spell.skill == 'Elemental Magic' then
+		if spellMap == 'GeoElem' then return "GeoElem" end
+	end
 end
 
 function customize_idle_set(idleSet)
@@ -188,9 +175,4 @@ function job_state_change(stateField, newValue, oldValue)
 	else
 		enable('main','sub')
 	end
-end
-
---Lockstyle handling.
-function set_lockstyle(lockstyleset)
-    send_command('wait 2; input /lockstyleset ' .. lockstyleset)
 end

@@ -19,14 +19,12 @@ function user_setup()
     state.WeaponskillMode:options('Normal', 'Acc')
     state.CastingMode:options('Normal','Acc')
     state.IdleMode:options('Normal')
-	
-    state.warned = M(false)
-	
+		
 	--SpellMap Tables
 	Placeholders = M{['description']='Dummy Song','Warding Round','Fowl Aubade','Herb Pastoral','Shining Fantasia','Scop\'s Operetta','Puppet\'s Operetta'}
 	Enfeeble_Song = M{['description']='Threnody','Finale','Elegy','Nocturne','Requiem','Lullaby'}
 
-	state.WeaponSet = M{['description']='Weapon Set','Rudras','Evisceration','SavageBlade','DaggerMAB'}
+	state.WeaponSet = M{['description']='Weapon Set','Idle','Rudras','Evisceration','SavageBlade','DaggerMAB'}
 	
 	-- Instrument variables --
 	-- These placeholders can be modified with the name of the instrument to support RMEA options and otherwise.
@@ -40,11 +38,6 @@ function user_setup()
 	-- Define name of Aeonic Horn
 	info.AeonicHorn = 'Marsyas'
 	
-    include('Mote-TreasureHunter')
-	state.TreasureMode:set('Tag')
-
-	update_combat_form()
-	update_combat_weapon()
 end
 
 function job_precast(spell, action, spellMap, eventArgs)	
@@ -110,29 +103,13 @@ end
 function job_aftercast(spell, action, spellMap, eventArgs)
     if spell.english:contains('Lullaby') and not spell.interrupted then
         get_lullaby_duration(spell)
-    end
+    end	
 end
 
-function update_combat_form()
-	-- Subjob DNC or NIN - set CombatForm.
-	if player.sub_job_id == 13 or player.sub_job_id == 19 then 
-		state.CombatForm:set('DualWield')
-	else
-		state.CombatForm:reset()
-	end
-end
-
-function update_combat_weapon()
-	if state.WeaponSet.has_value then
-		equip(sets[state.WeaponSet.current])
-		state.CombatWeapon:set(state.WeaponSet.current)		
-	end
+function job_handle_equipping_gear(playerStatus, eventArgs)
 end
 
 function job_update(cmdParams, eventArgs)
-    handle_equipping_gear(player.status)
-	update_combat_weapon()
-	update_combat_form()
 end
 
 function customize_melee_set(meleeSet)
