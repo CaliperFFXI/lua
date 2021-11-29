@@ -1,14 +1,22 @@
 function init_gear_sets()
+
+	-- JSE -- 
+	-- PLD 
+	gear.PLD_Cure_SIRD = { name="Rudianos's Mantle", augments={'HP+60','HP+20','"Cure" potency +10%','Spell interruption rate down-10%',}}		
+	gear.PLD_FC_PDT = { name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Phys. dmg. taken-10%',}}
+	gear.PLD_TP = { name="Rudianos's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
+	gear.PLD_TP_DA = { name="Rudianos's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
+	gear.PLD_Idle_Enmity = { name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Phys. dmg. taken-10%',}}
     
 	organizer_items = {
 		echos="Echo Drops",
+		water="Holy Water",
 		misoramen="Miso Ramen +1",
 		mantles="Rudianos's Mantle",
 	}	
 	
 	--	Full Enmity Set, place common items here to be combined into sets below.
 	sets.Enmity = {
-		--sub="Srivatsa",
 		ammo="Sapience Orb",
 		head={ name="Loess Barbuta +1", priority=10},
 		body={ name="Rev. Surcoat +3", priority=12},
@@ -42,6 +50,9 @@ function init_gear_sets()
 	}
 	
     -- Precast 
+	-- Default precast set, equips enmity gear unless tagged specifically.
+	sets.precast.JA = sets.Enmity
+	
     sets.precast.JA['Invincible'] = {legs={ name="Cab. Breeches", augments={'Enhances "Invincible" effect',}},}
     sets.precast.JA['Holy Circle'] = {}
     sets.precast.JA['Shield Bash'] = {}
@@ -80,8 +91,36 @@ function init_gear_sets()
 	
 	sets.precast.WS['Atonement'] = set_combine(sets.Enmity, {})
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {})
-    sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {})
-	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
+		ammo="Ginsen",
+		head="Hjarrandi Helm",
+		body="Hjarrandi Breast.",
+		hands="Sakpata's Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sakpata's Leggings",
+		neck="Fotia Gorget",
+		waist="Fotia Belt",
+		left_ear="Cessance Earring",
+		right_ear="Telos Earring",
+		left_ring="Rufescent Ring",
+		right_ring="Begrudging Ring",
+	})
+	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
+		sub="Ochain",
+		ammo="Ginsen",
+		head="Hjarrandi Helm",
+		body="Hjarrandi Breast.",
+		hands="Sakpata's Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sulev. Leggings +2",
+		neck="Combatant's Torque",
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
+		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
+		right_ear="Thrud Earring",
+		left_ring="Rufescent Ring",
+		right_ring="Regal Ring",
+		back={ name="Rudianos's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Phys. dmg. taken-10%',}},
+	})
 	    			
     -- Midcast sets	
 	sets.midcast['Blue Magic'] = set_combine(sets.SIRD, {})
@@ -96,7 +135,6 @@ function init_gear_sets()
 	sets.midcast.Stun = sets.Enmity
 
 	sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {
-		body={ name="Valorous Mail", augments={'Attack+5','"Snapshot"+3','Phalanx +5','Accuracy+5 Attack+5',}},
 		back="Weard Mantle",
 	})
 
@@ -148,15 +186,14 @@ function init_gear_sets()
 
     -- Idle sets
     sets.idle = {
-		ammo="Homiliary",
+		ammo="Staunch Tathlum",
 		head={ name="Sakpata's Helm", priority=10},
-		--body={ name="Rev. Surcoat +3", priority=12},
 		body={ name="Sakpata's Plate", priority=12},
 		hands={ name="Sakpata's Gauntlets", priority=9},
 		legs={ name="Sakpata's Cuisses", priority=11},
 		feet={ name="Sakpata's Leggings", priority=8},
-		neck={ name="Unmoving Collar +1", priority=15},
-		waist="Asklepian Belt",
+		neck="Warder's Charm +1",
+		waist="Carrier's Sash",	
 		left_ear="Eabani Earring",
 		right_ear="Thureous Earring",
 		left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
@@ -166,6 +203,8 @@ function init_gear_sets()
 		
 	-- Idle with state.IdleMode 'Refresh'
 	sets.idle.HP = set_combine(sets.idle, {
+		neck={ name="Unmoving Collar +1", priority=15},
+		waist="Asklepian Belt",
 		left_ear={name="Tuisto Earring", priority=11},
 		right_ear={name="Odnowa Earring +1", priority=10},
 	})
@@ -176,9 +215,11 @@ function init_gear_sets()
     sets.idle.Town = set_combine(sets.idle, sets.Kiting)
 	sets.idle.Town.HP = set_combine(sets.idle.HP, sets.Kiting)
     
-    sets.idle.Weak = {}
+    sets.idle.Weak = set_combine(sets.idle, {})
+	
+	sets.idle.Weak.HP = set_combine(sets.idle, {})
     
-    sets.idle.Weak.Reraise = {}
+    sets.idle.Weak.Reraise = set_combine(sets.idle, {})
     
     sets.resting = sets.idle.Refresh
 
@@ -190,47 +231,69 @@ function init_gear_sets()
 	-- Engaged with no specific DefenseMode or OffenseMode
     sets.engaged = {
 		ammo="Ginsen",
-		head={ name="Sakpata's Helm", priority=10},
-		--body={ name="Rev. Surcoat +3", priority=12},
-		body={ name="Sakpata's Plate", priority=12},
-		hands={ name="Sakpata's Gauntlets", priority=9},
-		legs={ name="Sakpata's Cuisses", priority=11},
-		feet={ name="Sakpata's Leggings", priority=8},
-		neck={ name="Unmoving Collar +1", priority=15},
-		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
+		head="Hjarrandi Helm",
+		body="Hjarrandi Breast.",
+		hands="Sakpata's Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sakpata's Leggings",
+		neck="Combatant's Torque",
+		waist="Tempus Fugit",
 		left_ear="Telos Earring",
 		right_ear="Dedition Earring",
-		left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
-		right_ring={ name="Moonlight Ring",bag="wardrobe2", priority=13},
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
 		back=gear.PLD_TP,
+		-- ammo="Ginsen",
+		-- head={ name="Hjarrandi Helm", priority=10},
+		-- body={ name="Hjarrandi Breast.", priority=12},
+		-- hands={ name="Sakpata's Gauntlets", priority=9},
+		-- legs={ name="Sakpata's Cuisses", priority=11},
+		-- feet={ name="Sakpata's Leggings", priority=8},
+		-- neck="Combatant's Torque",
+		-- waist="Tempus Fugit",
+		-- left_ear="Telos Earring",
+		-- right_ear="Dedition Earring",
+		-- left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
+		-- right_ring={ name="Moonlight Ring",bag="wardrobe2", priority=13},
+		-- back=gear.PLD_TP,
 	}
 	-- Engaged with OffenseMode 'Acc'
     sets.engaged.Acc = set_combine(sets.engaged, {})	
 	
 	-- Hybrid 'HP' mode
-    sets.engaged.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
-    sets.engaged.HP.Acc = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+    sets.engaged.HP = set_combine(sets.engaged, {
+		head={ name="Sakpata's Helm", priority=10},
+		body={ name="Sakpata's Plate", priority=12},
+		waist="Sailfi Belt +1",
+		neck={ name="Unmoving Collar +1", priority=15},
+		left_ear="Tuisto Earring",
+		right_ear="Odnowa Earring +1",
+		left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
+		right_ring={ name="Moonlight Ring",bag="wardrobe2", priority=13},
+	})
+    sets.engaged.HP.Acc = set_combine(sets.engaged, {})
 	
 	-- Ochain Specific
 	sets.engaged.Ochain = set_combine(sets.engaged, {})
-	sets.engaged.Ochain.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+	sets.engaged.Ochain.HP = set_combine(sets.engaged.HP, {})
     sets.engaged.Ochain.Acc = set_combine(sets.engaged, {})	
-    sets.engaged.Ochain.Acc.HP = set_combine(sets.engaged.HP, {body="Hjarrandi Breast."})	
+    sets.engaged.Ochain.Acc.HP = set_combine(sets.engaged.HP, {})	
 	
 	-- Aegis Specific
 	sets.engaged.Aegis = set_combine(sets.engaged, {})
-	sets.engaged.Aegis.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+	sets.engaged.Aegis.HP = set_combine(sets.engaged.HP, {})
     sets.engaged.Aegis.Acc = set_combine(sets.engaged, {})	
-    sets.engaged.Aegis.Acc.HP = set_combine(sets.engaged.HP, {body="Hjarrandi Breast."})	
+    sets.engaged.Aegis.Acc.HP = set_combine(sets.engaged.HP, {})	
 	
 	-- Srivatsa Specific
 	sets.engaged.Srivatsa = set_combine(sets.engaged, {})
-	sets.engaged.Srivatsa.HP = set_combine(sets.engaged, {left_ear="Tuisto Earring",right_ear="Odnowa Earring +1",})
+	sets.engaged.Srivatsa.HP = set_combine(sets.engaged, {})
 	sets.engaged.Srivatsa.Acc = set_combine(sets.engaged, {})
-	sets.engaged.Srivatsa.Acc.HP = set_combine(sets.engaged.HP, {body="Hjarrandi Breast."})
+	sets.engaged.Srivatsa.Acc.HP = set_combine(sets.engaged.HP, {})
 	
     -- Conditional Sets
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
+	sets.LugraLeft = {left_ear="Lugra Earring +1"}
 	
 	-- React Sets
 	-- //react add Caliper "Cure V" ready "gs equip sets.CureRecieved"

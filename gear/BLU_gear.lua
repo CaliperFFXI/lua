@@ -275,17 +275,17 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = {
 		ammo="Staunch Tathlum",
-		head="Malignance Chapeau",
-		body="Malignance Tabard",
-		hands="Malignance Gloves",
-		legs={ name="Carmine Cuisses +1", augments={'HP+80','STR+12','INT+12',}},
-		feet="Malignance Boots",
-		neck="Loricate Torque +1",
-		waist="Flume Belt +1",
-		left_ear="Ethereal Earring",
-		right_ear="Eabani Earring",
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck="Warder's Charm +1",
+		waist="Carrier's Sash",
+		left_ear="Tuisto Earring",
+		right_ear="Odnowa Earring +1",
 		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		right_ring="Shadow Ring",
 		back="Reiki Cloak",
 	}
 
@@ -296,15 +296,7 @@ function init_gear_sets()
     sets.idle.Weak = sets.idle.DT
 
 	-- Defense Sets
-    sets.defense.PDT = {    
-		head="Malignance Chapeau",
-		body="Malignance Tabard",
-		hands="Malignance Gloves",
-		legs="Malignance Tights",
-		feet="Malignance Boots",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-	}
+    sets.defense.PDT = {}
     sets.defense.MDT = sets.defense.PDT
 
     -- Engaged sets
@@ -357,7 +349,7 @@ function init_gear_sets()
 	sets.Obi = {waist="Hachirin-no-Obi"}
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
     sets.TreasureHunter = {body=gear.Herculean_Body_TH, waist="Chaac belt", feet="Volte Boots"}
-	--sets.midcast.Diaga = sets.TreasureHunter
+	sets.midcast.Diaga = sets.TreasureHunter
 	--sets.midcast['Subduction'] = set_combine(sets.midcast['Blue Magic'].Magical, sets.TreasureHunter)
 	
 	

@@ -1,5 +1,12 @@
 function init_gear_sets()
 
+	-- JSE -- 
+	-- SMN
+	gear.BPcapePhysical = {name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Damage taken-3%',}}
+	gear.BPcapeMagical = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Mag. Acc.+10','"Fast Cast"+10',}}
+	gear.BPdelayCape = {name="Conveyance Cape", augments={'Summoning magic skill +1','Blood Pact Dmg.+1','Blood Pact ab. del. II -3',}}
+	gear.MagMerlinic = {name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+20 Pet: "Mag.Atk.Bns."+20','Blood Pact Dmg.+10','Pet: STR+6','Pet: Mag. Acc.+15',}}
+
 	--place items here to be grabbed when //gs org is run. (requires Organizer)
 	organizer_items = {
 		echos="Echo Drops",
@@ -63,7 +70,7 @@ function init_gear_sets()
 		head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
 		body="Inyanga Jubbah +2",
 		hands={ name="Telchine Gloves", augments={'"Fast Cast"+5','Enh. Mag. eff. dur. +9',}},
-		legs={ name="Lengo Pants", augments={'INT+10','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Refresh"+1',}},
+		legs="Nyame Flanchard",
 		feet="Regal Pumps +1",
 		neck="Voltsurge Torque",
 		waist="Witful Belt",

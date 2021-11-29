@@ -5,7 +5,7 @@ function init_gear_sets()
 	}
 	
 	-- Precast
-	sets.precast.JA['Benediction'] = {body="Piety Briault +3"}
+	sets.precast.JA['Benediction'] = {body="Piety Bliaut +3"}
 	sets.precast.JA['Sublimation'] = {waist="Embla Sash"}
 
 	-- Fast Cast 
@@ -29,7 +29,7 @@ function init_gear_sets()
     sets.precast.FCEnhancing = set_combine(sets.precast.FC, {})
 	
 	--Fast Cast + Cure spell casting time stack additively, cap 80%
-    sets.precast.FC['Healing Magic'] = set_combine(sets.precast.FC, {sub="Sors Shield",})
+    sets.precast.FC['Healing Magic'] = set_combine(sets.precast.FC, {sub="Sors Shield"})
 	sets.precast.FC.StatusRemoval = sets.precast.FC['Healing Magic']
     sets.precast.FC.Cure = set_combine(sets.precast.FC['Healing Magic'], {})
     sets.precast.FC.Curaga = sets.precast.FC.Cure
@@ -78,33 +78,32 @@ function init_gear_sets()
     sets.midcast.CureSolace = {
 		main={ name="Queller Rod", augments={'Healing magic skill +15','"Cure" potency +10%','"Cure" spellcasting time -7%',}},
 		sub="Sors Shield",
-		ammo="Esper Stone +1",
+		ammo="Sapience Orb",
 		head="Theophany Cap +2",
-		body="Ebers Bliaud +1",
+		body="Theo. Bliaut +2",
 		hands="Theophany Mitts +2",
 		legs="Ebers Pant. +1",
-		feet="Piety Duckbills +1",		
-		neck="Cleric's Torque",
+		feet={ name="Piety Duckbills +1", augments={'Enhances "Afflatus Solace" effect',}},
+		neck={ name="Cleric's Torque", augments={'Path: A',}},
 		waist="Luminary Sash",
 		left_ear="Nourish. Earring +1",
 		right_ear="Glorious Earring",
+		left_ring="Kishar Ring",
 		right_ring="Lebeche Ring",
 		back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}},
-        }
+	}
 
     sets.midcast.CureSolaceWeather = set_combine(sets.midcast.CureSolace, {
 		main="Chatoyant Staff",
-		sub="Mensch Strap +1",
 		waist="Hachirin-no-Obi"
 	})
 
     sets.midcast.CureNormal = set_combine(sets.midcast.CureSolace, {    
-		body={ name="Piety Briault +3", augments={'Enhances "Benediction" effect',}},
+		body={ name="Piety Bliaut +3", augments={'Enhances "Benediction" effect',}},
 	})
 
     sets.midcast.CureWeather = set_combine(sets.midcast.CureNormal, {
 		main="Chatoyant Staff",
-		sub="Mensch Strap +1",
 		waist="Hachirin-no-Obi",
 	})
 
@@ -113,7 +112,7 @@ function init_gear_sets()
 		sub="Sors Shield",
 		ammo="Pemphredo Tathlum",
 		head="Theophany Cap +2",
-		body="Theo. Briault +2",
+		body="Theo. Bliaut +2",
 		hands="Theophany Mitts +2",
 		legs="Th. Pantaloons +2",
 		feet="Piety Duckbills +1",
@@ -192,7 +191,7 @@ function init_gear_sets()
     sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {
 		main="Bolelabunga",
 		head="Inyanga Tiara +2",
-		body="Piety Briault +3",
+		body={ name="Piety Bliaut +3", augments={'Enhances "Benediction" effect',}},
 		hands="Ebers Mitts +1",
 		legs="Th. Pantaloons +2",
     })
@@ -204,7 +203,7 @@ function init_gear_sets()
     sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], {
 		sub="Ammurapi shield",
 		head="Ebers Cap +1",
-		body="Ebers Bliaud +1",
+		body="Ebers Bliaut +1",
 		hands="Ebers Mitts +1",
 		legs="Piety Pantaln. +1",
 		feet="Ebers Duckbills +1",
@@ -228,7 +227,7 @@ function init_gear_sets()
 		sub="Ammurapi Shield",
 		ammo="Pemphredo Tathlum",
 		head="Pixie Hairpin +1",
-		body="Theo. Briault +2",
+		body="Theo. Bliaut +2",
 		hands="Theophany Mitts +2",
 		legs="Th. Pantaloons +2",
 		feet="Theo. Duckbills +2",
@@ -247,7 +246,7 @@ function init_gear_sets()
 		sub="Ammurapi shield",
 		ammo="Pemphredo Tathlum",
 		head="Theophany Cap +2",
-		body="Theo. Briault +2",
+		body="Theo. Bliaut +2",
 		hands="Regal Cuffs",
 		legs="Chironic Hose",
 		feet="Theo. Duckbills +2",
@@ -276,56 +275,24 @@ function init_gear_sets()
 		main="Daybreak",
 		sub="Genmei Shield",
 		ammo="Homiliary",
-		head="Inyanga Tiara +2",
-		body={ name="Piety Briault +3", augments={'Enhances "Benediction" effect',}},
-		hands="Inyan. Dastanas +2",
-		legs="Inyanga Shalwar +2",
-		feet="Inyan. Crackows +2",
+		head="Nyame Helm",
+		body={ name="Piety Bliaut +3", augments={'Enhances "Benediction" effect',}},
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
 		neck="Warder's Charm +1",
 		waist="Carrier's Sash",
 		left_ear="Genmei Earring",
 		right_ear="Ethereal Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		left_ring="Shadow Ring",
+		right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
 		back=gear.JSE_Cape,
 	}
 		
 	-- Defense sets
-    sets.defense.PDT = {    
-		main="Daybreak",
-		sub="Genmei Shield",
-		ammo="Homiliary",
-		head={ name="Gende. Caubeen +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -3%',}},
-		body={ name="Gende. Bilaut +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -2%','Song spellcasting time -4%',}},
-		hands={ name="Gende. Gages +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -4%','Song spellcasting time -3%',}},
-		legs="Inyanga Shalwar +2",
-		feet="Inyan. Crackows +2",
-		neck="Loricate Torque +1",
-		waist="Carrier's Sash",
-		left_ear="Genmei Earring",
-		right_ear="Ethereal Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back=gear.JSE_Cape,
-	}
+    sets.defense.PDT = {}
 	
-    sets.defense.MDT = {
-		main="Daybreak",
-		sub="Genmei Shield",
-		ammo="Staunch Tathlum",
-		head="Inyanga Tiara +2",
-		body="Inyanga Jubbah +2",
-		hands="Inyan. Dastanas +2",
-		legs="Inyanga Shalwar +2",
-		feet="Inyan. Crackows +2",
-		neck="Warder's Charm +1",
-		waist="Carrier's Sash",
-		left_ear="Eabani Earring",
-		right_ear="Ethereal Earring",
-		left_ring="Defending Ring",
-		right_ring="Shadow Ring",
-		back=gear.JSE_Cape,
-	}	
+    sets.defense.MDT = {}	
 	
 	sets.idle.PDT = set_combine(sets.idle, sets.defense.PDT)
 	sets.idle.MDT = set_combine(sets.idle, sets.defense.MDT)

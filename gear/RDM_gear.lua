@@ -1,21 +1,28 @@
 function init_gear_sets()
 
+	-- JSE -- 
+	-- RDM
+	gear.RDM_TP = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}}
+	gear.RDM_MACC = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}
+	gear.RDM_STR_WS = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+
+
     -- Precast sets to enhance JAs
     sets.precast.JA['Chainspell'] = {}
 
     -- Fast cast sets for spells
-    sets.precast.FC = {
+		sets.precast.FC = {
 		head="Atrophy Chapeau +3",
-		body="Viti. Tabard +3",
-		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
-		legs="Aya. Cosciales +2",
-		feet={ name="Taeon Boots", augments={'"Fast Cast"+5','Phalanx +2',}},
-		neck="Voltsurge Torque",
+		body={ name="Viti. Tabard +3", augments={'Enhances "Chainspell" effect',}},
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck={ name="Unmoving Collar +1", augments={'Path: A',}},
 		waist="Witful Belt",
-		left_ear="Malignance Earring",
-		right_ear="Loquac. Earring",
-		left_ring="Kishar Ring",
-		right_ring="Weather. Ring",
+		left_ear="Etiolation Earring",
+		right_ear="Thureous Earring",
+		left_ring="Weather. Ring",
+		right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
 		back=gear.RDM_MACC,
 	}
 
@@ -38,13 +45,13 @@ function init_gear_sets()
     sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
 		head={ name="Viti. Chapeau +3", augments={'Enfeebling Magic duration','Magic Accuracy',}},
 		body="Ayanmo Corazza +2",
-		hands="Aya. Manopolas +2",
-		legs="Aya. Cosciales +2",
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
 		feet="Thereoid Greaves",
 		neck="Fotia Gorget",
 		waist="Fotia Belt",
 		left_ear="Sherida Earring",
-		right_ear="Mache Earring +1",
+		right_ear="Telos Earring",
 		left_ring="Ilabrat Ring",
 		right_ring="Begrudging Ring",
 		back="Relucent Cape",
@@ -117,8 +124,8 @@ function init_gear_sets()
 		waist="Sacro Cord",
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		right_ear="Malignance Earring",
-		left_ring="Freke Ring",
-		right_ring="Weather. Ring",
+		left_ring="Weather. Ring",
+		right_ring="Freke Ring",
 		back=gear.RDM_STR_WS,
 	})
 
@@ -249,8 +256,8 @@ function init_gear_sets()
 		waist="Embla Sash",
 		left_ear="Malignance Earring",
 		right_ear="Loquac. Earring",
-		left_ring="Kishar Ring",
-		right_ring="Weather. Ring",
+		left_ring="Weather. Ring",
+		right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
 		back=gear.RDM_MACC,
 	})
 	
@@ -311,8 +318,8 @@ function init_gear_sets()
 		waist="Luminary Sash",
 		left_ear="Regal Earring",
 		right_ear="Snotra Earring",
-		left_ring="Kishar Ring",
-		right_ring="Weather. Ring",
+		left_ring="Weather. Ring",
+		right_ring="Stikini Ring",
 		back=gear.RDM_MACC,
 	}
 	
@@ -406,7 +413,7 @@ function init_gear_sets()
 		range="Ullr",
 		body="Twilight Cloak",
 		hands="Regal Cuffs",
-		legs={ name="Chironic Hose", augments={'Mag. Acc.+29','MND+7','"Mag.Atk.Bns."+15',}},
+		legs="Chironic Hose",
 		feet={ name="Vitiation Boots +3", augments={'Immunobreak Chance',}},
 		neck={ name="Dls. Torque +1", augments={'Path: A',}},
 		waist="Sacro Cord",
@@ -427,10 +434,10 @@ function init_gear_sets()
 	-- Idle Sets
     sets.idle = {
 		head="Viti. Chapeau +3",
-		body="Malignance Tabard",
-		hands="Malignance Gloves",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
 		legs="Malignance Tights",
-		feet="Malignance Boots",
+		feet="Nyame Sollerets",
 		neck="Loricate Torque +1",
 		waist="Flume Belt +1",
 		left_ear="Ethereal Earring",
@@ -481,10 +488,11 @@ function init_gear_sets()
     sets.Kiting = {legs="Carmine Cuisses +1"}
     sets.latent_refresh = {waist="Fucho-no-Obi"}
 	sets.magic_burst = {
-		head=gear.Merlinic_Head_MB,
-		body=gear.Merlinic_Body_MB,
+		head="Nyame Helm",
+		body="Nyame Mail",
 		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-		legs=gear.Merlinic_Legs_MB,
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
 		neck="Mizu. Kubikazari",
 		left_ring="Mujin Band",
 		right_ring="Locus Ring",
@@ -533,9 +541,27 @@ function init_gear_sets()
 		waist="Windbuffet Belt +1",
 		left_ear="Suppanomimi",
 		right_ear="Digni. Earring",
-		left_ring="Defending Ring",
+		left_ring="Chirich Ring +1",
 		right_ring="Chirich Ring +1",
 	})
+	
+	sets.engaged.DualWield.SeraphBlade = set_combine(sets.engaged.DualWield, {
+		range="Ullr",
+		ammo="Demon Arrow",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Aya. Manopolas +2",
+		legs={ name="Carmine Cuisses +1", augments={'Accuracy+20','Attack+12','"Dual Wield"+6',}},
+		feet="Malignance Boots",
+		neck="Sanctity Necklace",
+		waist="Windbuffet Belt +1",
+		left_ear="Suppanomimi",
+		right_ear="Digni. Earring",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
+	})
+
+	
 	
 	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield, {
 		right_ear="Telos Earring",

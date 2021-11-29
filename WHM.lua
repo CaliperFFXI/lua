@@ -52,6 +52,17 @@ function job_get_spell_map(spell, default_spell_map)
 	end
 end
 
+function job_pretarget(spell, action, spellMap, eventArgs)
+    if spell.action_type == 'Magic' and buffactive.silence then -- Auto Use Echo Drops If You Are Silenced --
+		eventArgs.cancel = true 
+        send_command('input /item "Echo Drops" <me>')
+	end
+    if buffactive['terror'] or buffactive['petrification'] or buffactive['stun'] or buffactive['sleep'] then
+		eventArgs.cancel = true 
+        add_to_chat(123, '**!! '..spell.english..' Canceled due to status effect.**')
+	end
+end
+
 function job_precast(spell, action, spellMap, eventArgs)
 end
 

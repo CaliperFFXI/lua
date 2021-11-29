@@ -27,10 +27,10 @@ job_user_settings = {
 	['BLM'] = {num=nil,book=nil,page=nil},
 	['BRD'] = {num=7,book=16,page=1},
 	['BST'] = {num=nil,book=nil,page=nil},
-	['COR'] = {num=nil,book=6,page=9},
+	['COR'] = {num=15,book=6,page=9},
 	['DNC'] = {num=nil,book=nil,page=nil},
 	['DRG'] = {num=nil,book=nil,page=nil},
-	['DRK'] = {num=nil,book=nil,page=nil},
+	['DRK'] = {num=13,book=4,page=2},
 	['GEO'] = {num=nil,book=13,page=1},
 	['MNK'] = {num=8,book=2,page=1},
 	['NIN'] = {num=nil,book=1,page=1},
@@ -50,14 +50,25 @@ job_user_settings = {
 function define_global_sets()
 	-- Special gear info that may be useful across jobs.
 	
-	sets.Craft = {    
-		sub="Joiner's Shield",
-		body="Carpenter's Smock",
-		hands="Carpenter's Gloves",
-		neck="Carver's Torque",
-		left_ring="Artificer's Ring",
-		right_ring="Craftmaster's Ring",
+	sets.Fish = {
+		range="Lu Shang's F. Rod",	    
+		head="Tlahtlamah Glasses",
+		hands="Kachina Gloves",
+		feet="Waders",
+		neck="Fisher's Torque",
+		waist="Fisher's Rope",
+		left_ring="Puffin Ring",
+		right_ring="Pelican Ring"
 	}
+	
+	-- sets.Craft = {    
+		-- sub="Joiner's Shield",
+		-- body="Carpenter's Smock",
+		-- hands="Carpenter's Gloves",
+		-- neck="Carver's Torque",
+		-- left_ring="Artificer's Ring",
+		-- right_ring="Craftmaster's Ring",
+	-- }
 	
 	-- Telchine
 	gear.Telchine_Head = { name="Telchine Cap", augments={'Enh. Mag. eff. dur. +9',}}
@@ -79,24 +90,14 @@ function define_global_sets()
 	gear.Herculean_Head_MAB = { name="Herculean Helm", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Weapon skill damage +1%','INT+9','Mag. Acc.+12','"Mag.Atk.Bns."+10',}}
 	gear.Herculean_Legs_MAB = { name="Herculean Trousers", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Weapon skill damage +1%','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
 	gear.Herculean_Feet_MAB = { name="Herculean Boots", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
+	
 	-- Herc WS
 	gear.Herculean_Body_WS = { name="Herculean Vest", augments={'Accuracy+29','Weapon skill damage +4%',}}
 	gear.Herculean_Feet_WS = { name="Herculean Boots", augments={'Accuracy+25','Weapon skill damage +4%','STR+6',}}
 
-
-	-- Valourous
-	gear.Valorous_Head_WSD = { name="Valorous Mask", augments={'Accuracy+20','Weapon skill damage +4%','AGI+2','Attack+14',}}
-	gear.Valorous_Hands_WSD = { name="Valorous Mitts", augments={'Accuracy+6 Attack+6','Weapon skill damage +4%','STR+1','Accuracy+11',}}
-	gear.Valorous_Feet_WSD = { name="Valorous Greaves", augments={'Accuracy+18','Weapon skill damage +3%','Attack+10',}}
-	gear.Valorous_Legs_TH = { name="Valorous Hose", augments={'Attack+20','Chance of successful block +3','"Treasure Hunter"+2','Accuracy+2 Attack+2','Mag. Acc.+9 "Mag.Atk.Bns."+9',}}
-
-	-- Merlinic
-	gear.Merlinic_Head_MB = { name="Merlinic Hood", augments={'Mag. Acc.+12 "Mag.Atk.Bns."+12','Magic burst dmg.+8%','CHR+5','Mag. Acc.+7','"Mag.Atk.Bns."+15',}}
-	gear.Merlinic_Body_MB = { name="Merlinic Jubbah", augments={'Mag. Acc.+14 "Mag.Atk.Bns."+14','Magic burst dmg.+8%','MND+4','"Mag.Atk.Bns."+15',}}
-	gear.Merlinic_Legs_MB = { name="Merlinic Shalwar", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Magic burst dmg.+9%','CHR+5','Mag. Acc.+7','"Mag.Atk.Bns."+10',}}
-
 	-- TH2 Gear
 	gear.Herculean_Hands_TH = {}
+	gear.Valorous_Legs_TH = { name="Valorous Hose", augments={'Attack+20','Chance of successful block +3','"Treasure Hunter"+2','Accuracy+2 Attack+2','Mag. Acc.+9 "Mag.Atk.Bns."+9',}}
 	gear.Herculean_Body_TH = { name="Herculean Vest", augments={'Weapon Skill Acc.+6','Sklchn.dmg.+2%','"Treasure Hunter"+2','Mag. Acc.+17 "Mag.Atk.Bns."+17',}}
 	gear.Chironic_Body_TH = { name="Chironic Doublet", augments={'MND+6','Pet: "Mag.Atk.Bns."+12','"Treasure Hunter"+2','Accuracy+6 Attack+6','Mag. Acc.+15 "Mag.Atk.Bns."+15',}}
 
@@ -105,54 +106,6 @@ function define_global_sets()
 	gear.Enfeebling_Grio = { name="Grioavolr", augments={'Enfb.mag. skill +10','MND+14','Mag. Acc.+24','"Mag.Atk.Bns."+17',}}
 		
 	-- JSE -- 
-	
-	-- BRD 
-	gear.BRD_FC_Idle = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Phys. dmg. taken-10%',}}
-	gear.BRD_TP = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Damage taken-5%',}}
-	gear.BRD_DEX_WS = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
-	gear.BRD_CRIT_WS = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}}
-	gear.MainKali = {}
-	gear.SubKali = {}
-
-	-- MNK
-	gear.MNK_TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','System: 1 ID: 640 Val: 4',}}
-	gear.MNK_Crit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
-	gear.MNK_STR_WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}}
-	gear.MNK_VIT_WS = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%',}}
-
-	-- RDM
-	gear.RDM_TP = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Phys. dmg. taken-10%',}}
-	gear.RDM_MACC = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10',}}
-	gear.RDM_STR_WS = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
-
-	-- RNG
-	gear.RNG_TP_Melee = { name="Belenus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Damage taken-5%',}}
-	gear.RNG_TP_Range = {name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Store TP"+10',}}
-	gear.RNG_AGI_WS = { name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}}
-	gear.RNG_STR_WS = { name="Belenus's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
-	gear.RNG_AGI_WS_Magic = { name="Belenus's Cape", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
-	gear.RNG_Snapshot = { name="Belenus's Cape", augments={'"Snapshot"+10',}}
-	gear.RNG_DEX_WS = { name="Belenus's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
-	gear.RNG_CRIT_WS = { name="Belenus's Cape", augments={'DEX+20','Rng.Acc.+20 Rng.Atk.+20','DEX+10','Crit.hit rate+10',}}
-
-	-- SAM
-	gear.SAM_TP = {	name="Takaha Mantle"}
-	gear.SAM_STR_WS = { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
-	
-	-- SMN
-	gear.BPcapePhysical = {name="Campestres's Cape", augments={'Pet: Acc.+20 Pet: R.Acc.+20 Pet: Atk.+20 Pet: R.Atk.+20','Pet: Attack+10 Pet: Rng.Atk.+10','Pet: Haste+10','Damage taken-3%',}}
-	gear.BPcapeMagical = {name="Campestres's Cape", augments={'Pet: M.Acc.+20 Pet: M.Dmg.+20','Pet: Mag. Acc.+10','"Fast Cast"+10',}}
-	gear.BPdelayCape = {name="Conveyance Cape", augments={'Summoning magic skill +1','Blood Pact Dmg.+1','Blood Pact ab. del. II -3',}}
-	gear.MagMerlinic = {name="Merlinic Dastanas", augments={'Pet: Mag. Acc.+20 Pet: "Mag.Atk.Bns."+20','Blood Pact Dmg.+10','Pet: STR+6','Pet: Mag. Acc.+15',}}
-
-	-- PLD 
-	gear.PLD_Cure_SIRD = { name="Rudianos's Mantle", augments={'HP+60','HP+20','"Cure" potency +10%','Spell interruption rate down-10%',}}		
-	gear.PLD_FC_PDT = { name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','"Fast Cast"+10','Phys. dmg. taken-10%',}}
-	gear.PLD_TP = { name="Rudianos's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10','Phys. dmg. taken-10%',}}
-	gear.PLD_TP_DA = { name="Rudianos's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
-	gear.PLD_Idle_Enmity = { name="Rudianos's Mantle", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity+10','Chance of successful block +5',}}
-
-
 end
 
 function global_on_load()
@@ -197,9 +150,8 @@ function global_on_load()
 	
 	-- Extra Load's
 	send_command('lua l partybuffs') -- requires partybuffs.
-	send_command('lua l equipviewer') -- requires equipviewer.
-	send_command('lua l STFU') -- requires STFU
-	send_command('lua l React') 
+	--send_command('lua l STFU') -- requires STFU
+	--send_command('lua l React') 
 	
 	handle_lockstyle()
 	set_macros()

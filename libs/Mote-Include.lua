@@ -643,6 +643,7 @@ function get_resting_set()
 end
 
 -- Returns a weapon set based on state values.
+-- Called during equip_gear_by_status() 
 -- Set Construction order:
 -- 	sets.weapon[state.CombatForm.value][state.CombatWeapon.value][state.DefenseMode]
 function get_weapon_set()

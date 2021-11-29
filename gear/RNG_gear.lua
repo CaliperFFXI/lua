@@ -1,5 +1,16 @@
 function init_gear_sets()
 
+	-- JSE -- 
+	-- RNG
+	gear.RNG_TP_Melee = { name="Belenus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Damage taken-5%',}}
+	gear.RNG_TP_Range = {name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Store TP"+10',}}
+	gear.RNG_AGI_WS = { name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','Weapon skill damage +10%',}}
+	gear.RNG_STR_WS = { name="Belenus's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+	gear.RNG_AGI_WS_Magic = { name="Belenus's Cape", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
+	gear.RNG_Snapshot = { name="Belenus's Cape", augments={'"Snapshot"+10',}}
+	gear.RNG_DEX_WS = { name="Belenus's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+	gear.RNG_CRIT_WS = { name="Belenus's Cape", augments={'DEX+20','Rng.Acc.+20 Rng.Atk.+20','DEX+10','Crit.hit rate+10',}}
+
 	--place items here to be grabbed when //gs org is run. (requires Organizer)
 	organizer_items = {
 		shiromochi="Shiromochi",
@@ -9,7 +20,6 @@ function init_gear_sets()
 		Chrono = "Chrono Bullet",
 		Eradicating = "Eradicating Bullet",
 		bolt = "Quelling Bolt",
-		--animikii = "Animikii Bullet",
 		Quiver="Quelling B. Quiver",
 	}
 
@@ -418,9 +428,9 @@ function init_gear_sets()
 	sets.weapons.SavageBlade = {main="Naegling",sub="Nusku Shield",range="Sparrowhawk +2",ammo="Chrono Arrow"}
 	sets.weapons.DualWield.SavageBlade = {main="Naegling",sub="Ternion Dagger +1",range="Sparrowhawk +2",ammo="Chrono Arrow"}
 	
-	-- Decimation
-	sets.weapons.Decimation = {main="Kaja Axe",sub="Nusku Shield", range="Ullr"}
-	sets.weapons.DualWield.Evisceration = {main="Kaja Axe",sub="Ternion Dagger +1", range="Ullr"}
+	-- Ullr
+	sets.weapons.Decimation = {main="Kustawi +1",sub="Nusku Shield", range="Ullr"}
+	sets.weapons.DualWield.Evisceration = {main="Kustawi +1",sub="Ternion Dagger +1", range="Ullr"}
 	
 	-- Evisceration
 	sets.weapons.Evisceration = {main="Tauret",sub="Nusku Shield", range="Sparrowhawk +2"}

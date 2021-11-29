@@ -51,7 +51,7 @@ function user_setup()
 	state.DualWield = M(false, 'Dual Wield Mode')
 	state.WeaponLock = M(false, 'Weapon Lock')	
 	state.CP = M(false, 'Capacity Points Mode')
-	state.WeaponSet = M{['description']='Weapon Set','LeadenSalute','Aeolian'}
+	state.WeaponSet = M{['description']='Weapon Set','Fomalhaut','Doomsday'}
 
 
     gear.RAbullet = "Chrono Bullet"
@@ -59,6 +59,9 @@ function user_setup()
     gear.MAbullet = "Orichalc. Bullet"
     gear.QDbullet = "Chrono Bullet"
     options.ammo_warning_limit = 10
+	
+	gear.COR_AGI_WS = { name="Camulus's Mantle", augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
+
 	
 end
 
@@ -84,7 +87,7 @@ function job_precast(spell, action, spellMap, eventArgs)
     -- Gear
     if (spell.type == 'CorsairRoll' or spell.english == "Double-Up") then
         if player.status ~= 'Engaged' then
-			equip({sub=empty}) -- remove sub weapon to free up the rostam
+			--equip({sub=empty}) -- remove sub weapon to free up the rostam
             --equip(sets.precast.CorsairRoll.Gun)
 			equip(sets.precast.CorsairRoll) -- send equip command to the set again
         end

@@ -40,8 +40,8 @@ function user_setup()
     state.PhysicalDefenseMode:options('PDT', 'Eva')
 
     state.MagicBurst = M(false, 'Magic Burst')
-	state.WeaponSet = M{['description']='Weapon Set','Normal','Cleave','Dagger','Sword','GreatSword','Scythe','Polearm',
-										'Katana','GreatKatana','Club','Staff'}
+	state.WeaponSet = M{['description']='Weapon Set','Normal','Dagger','Sword','GreatSword','Scythe','Polearm',
+										'Katana','GreatKatana','Club','Staff','Cleave'}
 	
     state.Night = M(false, "Dusk to Dawn")
     options.ninja_tool_warning_limit = 10

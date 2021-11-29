@@ -1,6 +1,13 @@
 -- Define sets and vars used by this job file.
 function init_gear_sets()
 
+	-- JSE -- 
+	-- MNK
+	gear.MNK_TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','System: 1 ID: 640 Val: 4',}}
+	gear.MNK_Crit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
+	gear.MNK_STR_WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}}
+	gear.MNK_VIT_WS = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%',}}
+
 	--place items here to be grabbed when //gs org is run. (requires Organizer)
 	organizer_items = {
 		segomos="Segomo's Mantle", -- work around for augment value bug.

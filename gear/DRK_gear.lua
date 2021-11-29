@@ -22,6 +22,14 @@ function init_gear_sets()
 	
     -- Fast cast sets for spells
     sets.precast.FC = {
+		ammo="Sapience Orb",
+		head={ name="Carmine Mask +1", augments={'Accuracy+20','Mag. Acc.+12','"Fast Cast"+4',}},
+		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
+		neck="Voltsurge Torque",
+		left_ear="Loquac. Earring",
+		right_ear="Malignance Earring",
+		left_ring="Weather. Ring",
+		right_ring="Kishar Ring",
 	}
 
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {})
@@ -34,77 +42,96 @@ function init_gear_sets()
 	-- sets.precast.WS['Resolution'].Acc.FullTP = set_combine(sets.precast.WS['Resolution'].Acc,{})
 	-- sets.precast.WS['Resolution'].HighAcc.FullTP = set_combine(sets.precast.WS['Resolution'].HighAcc,{})
 	
-    -- Resolution Sets (STR & Multi-Attack) --
     sets.precast.WS = {
+		ammo="Knobkierrie",
+		head={ name="Lustratio Cap +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+		body="Hjarrandi Breast.",
+		hands={ name="Lustr. Mittens +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+		legs={ name="Lustr. Subligar +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+		feet={ name="Lustra. Leggings +1", augments={'Attack+20','STR+8','"Dbl.Atk."+3',}},
+		neck="Combatant's Torque",
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
+		left_ear="Thrud Earring",
+		right_ear="Ishvara Earring",
+		left_ring="Regal Ring",
+		right_ring="Rufescent Ring",
+		back="Relucent Cape",
 	}
-	sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {
-	})
+	
+    -- Resolution Sets (STR & Multi-Attack) --
+	sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'], {})
 	sets.precast.WS['Resolution'].HighAcc = set_combine(sets.precast.WS['Resolution'].HighAcc, {})
 	
 	-- Scourge Sets (STR/VIT & WSD+) --
-	sets.precast.WS['Scourge'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Scourge'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Scourge'].Acc = set_combine(sets.precast.WS['Scourge'], {})
 	sets.precast.WS['Scourge'].HighAcc = set_combine(sets.precast.WS['Scourge'].HighAcc, {})
 
     -- Torcleaver Sets (VIT & WSD+) --
 	sets.precast.WS['Torcleaver'] = set_combine(sets.precast.WS, {
+		ammo="Knobkierrie",
+		head="Hjarrandi Helm",
+		body="Hjarrandi Breast.",
+		hands="Sakpata's Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sakpata's Leggings",
+		neck={ name="Unmoving Collar +1", augments={'Path: A',}},
+		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
+		left_ear="Thrud Earring",
+		right_ear="Ishvara Earring",
+		left_ring="Regal Ring",
+		right_ring="Niqmaddu Ring",
+		back="Relucent Cape",
 	})
 	sets.precast.WS['Torcleaver'].Acc = set_combine(sets.precast.WS['Torcleaver'], {})
 	sets.precast.WS['Torcleaver'].HighAcc = set_combine(sets.precast.WS['Torcleaver'].HighAcc, {})
 	
     -- Herculean Slash Sets (MAB/Ice) --
-	sets.precast.WS['Herculean Slash'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Herculean Slash'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Herculean Slash'].Acc = set_combine(sets.precast.WS['Herculean Slash'], {})
 	sets.precast.WS['Herculean Slash'].HighAcc = set_combine(sets.precast.WS['Herculean Slash'].HighAcc, {})
 	
     -- Catastrophe Sets (STR/INT & WSD+) --
 	sets.precast.WS['Catastrophe'] = set_combine(sets.precast.WS, {
+		neck="Fotia Gorget",
+		waist="Fotia Belt",
 	})
 	sets.precast.WS['Catastrophe'].Acc = set_combine(sets.precast.WS['Catastrophe'], {})
 	sets.precast.WS['Catastrophe'].HighAcc = set_combine(sets.precast.WS['Catastrophe'].HighAcc, {})
 	
     -- Entropy Sets (INT & Gorget/Belt, four hits) --
-	sets.precast.WS['Entropy'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Entropy'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Entropy'].Acc = set_combine(sets.precast.WS['Entropy'], {})
 	sets.precast.WS['Entropy'].HighAcc = set_combine(sets.precast.WS['Entropy'].HighAcc, {})
 	
     -- Insurgency Sets (STR/INT, four hits) --
-	sets.precast.WS['Insurgency'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Insurgency'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Insurgency'].Acc = set_combine(sets.precast.WS['Insurgency'], {})
 	sets.precast.WS['Insurgency'].HighAcc = set_combine(sets.precast.WS['Insurgency'].HighAcc, {})
 	
     -- Quietus Sets (STR/MND & WSD+) --
-	sets.precast.WS['Quietus'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Quietus'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Quietus'].Acc = set_combine(sets.precast.WS['Quietus'], {})
 	sets.precast.WS['Quietus'].HighAcc = set_combine(sets.precast.WS['Quietus'].HighAcc, {})
 	
     -- Cross Reaper Sets (STR/MND & WSD+) --
-	sets.precast.WS['Cross Reaper'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Cross Reaper'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Cross Reaper'].Acc = set_combine(sets.precast.WS['Cross Reaper'], {})
 	sets.precast.WS['Cross Reaper'].HighAcc = set_combine(sets.precast.WS['Cross Reaper'].HighAcc, {})
 	
     -- Spinning Scythe Sets (STR & WSD+) --
-	sets.precast.WS['Spinning Scythe'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Spinning Scythe'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Spinning Scythe'].Acc = set_combine(sets.precast.WS['Spinning Scythe'], {})
 	sets.precast.WS['Spinning Scythe'].HighAcc = set_combine(sets.precast.WS['Spinning Scythe'].HighAcc, {})
 	
     -- Guillotine Sets (STR/MND) --
-	sets.precast.WS['Guillotine'] = set_combine(sets.precast.WS, {
-	})	
+	sets.precast.WS['Guillotine'] = set_combine(sets.precast.WS, {})	
 	sets.precast.WS['Guillotine'].Acc = set_combine(sets.precast.WS['Guillotine'], {})
 	sets.precast.WS['Guillotine'].HighAcc = set_combine(sets.precast.WS['Guillotine'].HighAcc, {})
 	
     -- Infernal Scythe Sets (MAB/Dark) --
-	sets.precast.WS['Infernal Scythe'] = set_combine(sets.precast.WS, {
-	})
+	sets.precast.WS['Infernal Scythe'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Infernal Scythe'].Acc = set_combine(sets.precast.WS['Infernal Scythe'], {})
 	sets.precast.WS['Infernal Scythe'].HighAcc = set_combine(sets.precast.WS['Infernal Scythe'].HighAcc, {})
 	
@@ -137,57 +164,81 @@ function init_gear_sets()
 	sets.precast.WS['Fell Cleave'] = set_combine(sets.precast.WS, {})
 	sets.precast.WS['Fell Cleave'].Acc = set_combine(sets.precast.WS['Fell Cleave'], {})
 	sets.precast.WS['Fell Cleave'].HighAcc = set_combine(sets.precast.WS['Fell Cleave'].HighAcc, {})
-		
-	-- Midcast 
-	sets.midcast.FastRecast = sets.precast.FC
-        
-    sets.midcast.Utsusemi = {}
+		        	
 	
-	---
-	-- Consider using a spellMap to simplify these sets...
-	---
-	
-    -- Magic Attack Bonus Set --
+	-- Spells --
 	sets.midcast.MAB = {
+		ammo="Seeth. Bomblet +1",
+		head="Nyame Helm",
+		body={ name="Carm. Sc. Mail +1", augments={'Attack+20','"Mag.Atk.Bns."+12','"Dbl.Atk."+4',}},
+		hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck="Sanctity Necklace",
+		waist="Eschan Stone",
+		left_ear="Hirudinea Earring",
+		right_ear="Malignance Earring",
+		left_ring="Weather. Ring",
+		right_ring="Arvina Ringlet +1",
+		back="Izdubar Mantle",
 	}
-	
-    -- Magic Accuracy Set --
-	sets.midcast.MACC = {
-	}
-	
-	sets.midcast['Dark Magic'] = set_combine(sets.midcast.MACC, {
+	sets.midcast.MACC = set_combine(sets.midcast.MAB,{
+		neck="Erra Pendant",
+		left_ear="Digni. Earring",
+		right_ring="Kishar Ring",
 	})
-	
-	-- Endark --
-	sets.midcast.Endark = {
-	}
-	-- Dread Spikes --
-	sets.midcast['Dread Spikes'] = {
-	}
 
-    -- Stun Sets --
-	sets.midcast.Stun = set_combine(sets.midcast.MACC,{})
-	sets.midcast.Stun.Acc = set_combine(sets.midcast.Stun,{})
-	sets.midcast.Stun.HighAcc = set_combine(sets.midcast.Stun.Acc,{})
-		
-    -- Absorb --
-	sets.midcast.Absorb = set_combine(sets.midcast.MACC, {
+	sets.midcast['Elemental Magic'] = set_combine(sets.midcast.MAB,{})
+	
+	-- Dark Skill -- 
+	sets.midcast['Dark Magic'] = set_combine(sets.precast.FC,{
+		body={ name="Carm. Sc. Mail +1", augments={'Attack+20','"Mag.Atk.Bns."+12','"Dbl.Atk."+4',}},
+		neck="Incanter's Torque",
+		left_ring="Stikini Ring",
+		right_ring="Evanescence Ring",
 	})
 	
-	sets.midcast['Absorb-TP'] = set_combine(sets.midcast.Absorb,{})
-	sets.midcast.Drain = set_combine(sets.midcast.MACC, {
+	-- Dread Spikes -- Max HP --
+	sets.midcast['Dread Spikes'] = {
+		head="Hjarrandi Helm",
+		body="Hjarrandi Breast.",
+		hands="Sakpata's Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sakpata's Leggings",
+		neck={ name="Unmoving Collar +1", augments={'Path: A',}},
+		waist="Carrier's Sash",
+		left_ear="Tuisto Earring",
+		right_ear="Odnowa Earring +1",
+		left_ring="Moonlight Ring",
+		right_ring="Moonlight Ring",
+		back="Reiki Cloak",
+	}
+		
+    -- Absorbs --
+	sets.midcast.Absorb = set_combine(sets.midcast.MACC, {})
+	
+	sets.midcast.Drain = set_combine(sets.midcast.MAB, {    
+		head="Pixie Hairpin +1",
+		neck="Erra Pendant",
+		left_ring="Evanescence Ring",
+		right_ring="Archon Ring",
+	})
+	
+	sets.midcast.Aspir = set_combine(sets.midcast.MAB, {
+		head="Pixie Hairpin +1",
+		neck="Erra Pendant",
+		left_ring="Evanescence Ring",
+		right_ring="Archon Ring",
 	})
 	
     -- Enfeebling Magic --
-	sets.midcast['Enfeebling Magic'] = set_combine(sets.midcast.MACC, {
-	})
+	sets.midcast['Enfeebling Magic'] = set_combine(sets.midcast.MACC, {})
 	
     -- Elemental Magic --
 	sets.midcast['Elemental Magic'] = set_combine(sets.midcast.MAB, {})
 	
 	-- Enhancing Magic --
-	sets.midcast['Enhancing Magic'] = {
-	}
+	sets.midcast['Enhancing Magic'] = {}
 	
 	sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {waist="Siegel Sash"})
 
@@ -196,11 +247,24 @@ function init_gear_sets()
     
     -- Idle --
     sets.idle = {
+		ammo="Staunch Tathlum",
+		head="Sakpata's Helm",
+		body="Sakpata's Plate",
+		hands="Sakpata's Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sakpata's Leggings",
+		neck="Warder's Charm +1",
+		waist="Carrier's Sash",
+		left_ear="Eabani Earring",
+		right_ear="Cryptic Earring",
+		left_ring="Moonlight Ring",
+		right_ring="Moonlight Ring",
+		back="Solemnity Cape",
 	}
 	
 	sets.idle.Refresh = set_combine(sets.idle, {})
 	
-    sets.idle.Town = set_combine(sets.idle, {})
+    sets.idle.Town = set_combine(sets.idle, {legs="Carmine Cuisses +1"})
 	
 	sets.idle.Field = sets.idle.Town
     
@@ -208,8 +272,7 @@ function init_gear_sets()
     
     -- Defense -- These sets are overlayed over any equipped set, if enabled.
 	-- can be used as a panic button by toggling defenseMode
-    sets.defense.PDT = {
-	}
+    sets.defense.PDT = {}
     sets.defense.MDT = set_combine(sets.defense.PDT, {})
 
     -- Engaged --
@@ -221,10 +284,27 @@ function init_gear_sets()
     -- EG: sets.engaged.CombatForm.CombatWeapon.OffenseMode.HybridMode.CustomMeleeGroups
 	
     sets.engaged = {
+		ammo="Ginsen",
+		head="Hjarrandi Helm",
+		body="Hjarrandi Breast.",
+		hands="Sakpata's Gauntlets",
+		legs="Sakpata's Cuisses",
+		feet="Sakpata's Leggings",
+		neck="Combatant's Torque",
+		waist="Tempus Fugit",
+		left_ear="Telos Earring",
+		right_ear="Cessance Earring",
+		left_ring="Niqmaddu Ring",
+		right_ring="Chirich Ring +1",
+		back="Relucent Cape",
 	}
 	
 	-- Offense Mode 'Acc'
     sets.engaged.Acc = set_combine(sets.engaged, {
+		ammo="Seeth. Bomblet +1",
+		waist="Kentarch Belt +1",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
 	})
 	
 	-- Offense Mode 'HighAcc'
@@ -238,34 +318,19 @@ function init_gear_sets()
 	
 	-- Apocalypse engaged --
 	sets.engaged.Apocalypse = set_combine(sets.engaged, {})
-	sets.engaged.Apocalypse.Acc = set_combine(sets.engaged.Apocalypse, {})
+	sets.engaged.Apocalypse.Acc = set_combine(sets.engaged.Acc, {})
 	sets.engaged.Apocalypse.HighAcc = set_combine(sets.engaged.Apocalypse.Acc, {})
 	
 	-- Caladbolg engaged --
 	sets.engaged.Caladbolg = set_combine(sets.engaged, {})
 	sets.engaged.Caladbolg.Acc = set_combine(sets.engaged.Caladbolg, {})
 	sets.engaged.Caladbolg.HighAcc = set_combine(sets.engaged.Caladbolg.Acc, {})
-	
-	-- HepatizonAxe engaged --
-	sets.engaged.HepatizonAxe = set_combine(sets.engaged, {})
-	sets.engaged.HepatizonAxe.Acc = set_combine(sets.engaged.HepatizonAxe, {})
-	sets.engaged.HepatizonAxe.HighAcc = set_combine(sets.engaged.HepatizonAxe.Acc, {})
-	
-	-- Naegling engaged --
-	sets.engaged.Naegling = set_combine(sets.engaged, {})
-	sets.engaged.Naegling.Acc = set_combine(sets.engaged.Naegling, {})
-	sets.engaged.Naegling.HighAcc = set_combine(sets.engaged.Naegling.Acc, {})
-
-	-- Zulfiqar engaged --
-	sets.engaged.Zulfiqar = set_combine(sets.engaged, {})
-	sets.engaged.Zulfiqar.Acc = set_combine(sets.engaged.Zulfiqar, {})
-	sets.engaged.Zulfiqar.HighAcc = set_combine(sets.engaged.Zulfiqar.Acc, {})
-	
+		
 	-- Conditional Sets --
 	-- Doomed
     sets.buff.Doom = {}
 	-- 'Tag' TreasureHunter
-    sets.TreasureHunter = {}
+    sets.TreasureHunter = {waist="Chaac belt", legs=gear.Valorous_Legs_TH, feet="Volte Boots"}
 	-- Souleater WS Set --
     sets.SoulEater_WS = {}
     -- Arcane Circle/Founders Breastplate WS Set --
@@ -280,16 +345,9 @@ function init_gear_sets()
 	sets.GavialisHelm = {head="Gavialis Helm"}
 	-- Equipped at Night time to left earring --
 	sets.LugraLeft = {left_ear="Lugra Earring +1"}
-	-- Elemental Sash --
-	sets.Obi = {waist="Hachirin-no-Obi"}
 	-- Kiting Mode --
     sets.Kiting = {legs="Carmine Cuisses +1"}
 	
-	-- Weapon sets -- determined by state.WeaponSet
-	sets.Apocalypse = {main="Apocalypse",sub="Utu Grip"}
-	sets.Caladbolg = {main="Caladbolg",sub="Utu Grip"}
-	sets.HepatizonAxe = {main="Hepatizon Axe",sub="Utu Grip"}
-	sets.Naegling = {main="Naegling",sub="Reikiko"}
-	sets.Zulfiqar = {main="Zulfiqar",sub="Utu Grip"}
-		
+	sets.weapons.Apocalypse = {main ="Apocalypse",sub="Utu Grip"}
+			
 end

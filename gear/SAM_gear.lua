@@ -1,5 +1,10 @@
 function init_gear_sets()
 
+	-- JSE -- 
+	-- SAM
+	gear.SAM_TP = {	name="Takaha Mantle"}
+	gear.SAM_STR_WS = { name="Smertrios's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
+
 	--place items here to be grabbed when //gs org is run. (requires Organizer)
 	organizer_items = {}
 

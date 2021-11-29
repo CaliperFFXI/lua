@@ -18,18 +18,19 @@ function user_setup()
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Normal', 'Acc')
     state.CastingMode:options('Normal','Acc')
-    state.IdleMode:options('Normal')
+    state.IdleMode:options('Normal','Fish')
 		
 	--SpellMap Tables
 	Placeholders = M{['description']='Dummy Song','Warding Round','Fowl Aubade','Herb Pastoral','Shining Fantasia','Scop\'s Operetta','Puppet\'s Operetta'}
 	Enfeeble_Song = M{['description']='Threnody','Finale','Elegy','Nocturne','Requiem','Lullaby'}
 
-	state.WeaponSet = M{['description']='Weapon Set','Idle','Rudras','Evisceration','SavageBlade','DaggerMAB'}
+	state.WeaponSet = M{['description']='Weapon Set','Idle','Rudras','Evisceration','SavageBlade','Fish'}
 	
 	-- Instrument variables --
 	-- These placeholders can be modified with the name of the instrument to support RMEA options and otherwise.
     -- Define name of additional song harp
     info.ExtraSongInstrument = 'Daurdabla' 
+	
 	-- Define name of + Songs instrument
 	info.SongBonusInstrument = 'Gjallarhorn'
 	
@@ -116,16 +117,23 @@ function customize_melee_set(meleeSet)
     if buffactive['Aftermath: Lv.3'] and player.equipment.main == "Carnwenhan" then
         meleeSet = set_combine(meleeSet, sets.engaged.Aftermath)
     end
-	if player.status == 'Engaged' then
-		meleeSet = set_combine(meleeSet, sets[state.WeaponSet.current])
-	end
-    return meleeSet
+	-- if player.status == 'Engaged' then
+		-- meleeSet = set_combine(meleeSet, sets[state.WeaponSet.current])
+	-- end
+	if (buffactive.doom or buffactive['Doom']) then
+        meleeSet = set_combine(meleeSet, sets.buff.Doom)
+    end
+    return meleeSet -- !! line must remain for melee set to equip properly.
 end
 
 function customize_idle_set(idleSet)
-	if state.CombatForm == 'Normal' then
-	end
-	return idleSet
+	if (buffactive.doom or buffactive['Doom']) then
+        idleSet = set_combine(idleSet, sets.buff.Doom)
+    end
+	-- if player.status == 'Idle' then
+		-- idleSet = set_combine(idleSet, sets[state.WeaponSet.current])
+	-- end			
+	return idleSet -- !! line must remain for idle set to equip properly.
 end
 
 function job_get_spell_map(spell, default_spell_map)

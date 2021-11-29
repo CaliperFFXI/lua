@@ -108,7 +108,7 @@ function init_gear_sets()
 		head=gear.Herculean_Head_MAB,
 		body=gear.Herculean_Body_TH,
 		hands=gear.Herculean_Hands_WSD,
-		legs=gear.Herculean_Legs_MAB,
+		legs="Nyame Flanchard",
 		feet=gear.Herculean_Feet_MAB,
 		neck="Sanctity Necklace",
 		waist="Eschan Stone",

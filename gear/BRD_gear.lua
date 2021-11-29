@@ -1,5 +1,13 @@
 function init_gear_sets()
 
+	-- JSE Capes
+	gear.BRD_FC_Idle = { name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','"Fast Cast"+10','Phys. dmg. taken-10%',}}
+	gear.BRD_TP = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10','Damage taken-5%',}}
+	gear.BRD_DEX_WS = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
+	gear.BRD_CRIT_WS = { name="Intarabus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}}
+	gear.MainKali = {}
+	gear.SubKali = {}
+
 	--place items here to be grabbed when //gs org is run. (requires Organizer)
 	organizer_items = {
 		echos="Echo Drops",
@@ -113,7 +121,7 @@ function init_gear_sets()
 		head="C. Palug Crown",
 		body="Bihu Jstcorps. +3",
 		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
-		legs={ name="Lengo Pants", augments={'INT+10','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Refresh"+1',}},
+		legs="Nyame Flanchard",
 		feet={ name="Chironic Slippers", augments={'Accuracy+18 Attack+18','"Dbl.Atk."+2','MND+7','Accuracy+8','Attack+7',}},
 		neck="Sanctity Necklace",
 		waist="Eschan Stone",
@@ -175,13 +183,13 @@ function init_gear_sets()
 		body="Fili Hongreline +1",
 		hands="Fili Manchettes +1",
 		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
+		feet="Brioso Slippers +3",
 		neck="Moonbow Whistle +1",
 	}
 	        
     -- Gear to enhance certain classes of songs.
     sets.midcast.Ballad = set_combine(sets.SongEnhancing, {legs="Fili Rhingrave +1"})
-    sets.midcast.Carol = set_combine(sets.SongEnhancing, {hands="Mousai Gages",legs="Fili Rhingrave +1"})
+    sets.midcast.Carol = set_combine(sets.SongEnhancing, {legs="Fili Rhingrave +1"})
     sets.midcast.Etude = set_combine(sets.SongEnhancing, {head="Mousai Turban"})
     sets.midcast.Lullaby = set_combine(sets.SongEnhancing, {hands="Brioso Cuffs +3"})
     sets.midcast.Madrigal = set_combine(sets.SongEnhancing, {})
@@ -206,7 +214,7 @@ function init_gear_sets()
 		body="Bihu Jstcorps. +3", 
 		hands="Brioso Cuffs +3",
 		legs="Inyanga Shalwar +2",
-		feet="Brioso Slippers +2",
+		feet="Brioso Slippers +3",
 		neck="Moonbow Whistle +1",
 		waist="Luminary Sash",
 		left_ear="Digni. Earring",
@@ -217,7 +225,7 @@ function init_gear_sets()
 	}
 		
     -- For song defbuffs (accuracy primary, duration secondary)
-    sets.midcast.SongEnfeebleAcc = set_combine(sets.midcast.SongEnfeeble, {})
+    sets.midcast.SongEnfeeble.Acc = set_combine(sets.midcast.SongEnfeeble, {})
 
     -- Placeholder song; minimize duration to make it easy to overwrite.
     sets.midcast.SongPlaceholder = {range=info.ExtraSongInstrument}
@@ -318,57 +326,31 @@ function init_gear_sets()
 
 	-- idle sets
     sets.idle = {
-		head="Aya. Zucchetto +2",
-		body="Ayanmo Corazza +2",
-		hands="Aya. Manopolas +2",
-		legs="Inyanga Shalwar +2",
-		feet="Fili Cothurnes +1",
-		neck="Loricate Torque +1",
-		waist="Flume Belt +1",
-		left_ear="Ethereal Earring",
-		right_ear="Genmei Earring",
-		left_ring="Gelatinous Ring +1",
-		right_ring="Defending Ring",
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck="Warder's Charm +1",
+		waist="Carrier's Sash",
+		left_ear="Eabani Earring",
+		right_ear="Thureous Earring",
+		left_ring="Shadow Ring",
+		right_ring="Archon Ring",
 		back=gear.BRD_FC_Idle,
 	}
 
         
     -- Defense Sets
-    sets.defense.PDT = {
-		head={ name="Gende. Caubeen +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -3%',}},
-		body={ name="Gende. Bilaut +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -2%','Song spellcasting time -4%',}},
-		hands={ name="Gende. Gages +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -4%','Song spellcasting time -3%',}},
-		legs="Inyanga Shalwar +2",
-		feet="Inyan. Crackows +2",
-		neck="Loricate Torque +1",
-		waist="Flume Belt +1",
-		left_ear="Genmei Earring",
-		right_ear="Etiolation Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back=gear.BRD_FC_Idle,
-	}
-	
-    sets.defense.MDT = {
-		-- main="Daybreak",
-		-- sub="Genmei Shield",
-		head="Inyanga Tiara +2",
-		body="Inyanga Jubbah +2",
-		hands="Inyan. Dastanas +2",
-		legs="Inyanga Shalwar +2",
-		feet="Inyan. Crackows +2",
-		neck="Warder's Charm +1",
-		waist="Carrier's Sash",
-		left_ear="Tuisto Earring",
-		right_ear="Odnowa Earring +1",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
-		back="Reiki Cloak",
-	}
+    sets.defense.PDT = set_combine(sets.idle,{})
+    sets.defense.MDT = set_combine(sets.idle,{})
 
     sets.Kiting = {feet="Fili Cothurnes +1"}
-    
+	
 	sets.idle.Town = set_combine(sets.idle, sets.Kiting, {})
+	sets.idle.Fish = set_combine(sets.idle, sets.Fish, {})
+	sets.idle.Town.Fish = set_combine(sets.idle, sets.Fish, {})
+
 
     -- Engaged sets
     -- Variations for TP weapon and (optional) offense/defense modes. 
@@ -382,37 +364,55 @@ function init_gear_sets()
 		hands="Chironic Gloves",
 		legs="Aya. Cosciales +2",
 		feet="Chironic Slippers",
-		neck="Ainia Collar",
+		neck="Combatant's Torque",
 		waist="Reiki Yotai",
-		left_ear="Suppanomimi",
+		left_ear="Dignitary's Earring",
 		right_ear="Dedition Earring",
 		left_ring="Chirich Ring +1",
 		right_ring="Chirich Ring +1",
 		back=gear.BRD_TP,
 	}
+	
+	sets.engaged.DT = set_combine(sets.engaged,{
+		-- left_ring="Moonlight Ring",
+		-- right_ring="Moonlight Ring",
+	})
 
     sets.engaged.Acc = set_combine(sets.engaged, {
-		neck="Lissome Necklace",
+		neck="Combatant's Torque",
 		right_ear="Telos Earring",
 	})
 	
+    sets.engaged.Acc.DT = set_combine(sets.engaged.Acc, {})
+	
 	-- CombatForm DualWield
-	sets.engaged.DualWield = set_combine(sets.engaged,{left_ear="Eabani Earring",waist="Reiki Yotai"})
-	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield,{
-		neck="Lissome Necklace",
+	sets.engaged.DualWield = set_combine(sets.engaged, {    
+		range={ name="Linos", augments={'Accuracy+14','"Store TP"+4','Quadruple Attack +3',}},
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
+		legs="Aya. Cosciales +2",
+		feet="Nyame Sollerets",
+		neck="Combatant's Torque",
+		waist="Reiki Yotai",
+		left_ear="Eabani Earring",
+		right_ear="Dedition Earring",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
+	})
+	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield, {
 		right_ear="Telos Earring",
 	})
 	
 	sets.engaged.DualWield.DT = set_combine(sets.engaged.DualWield, {    
-		neck="Loricate Torque +1",
-		right_ring="Defending Ring",
-		
+		left_ring="Moonlight Ring",
+		right_ring="Moonlight Ring",
 	})
 	
 	sets.engaged.DualWield.Acc.DT = set_combine(sets.engaged.DualWield.DT, {
-		neck="Loricate Torque +1",
-		right_ring="Defending Ring",
 		right_ear="Telos Earring",	
+		left_ring="Moonlight Ring",
+		right_ring="Moonlight Ring",
 	})
 	
 	--called in midcast() if combatform is DualWield
@@ -425,9 +425,9 @@ function init_gear_sets()
     sets.CP = {back="Mecisto. Mantle"}
     sets.TreasureHunter = {body=gear.Chironic_Body_TH,waist="Chaac belt", feet="Volte Boots"}
 	
-	sets.weapons.Idle = {sub="Genmei Shield"}
-	sets.weapons.DualWield.Idle = {sub="Genmei Shield"}	
-	
+	sets.weapons.Idle = {}
+	sets.weapons.DualWield.Idle = {}	
+		
 	sets.weapons.SavageBlade = {main="Naegling",sub="Genmei Shield"}
 	sets.weapons.DualWield.SavageBlade = {main="Naegling",sub="Ternion Dagger +1"}
 	
@@ -436,8 +436,4 @@ function init_gear_sets()
 
 	sets.weapons.Rudras = {main="Aeneas",sub="Genmei Shield"}
 	sets.weapons.DualWield.Rudras = {main="Aeneas",sub="Ternion Dagger +1"}
-
-	sets.weapons.DaggerMAB = {main="Aeneas",sub="Genmei Shield"}
-	sets.weapons.DualWield.DaggerMAB = {main="Aeneas",sub="Malevolence"}
-
 end

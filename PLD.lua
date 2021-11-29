@@ -54,11 +54,16 @@ function job_pretarget(spell, action, spellMap, eventArgs)
 		eventArgs.cancel = true 
         send_command('input /item "Echo Drops" <me>')
 	end
+	-- Cancels specific actions to avoid swaps during immobilizing effects
     if buffactive['terror'] or buffactive['petrification'] or buffactive['stun'] or buffactive['sleep'] then
 		eventArgs.cancel = true 
         add_to_chat(123, '**!! '..spell.english..' Canceled due to status effect.**')
 	end
 end
+
+function job_post_precast(spell, action, spellMap, eventArgs)
+end
+
 
 function job_aftercast(spell, action, spellMap, eventArgs)
 end
@@ -91,9 +96,9 @@ function customize_melee_set(meleeSet)
         meleeSet = set_combine(meleeSet, sets.CP)
     end
 	-- Equip Twilight mail sets.Reraise if Doomed, or HybridMode is 'Reraise'
-	-- if state.HybridMode.value == 'Reraise' then
-        -- meleeSet = set_combine(meleeSet, sets.Reraise)
-    -- end
+	if state.HybridMode.value == 'Reraise' then
+        meleeSet = set_combine(meleeSet, sets.Reraise)
+    end
 	-- if state.DefenseMode.value == 'Physical' then
 		-- meleeSet = set_combine(meleeSet, sets.engaged.PDT)
 	-- end
@@ -126,17 +131,8 @@ function customize_idle_set(idleSet)
 	if (buffactive.doom or buffactive['Doom']) then
         idleSet = set_combine(idleSet, sets.buff.Doom)
     end
-	-- if state.HybridMode.value == 'Reraise' then
-        -- idleSet = set_combine(idleSet, sets.Reraise)
-    -- end
+	if state.HybridMode.value == 'Reraise' then
+        idleSet = set_combine(idleSet, sets.Reraise)
+    end
     return idleSet
-end
-
---Weapon Lock function.
-function job_state_change(stateField, newValue, oldValue)
-	if state.WeaponLock.value == true then
-        disable('main','sub')
-	else
-		enable('main','sub')
-	end
 end
