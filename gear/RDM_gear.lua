@@ -433,31 +433,31 @@ function init_gear_sets()
 
 	-- Idle Sets
     sets.idle = {
-		head="Viti. Chapeau +3",
+		range="Ullr",
+		head="Atrophy Chapeau +3",
 		body="Nyame Mail",
 		hands="Nyame Gauntlets",
-		legs="Malignance Tights",
+		legs="Nyame Flanchard",
 		feet="Nyame Sollerets",
-		neck="Loricate Torque +1",
-		waist="Flume Belt +1",
+		neck="Warder's Charm +1",
+		waist="Carrier's Sash",
 		left_ear="Ethereal Earring",
 		right_ear="Etiolation Earring",
 		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
 		back="Solemnity Cape",
 	}
 	
 	sets.idle.Refresh = set_combine(sets.idle, {
-		--main="Daybreak",
 		ammo="Homiliary",
 		head={ name="Viti. Chapeau +3", augments={'Enfeebling Magic duration','Magic Accuracy',}},
 		body="Jhakri Robe +2",
 	})
 
     sets.idle.Town = set_combine(sets.idle, {legs="Carmine Cuisses +1"})
+	sets.idle.Town.Refresh = set_combine(sets.idle.Town, sets.idle.Refresh)
 	
 	sets.idle.Field = set_combine(sets.idle,{legs="Carmine Cuisses +1"})
-	
 	sets.idle.Field.Refresh = set_combine(sets.idle.Field, sets.idle.Refresh)
 	
     sets.idle.Weak = set_combine(sets.idle, {})
@@ -560,8 +560,6 @@ function init_gear_sets()
 		left_ring="Chirich Ring +1",
 		right_ring="Chirich Ring +1",
 	})
-
-	
 	
 	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield, {
 		right_ear="Telos Earring",

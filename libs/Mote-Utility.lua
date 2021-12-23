@@ -717,7 +717,10 @@ end
 -- Utility function to determine if DualWield will be given by the subjob.
 -- This function runs on intial load, and allows for nuanced engaged and weapon sets.
 function get_combat_form()
-	if player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
+	-- if player main job is DNC NIN or THF then back out.
+	if player.main_job_id == 19 or player.main_job_id == 13 or player.main_job_id == 6 then return
+	-- if Player subjob is DNC or NIN then set CombatForm 'DualWield'
+	elseif player.sub_job_id == 13 or player.sub_job_id == 19 then 	-- Subjob DNC or NIN 
 		state.CombatForm:set('DualWield')
 	else
 		state.CombatForm:reset()

@@ -50,16 +50,16 @@ job_user_settings = {
 function define_global_sets()
 	-- Special gear info that may be useful across jobs.
 	
-	sets.Fish = {
-		range="Lu Shang's F. Rod",	    
-		head="Tlahtlamah Glasses",
-		hands="Kachina Gloves",
-		feet="Waders",
-		neck="Fisher's Torque",
-		waist="Fisher's Rope",
-		left_ring="Puffin Ring",
-		right_ring="Pelican Ring"
-	}
+	-- sets.Fish = {
+		-- range="Lu Shang's F. Rod",	    
+		-- head="Tlahtlamah Glasses",
+		-- hands="Kachina Gloves",
+		-- feet="Waders",
+		-- neck="Fisher's Torque",
+		-- waist="Fisher's Rope",
+		-- left_ring="Puffin Ring",
+		-- right_ring="Pelican Ring"
+	-- }
 	
 	-- sets.Craft = {    
 		-- sub="Joiner's Shield",

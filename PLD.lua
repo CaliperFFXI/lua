@@ -77,6 +77,9 @@ function job_buff_change(buff,gain)
 		handle_equipping_gear(player.status) -- Forces gear change at state change.
 		add_to_chat(122, '~~~~You are Doomed~~~~~') 
 	end
+	if player.status == 'Engaged' then	
+		handle_equipping_gear(player.status)
+	end
 end
 
 function customize_defense_set(defenseSet)
@@ -91,6 +94,10 @@ function customize_defense_set(defenseSet)
 end
 
 function customize_melee_set(meleeSet)
+	-- Aftermath: Lv3 set
+	if buffactive[272] then
+		meleeSet = set_combine(meleeSet, sets.AM3)
+	end
 	-- CP rule
 	if state.CP.current == 'on' then
         meleeSet = set_combine(meleeSet, sets.CP)

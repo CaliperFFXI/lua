@@ -176,7 +176,7 @@ function init_gear_sets()
 
 	-- Engaged
     sets.engaged = {
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 	    head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body="Ayanmo Corazza +2",
 		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},

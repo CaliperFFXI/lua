@@ -129,7 +129,7 @@ function init_gear_sets()
 
     sets.midcast['Blue Magic'] = {}
     sets.midcast['Blue Magic'].Physical = {
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head="Jhakri Coronal +2",
 		body="Jhakri Robe +2",
 		hands="Jhakri Cuffs +2",
@@ -307,7 +307,7 @@ function init_gear_sets()
     sets.engaged = {
 		main="Naegling",
 		sub={ name="Colada", augments={'"Dbl.Atk."+3','DEX+6','Accuracy+19',}},
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},

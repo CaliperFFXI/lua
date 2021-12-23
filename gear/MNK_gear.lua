@@ -3,7 +3,7 @@ function init_gear_sets()
 
 	-- JSE -- 
 	-- MNK
-	gear.MNK_TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','System: 1 ID: 640 Val: 4',}}
+	gear.MNK_TP = { name="Segomo's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
 	gear.MNK_Crit = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Crit.hit rate+10',}}
 	gear.MNK_STR_WS = { name="Segomo's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}}
 	gear.MNK_VIT_WS = { name="Segomo's Mantle", augments={'VIT+20','Accuracy+20 Attack+20','VIT+10','Weapon skill damage +10%',}}
@@ -133,15 +133,18 @@ function init_gear_sets()
 		back=gear.MNK_STR_WS,
 	})
 	
+	-- MACC for plague
     sets.precast.WS['Shijin Spiral'] = set_combine(sets.precast.WS, {
-		ammo="Knobkierrie",
-		head="Ken. Jinpachi",
-		body="Adhemar Jacket +1",
-		hands="Ken. Tekko",
+		ammo="Falcon Eye",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands="Malignance Gloves",
+		legs="Malignance Tights",
+		feet="Malignance Boots",
 		neck="Fotia Gorget",
 		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
-		right_ear="Mache Earring +1",
+		right_ear="Telos Earring",
 		left_ring="Ilabrat Ring",
 		right_ring="Niqmaddu Ring",
 		back=gear.MNK_TP,
@@ -276,7 +279,7 @@ function init_gear_sets()
 	
 	-- Normal melee sets
     sets.engaged = {    
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body="Ken. Samue",
 		hands="Adhemar Wrist. +1", 
@@ -294,6 +297,15 @@ function init_gear_sets()
 	-- Offense Mode 'Acc'
     sets.engaged.Acc = set_combine(sets.engaged, {
 		ammo="Falcon Eye",
+		head="Malignance Chapeau",
+		body="Malignance Tabard",
+		hands={ name="Tatena. Gote +1", augments={'Path: A',}},
+		legs={ name="Tatena. Haidate +1", augments={'Path: A',}},
+		feet={ name="Tatena. Sune. +1", augments={'Path: A',}},
+		neck={ name="Mnk. Nodowa +1", augments={'Path: A',}},
+		right_ear="Telos Earring",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
 	})
 	
 	-- Offense Mode 'Crit'
@@ -362,9 +374,9 @@ function init_gear_sets()
 	sets.weapons.Verethragna = {main="Verethragna"}
 	sets.weapons.Staff = {main="Reikikon", sub="Flanged Grip"}
 	-- Abyssea Proc
-	sets.weapons.Proc_H2H = {main="Trainee Scissors"}
-	sets.weapons.Proc_Club = {main="Club Hammer"}
-	sets.weapons.Proc_Staff = {main="Caver's Shovel",sub="Flanged Grip"}
+	-- sets.weapons.Proc_H2H = {main="Trainee Scissors"}
+	-- sets.weapons.Proc_Club = {main="Club Hammer"}
+	-- sets.weapons.Proc_Staff = {main="Caver's Shovel",sub="Flanged Grip"}
 	
 	
 end

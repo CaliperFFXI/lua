@@ -98,8 +98,22 @@ function init_gear_sets()
 		waist="Hachirin-no-Obi"
 	})
 
-    sets.midcast.CureNormal = set_combine(sets.midcast.CureSolace, {    
-		body={ name="Piety Bliaut +3", augments={'Enhances "Benediction" effect',}},
+    sets.midcast.CureNormal = set_combine(sets.midcast.CureSolace, {
+		main="Daybreak",
+		sub="Sors Shield",
+		ammo="Staunch Tathlum",
+		head="Theophany Cap +2",
+		body="Theo. Bliaut +2",
+		hands="Theophany Mitts +2",
+		legs="Ebers Pant. +1",
+		feet={ name="Piety Duckbills +1", augments={'Enhances "Afflatus Solace" effect',}},
+		neck="Loricate Torque +1",
+		waist="Luminary Sash",
+		left_ear="Nourish. Earring +1",
+		right_ear="Glorious Earring",
+		left_ring="Defending Ring",
+		right_ring={ name="Gelatinous Ring +1", augments={'Path: A',}},
+		back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+10','"Fast Cast"+10','Damage taken-5%',}},
 	})
 
     sets.midcast.CureWeather = set_combine(sets.midcast.CureNormal, {

@@ -1,43 +1,4 @@
--- Important DNC stuff for lua:
-
--- JA list: Provoke, No Foot Rise, Trance,  Waltz, Samba, JIg, Steps, Flourish 1,2,3 all JA's within those flourishes 
--- Flourish 1: Animated Flourish, Violent Flourish,Desperate Flourish.
--- Flourish 2: Reverse Flourish,  Building FLourish, Wild Flourish
--- Flourish 3: Striking Flourish, Climactic Flourish, Ternary Flourish
-
--- the normal stuff when it comes to WS's tho i will need a function that includes a Climactic Flourish because it functions like snk atk or trick atk but i dont have to be in a certain position 
-
--- WS's Exenterator - Pyrrhic Kleos - Evisceration - Rudra's Storm - Aeolian Edge
-
--- Will need a precast Skillchain 
-
--- standard fast cast stuff
-
--- Standard engaged low mid high Acc 
-
--- a dual wield engaged which will be majority of the time different Haste values depending on Magic haste and Haste Samba so will need a include for gear info unless you know a work around
-
--- Hybrid sets
-
--- Sets.buffs for Saber Dance, Fan Dance, Climactic Flourish, Closed Position, 
-
--- Auto use of JA Presto in conjunction with All Steps so whenever i use a step is uses Presto right before using step
-
--------------------------------------------------------------------------------------------------------------------
---  Custom Commands (preface with /console to use these in macros)
--------------------------------------------------------------------------------------------------------------------
-
---  gs c step                       Uses the currently configured step on the target, with either <t> or
---                                  <stnpc> depending on setting.
---  gs c step t                     Uses the currently configured step on the target, but forces use of <t>.
---
---  gs c cycle mainstep             Cycles through the available steps to use as the primary step when using
---                                  one of the above commands.
---  gs c cycle altstep              Cycles through the available steps to use for alternating with the
---                                  configured main step.
---  gs c toggle usealtstep          Toggles whether or not to use an alternate step.
---  gs c toggle selectsteptarget    Toggles whether or not to use <stnpc> (as opposed to <t>) when using a step.
-
+-- Original: Motenten / Arislan Modified: Caliper -of- Asura 
 function get_sets()
     mote_include_version = 2
     -- Load and initialize the include file.
@@ -46,49 +7,27 @@ end
 
 function job_setup()
 
-    state.Buff['Climactic Flourish'] = buffactive.ClimacticFlourish or false
-	state.Buff['Fan Dance'] = buffactive.FanDance or false
-
-	send_command('bind !s gs c cycle MainStep')
-
-    state.MainStep = M{['description']='Main Step', 'Box Step', 'Quickstep', 'Feather Step', 'Stutter Step'}
-    state.AltStep = M{['description']='Alt Step', 'Quickstep', 'Feather Step', 'Stutter Step', 'Box Step'}
-    state.UseAltStep = M(false, 'Use Alt Step')
-    state.SelectStepTarget = M(false, 'Select Step Target')
-    state.IgnoreTargetting = M(true, 'Ignore Targetting')
     state.ClosedPosition = M(false, 'Closed Position')
-
-    state.CurrentStep = M{['description']='Current Step', 'Main', 'Alt'}
---  state.SkillchainPending = M(false, 'Skillchain Pending')
-
     state.CP = M(false, 'Capacity Points Mode')
 
 	-- order of weapons is determined as they appear in this table
-	state.WeaponSet = M{['description']='Weapon Set','Twashtar','TpBonus'}
-	elemental_ws = S{'Aeolian Edge'}
+	state.WeaponSet = M{['description']='Weapon Set','Twashtar','TpBonus','Blurred','Karambit'}
 	
-	state.TreasureMode:set('Tag')
+	include('organizer-lib')
+	send_command('lua l Dnc-hud')
 
 end
 
 function user_setup()
-    state.OffenseMode:options('Normal', 'Acc')
+    state.OffenseMode:options('Normal', 'Hybrid', 'Acc')
     state.HybridMode:options('Normal', 'DT')
-    state.WeaponskillMode:options('Normal', 'Acc','FullTP')
+    state.WeaponskillMode:options('Normal', 'Acc', 'FullTP')
     state.IdleMode:options('Normal','Regen')
-
+	
+	state.WeaponLock = M(false, 'Weapon Lock')
     state.Auto_Kite = M(false, 'Auto_Kite')
 	options.ninja_tool_warning_limit = 10
-	
-	update_combat_form()
-	update_combat_weapon()
-	
-    -- Haste = 0 -- Requires: Gearinfo.lua
-    -- DW_needed = 0 -- Requires: Gearinfo.lua
-    -- DW = false -- Requires: Gearinfo.lua
-    -- moving = false -- Requires: Gearinfo.lua
-    -- update_combat_form() 
-    -- determine_haste_group()-- Requires: Gearinfo.lua
+		
 end
 
 function job_pretarget(spell, action, spellMap, eventArgs)
@@ -136,9 +75,6 @@ function job_aftercast(spell, action, spellMap, eventArgs)
 	state.WeaponskillMode:reset() -- Resets Custom WS mode for next round	
 end
 
-function job_handle_equipping_gear(playerStatus, eventArgs)
-end
-
 function job_update(cmdParams, eventArgs)
     handle_equipping_gear(player.status)
 end
@@ -151,22 +87,18 @@ function customize_defense_set(defenseSet)
         defenseSet = set_combine(defenseSet, sets.buff.Doom)
     end
 	if buffactive.FanDance then
-		defenseSet = set_combine(defenseSet, sets.buff['Fan Dance'])
+		defenseSet = set_combine(defenseSet, sets.FanDance)
 	end
     return defenseSet
 end
 
 function customize_melee_set(meleeSet)
-    --if state.Buff['Climactic Flourish'] then
-    --    meleeSet = set_combine(meleeSet, sets.buff['Climactic Flourish'])
-    --end
-	if buffactive.FanDance then
-		meleeSet = set_combine(meleeSet, sets.buff['Fan Dance'])
+	if buffactive['Fan Dance'] then
+		meleeSet = set_combine(meleeSet, sets.FanDance)
 	end
-    if state.ClosedPosition.value == true then
-        meleeSet = set_combine(meleeSet, sets.buff['Closed Position'])
-    end
-
+    -- if state.ClosedPosition.value == true then
+        -- meleeSet = set_combine(meleeSet, sets.ClosedPosition)
+    -- end
     return meleeSet
 end
 
@@ -183,46 +115,25 @@ function customize_idle_set(idleSet)
 end
 
 function job_buff_change(buff,gain)
-    if buff == 'Saber Dance' or buff == 'Climactic Flourish' or buff == 'Fan Dance' then
+    -- Correct Syntax
+	if ( buffactive['Saber Dance'] or buffactive['Climactic Flourish'] or buffactive['Fan Dance'] ) then
         handle_equipping_gear(player.status)
     end
+	-- Correct Syntax
+    -- if buffactive['Saber Dance'] or buffactive['Climactic Flourish'] or buffactive['Fan Dance'] then
+        -- handle_equipping_gear(player.status)
+    -- end
+	
+	-- Incorrect syntax
+    -- if buff == 'Saber Dance' or buff == 'Climactic Flourish' or buff == 'Fan Dance' then
+        -- handle_equipping_gear(player.status)
+    -- end
+	
 	if ( buffactive.doom or buffactive['Doom'] ) then
 		handle_equipping_gear(player.status) -- Forces gear change at state change.
 		add_to_chat(122, '~~~~You are Doomed~~~~') 
 	end
-	if player.status ~= 'Idle' then
-		if not midaction() then
-            handle_equipping_gear(player.status)
-		end
-    end
-end
-
--- Handle auto-targetting based on local setup.
-function job_auto_change_target(spell, action, spellMap, eventArgs)
-    if spell.type == 'Step' then
-        if state.IgnoreTargetting.value == true then
-            state.IgnoreTargetting:reset()
-            eventArgs.handled = true
-        end
-
-        eventArgs.SelectNPCTargets = state.SelectStepTarget.value
-    end
-end
-
-function job_self_command(cmdParams, eventArgs)
-    if cmdParams[1] == 'step' then
-        if cmdParams[2] == 't' then
-            state.IgnoreTargetting:set()
-        end
-
-        local doStep = ''
-        if state.UseAltStep.value == true then
-            doStep = state[state.CurrentStep.current..'Step'].current
-            state.CurrentStep:cycle()
-        else
-            doStep = state.MainStep.current
-        end
-
-        send_command('@input /ja "'..doStep..'" <t>')
-    end
+	if player.status == 'Engaged' then	
+		handle_equipping_gear(player.status)
+	end
 end

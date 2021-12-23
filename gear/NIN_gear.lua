@@ -221,7 +221,7 @@ function init_gear_sets()
     -- EG: sets.engaged.Dagger.Accuracy.Eva
 
     sets.engaged = {
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
 		hands={ name="Tatena. Gote +1", augments={'Path: A',}},

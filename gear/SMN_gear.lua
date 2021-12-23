@@ -311,12 +311,7 @@ function init_gear_sets()
 	})
     
 	sets.defense.MDT = set_combine(sets.idle,{
-	    ammo="Sancus Sachet +1",
-		head="Inyanga Tiara +2",
-		body="Inyanga Jubbah +2",
-		hands="Inyan. Dastanas +2",
-		legs="Inyanga Shalwar +2",
-	})
+	    ammo="Sancus Sachet +1"})
 	
     sets.idle.Town = set_combine(sets.idle,{feet="Herald's Gaiters"})
     sets.idle.Town.Craft = set_combine(sets.Craft,{feet="Herald's Gaiters"})

@@ -92,7 +92,7 @@ function init_gear_sets()
 	sets.precast.WS['Atonement'] = set_combine(sets.Enmity, {})
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS, {
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head="Hjarrandi Helm",
 		body="Hjarrandi Breast.",
 		hands="Sakpata's Gauntlets",
@@ -106,14 +106,13 @@ function init_gear_sets()
 		right_ring="Begrudging Ring",
 	})
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
-		sub="Ochain",
-		ammo="Ginsen",
-		head="Hjarrandi Helm",
-		body="Hjarrandi Breast.",
-		hands="Sakpata's Gauntlets",
-		legs="Sakpata's Cuisses",
+		ammo="Coiste Bodhar",
+		head="Sulevia's Mask +2",
+		body="Sulevia's Plate. +2",
+		hands="Sulev. Gauntlets +2",
+		legs="Sulev. Cuisses +2",
 		feet="Sulev. Leggings +2",
-		neck="Combatant's Torque",
+		neck="Caro Necklace",
 		waist={ name="Sailfi Belt +1", augments={'Path: A',}},
 		left_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		right_ear="Thrud Earring",
@@ -230,7 +229,7 @@ function init_gear_sets()
 	
 	-- Engaged with no specific DefenseMode or OffenseMode
     sets.engaged = {
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head="Hjarrandi Helm",
 		body="Hjarrandi Breast.",
 		hands="Sakpata's Gauntlets",
@@ -243,7 +242,7 @@ function init_gear_sets()
 		left_ring="Chirich Ring +1",
 		right_ring="Chirich Ring +1",
 		back=gear.PLD_TP,
-		-- ammo="Ginsen",
+		-- ammo="Coiste Bodhar",
 		-- head={ name="Hjarrandi Helm", priority=10},
 		-- body={ name="Hjarrandi Breast.", priority=12},
 		-- hands={ name="Sakpata's Gauntlets", priority=9},
@@ -295,6 +294,22 @@ function init_gear_sets()
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}
 	sets.LugraLeft = {left_ear="Lugra Earring +1"}
 	
+	sets.AM3 = {
+		ammo="Coiste Bodhar",
+		head="Sulevia's Mask +2",
+		body="Hjarrandi Breast.",
+		hands="Flam. Manopolas +2",
+		legs="Flamma Dirs +2",
+		feet="Flam. Gambieras +2",
+		neck="Combatant's Torque",
+		waist="Tempus Fugit",
+		left_ear="Digni. Earring",
+		right_ear="Dedition Earring",
+		left_ring="Moonlight Ring",
+		right_ring="Moonlight Ring",
+		back=gear.PLD_TP,
+	}	
+	
 	-- React Sets
 	-- //react add Caliper "Cure V" ready "gs equip sets.CureRecieved"
 	sets.PhalanxReceived = {
@@ -314,6 +329,7 @@ function init_gear_sets()
     sets.buff.Cover = {}
     sets.CP = {back="Mecisto. Mantle"}
     sets.TreasureHunter = {waist="Chaac belt", legs=gear.Valorous_Legs_TH, feet="Volte Boots"}
+
 	
 	sets.weapons.Ochain = {main="Burtgang",sub="Ochain"}
 	sets.weapons.Aegis = {main="Burtgang",sub="Aegis"}

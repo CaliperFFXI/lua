@@ -193,7 +193,7 @@ function init_gear_sets()
 	
 	-- Engaged --
     sets.engaged = {
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head="Flam. Zucchetto +2",
 		body="Flamma Korazin +2",
 		hands="Flam. Manopolas +2",

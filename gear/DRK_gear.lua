@@ -284,7 +284,7 @@ function init_gear_sets()
     -- EG: sets.engaged.CombatForm.CombatWeapon.OffenseMode.HybridMode.CustomMeleeGroups
 	
     sets.engaged = {
-		ammo="Ginsen",
+		ammo="Coiste Bodhar",
 		head="Hjarrandi Helm",
 		body="Hjarrandi Breast.",
 		hands="Sakpata's Gauntlets",

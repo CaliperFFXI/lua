@@ -111,7 +111,7 @@ function init_gear_sets()
 		head="C. Palug Crown",
 		body="Jhakri Robe +2",
 		hands="Regal Cuffs",
-		legs={ name="Chironic Hose", augments={'Mag. Acc.+29','MND+7','"Mag.Atk.Bns."+15',}},
+		legs="Chironic Hose",
 		feet="Jhakri Pigaches +2",
 		neck="Erra Pendant",
 		waist="Luminary Sash",
@@ -186,17 +186,17 @@ function init_gear_sets()
 		main="Daybreak",
 		sub="Genmei Shield",
 		ammo="Homiliary",
-		head={ name="Gende. Caubeen +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -3%',}},
-		body="Jhakri Robe +2",
-		hands={ name="Gende. Gages +1", augments={'Phys. dmg. taken -4%','Magic dmg. taken -4%','Song spellcasting time -3%',}},
-		legs="Assid. Pants +1",
-		feet={ name="Gende. Galosh. +1", augments={'Phys. dmg. taken -3%','Magic dmg. taken -4%','"Cure" potency +2%',}},
-		neck="Loricate Torque +1",
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck="Warder's Charm +1",
 		waist="Carrier's Sash",
 		left_ear="Ethereal Earring",
 		right_ear="Etiolation Earring",
-		left_ring="Defending Ring",
-		right_ring="Gelatinous Ring +1",
+		left_ring="Shadow Ring",
+		right_ring="Purity Ring",
 		back="Solemnity Cape",
 	}
 
@@ -213,11 +213,11 @@ function init_gear_sets()
     sets.engaged = {}
 
     sets.MagicBurst = {
-		--head="Merlinic Hood",
-		body="Merlinic Jubbah",
-		hands="Amalric Gages +1",
-		legs="Merlinic Shalwar", 
-		feet="Merlinic Crackows",
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
 		neck="Mizu. Kubikazari",
 		left_ring="Locus Ring",
 		right_ring="Mujin Band",
@@ -240,7 +240,6 @@ function init_gear_sets()
     sets.LightArts = {}
     sets.DarkArts = {}
 
-    sets.Obi = {waist="Hachirin-no-Obi"}
 	sets.TwilightCape = {back="Twilight Cape"}
 	
     sets.Bookworm = {back="Bookworm's Cape"}
