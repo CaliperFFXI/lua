@@ -328,6 +328,7 @@ end
 
 function default_precast(spell, spellMap)
     equip(get_precast_set(spell, spellMap))
+	
 	if spell.skill == 'Ninjitsu' then
 		handle_ninjitsu(spell, spellMap) -- located in Mote-Utility
 	end
@@ -342,7 +343,12 @@ end
 
 function default_midcast(spell, spellMap)
     equip(get_midcast_set(spell, spellMap))
-    if spell.skill == 'Elemental Magic' or spell.skill == 'Blue Magic' or spell.skill == 'Ninjitsu' then
+	
+    if 	spell.skill == 'Elemental Magic' or
+		spell.skill == 'Blue Magic' or 
+		spell.skill == 'Ninjitsu' or 
+		spellMap == 'Drain' or 
+		spellMap == 'Aspir' then
 		handle_elemental_skills(spell, spellMap)
 	end
 	--force_th(spell)-- located in Mote-TreasureHunter
@@ -1045,7 +1051,7 @@ function handle_elemental_skills(spell, spellMap)
 		Orpheus = true
 	end
 	
-	if _settings.debug_mode then add_to_chat(123,'Debug: Elemental WS detected ['..spell.name..']') end
+	if _settings.debug_mode then add_to_chat(123,'Debug: Element detected ['..spell.element..']') end
 		-- Matching double weather (w/o day conflict). 25% Bonus
 		if spell.element == world.weather_element and (get_weather_intensity() == 2 and spell.element ~= elements.weak_to[world.day_element]) and Obi then
 			equip({waist="Hachirin-no-Obi"})

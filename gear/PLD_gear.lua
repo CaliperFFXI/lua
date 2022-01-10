@@ -59,7 +59,7 @@ function init_gear_sets()
     sets.precast.JA['Sentinel'] = {feet={ name="Cab. Leggings", augments={'Enhances "Guardian" effect',}},}
     sets.precast.JA['Rampart'] = {head={ name="Cab. Coronet", augments={'Enhances "Iron Will" effect',}},}
     sets.precast.JA['Fealty'] = {body={ name="Cab. Surcoat", augments={'Enhances "Fealty" effect',}},}
-    sets.precast.JA['Divine Emblem'] = {}
+    sets.precast.JA['Divine Emblem'] = {feet="Chev. Sabatons +1"}
     sets.precast.JA['Cover'] = {}
     sets.precast.JA['Chivalry'] = {hands="Cab. Gauntlets"}
 	sets.precast.JA['Majesty'] = {}
@@ -105,6 +105,7 @@ function init_gear_sets()
 		left_ring="Rufescent Ring",
 		right_ring="Begrudging Ring",
 	})
+	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
 		ammo="Coiste Bodhar",
 		head="Sulevia's Mask +2",
@@ -137,6 +138,7 @@ function init_gear_sets()
 		back="Weard Mantle",
 	})
 
+	-- Max Defense Set for majesty
 	sets.midcast.Protect = set_combine(sets.SIRD, {
 		sub="Srivatsa",
 		head="Sakpata's Helm",

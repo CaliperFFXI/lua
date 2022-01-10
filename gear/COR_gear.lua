@@ -268,8 +268,8 @@ function init_gear_sets()
 	sets.engaged.DualWield = set_combine(sets.engaged, {    
 		left_ear="Suppanomimi",
 	})
-	sets.engaged.DualWield.Acc = set_combine(sets.DualWield, {})
-	sets.engaged.DualWield.DT = set_combine(sets.DualWield, {
+	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield, {})
+	sets.engaged.DualWield.DT = set_combine(sets.engaged.DualWield, {
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
 		hands="Malignance Gloves",

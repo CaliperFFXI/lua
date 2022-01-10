@@ -236,6 +236,10 @@ function init_gear_sets()
 		back="Sacro Mantle",
 	} 
 	
+	sets.engaged.Shuriken = set_combine(sets.engaged, {		
+		ammo="Happo Shuriken",
+	})
+	
     sets.engaged.DT = set_combine(sets.engaged, {		
 		head="Malignance Chapeau",
 		body="Malignance Tabard",
@@ -243,6 +247,8 @@ function init_gear_sets()
 		legs="Malignance tights",
 		feet="Malignance Boots",
 	})
+	
+	sets.engaged.Shuriken.DT = set_combine(sets.engaged.DT, sets.engaged.Shuriken)
 
     --------------------------------------
     -- Custom buff sets
@@ -264,11 +270,12 @@ function init_gear_sets()
 	--sets.weapons.Normal = {main="Naegling",sub="Ternion Dagger +1"}
 	sets.weapons.Normal = {main="Tauret",sub="Ternion Dagger +1"}
 	sets.weapons.Cleave = {main="Malevolence",sub=empty}
+	
 	sets.weapons.Dagger = {main="Trainee Knife",sub=empty}
-	sets.weapons.Sword = {main="Excalipoor II",sub=empty}
+	sets.weapons.Sword = {main="Twinned Blade",sub=empty}
 	sets.weapons.GreatSword = {main="Lament",sub="Flanged Grip"}
 	sets.weapons.Scythe = {main="Lost Sickle +1",sub="Flanged Grip"}
-	sets.weapons.Polearm = {main="Tzee Xicu's Blade",sub="Flanged Grip"}
+	sets.weapons.Polearm = {main="Iapetus",sub="Flanged Grip"}
 	sets.weapons.Katana = {main="Trainee Burin",sub=empty}
 	sets.weapons.GreatKatana = {main="Melon Slicer",sub="Flanged Grip"}
 	sets.weapons.Club = {main="Club Hammer",sub=empty}

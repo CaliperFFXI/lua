@@ -121,10 +121,11 @@ function job_buff_change(buff,gain)
 	else
 		EnSpell_Element = "None"
 	end
-		--add_to_chat(122, '[ Enspell Mode: ' .. EnSpell_Element .. ' ]') --troubleshooting line
 	if player.status == 'Engaged' then	
 		handle_equipping_gear(player.status)
 	end
+	--Troubleshooting
+	if _settings.debug_mode then add_to_chat(122, '[ Enspell Mode: ' .. EnSpell_Element .. ' ]') end
 end
 
 function customize_defense_set(defenseSet) 
@@ -143,13 +144,13 @@ function customize_melee_set(meleeSet)
 		if EnSpell_Element ~= "None" or nil then
 			-- Matching double weather (w/o day conflict).
 			if EnSpell_Element == world.weather_element and (get_weather_intensity() == 2 and EnSpell_Element ~= elements.weak_to[world.day_element]) then
-				meleeSet = set_combine(meleeSet, sets.Obi)
+				meleeSet = set_combine(meleeSet, sets.EnspellDamage)
 			-- Matching day and weather.
 			elseif EnSpell_Element == world.day_element and EnSpell_Element == world.weather_element then
-				meleeSet = set_combine(meleeSet, sets.Obi)
+				meleeSet = set_combine(meleeSet, sets.EnspellDamage)
 			-- Match day or weather.
 			elseif EnSpell_Element == world.day_element or EnSpell_Element == world.weather_element then
-				meleeSet = set_combine(meleeSet, sets.Obi)
+				meleeSet = set_combine(meleeSet, sets.EnspellDamage)
 			end		
 		end
 	end

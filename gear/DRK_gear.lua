@@ -131,7 +131,23 @@ function init_gear_sets()
 	sets.precast.WS['Guillotine'].HighAcc = set_combine(sets.precast.WS['Guillotine'].HighAcc, {})
 	
     -- Infernal Scythe Sets (MAB/Dark) --
-	sets.precast.WS['Infernal Scythe'] = set_combine(sets.precast.WS, {})
+	sets.precast.WS['Infernal Scythe'] = set_combine(sets.precast.WS, {
+		main="Apocalypse",
+		sub="Utu Grip",
+		ammo="Pemphredo Tathlum",
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck="Sanctity Necklace",
+		waist="Eschan Stone",
+		left_ear="Malignance Earring",
+		right_ear="Hermetic Earring",
+		left_ring="Arvina Ringlet +1",
+		right_ring="Regal Ring",
+		back="Izdubar Mantle",
+	})
 	sets.precast.WS['Infernal Scythe'].Acc = set_combine(sets.precast.WS['Infernal Scythe'], {})
 	sets.precast.WS['Infernal Scythe'].HighAcc = set_combine(sets.precast.WS['Infernal Scythe'].HighAcc, {})
 	
@@ -183,9 +199,19 @@ function init_gear_sets()
 		back="Izdubar Mantle",
 	}
 	sets.midcast.MACC = set_combine(sets.midcast.MAB,{
+		ammo="Pemphredo Tathlum",
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
 		neck="Erra Pendant",
+		waist="Eschan Stone",
 		left_ear="Digni. Earring",
+		right_ear="Malignance Earring",
+		left_ring="Weather. Ring",
 		right_ring="Kishar Ring",
+		back="Izdubar Mantle",
 	})
 
 	sets.midcast['Elemental Magic'] = set_combine(sets.midcast.MAB,{})
@@ -327,6 +353,8 @@ function init_gear_sets()
 	sets.engaged.Caladbolg.HighAcc = set_combine(sets.engaged.Caladbolg.Acc, {})
 		
 	-- Conditional Sets --
+	-- Capacity Points
+    sets.CP = {back="Mecisto. Mantle"}
 	-- Doomed
     sets.buff.Doom = {}
 	-- 'Tag' TreasureHunter

@@ -483,20 +483,6 @@ function init_gear_sets()
 		back="Solemnity Cape",
 	}
     sets.defense.MDT = sets.defense.PDT
-
-	--COnditional Sets
-    sets.Kiting = {legs="Carmine Cuisses +1"}
-    sets.latent_refresh = {waist="Fucho-no-Obi"}
-	sets.magic_burst = {
-		head="Nyame Helm",
-		body="Nyame Mail",
-		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-		legs="Nyame Flanchard",
-		feet="Nyame Sollerets",
-		neck="Mizu. Kubikazari",
-		left_ring="Mujin Band",
-		right_ring="Locus Ring",
-	}
 	
     -- Engaged sets
     -- Variations for TP weapon and (optional) offense/defense modes. 
@@ -529,37 +515,8 @@ function init_gear_sets()
 		waist="Reiki Yotai",
 	})
 	
-	sets.engaged.DualWield.CroceaMors = set_combine(sets.engaged.DualWield, {
-		range="Ullr",
-		ammo="Demon Arrow",
-		head="Malignance Chapeau",
-		body="Malignance Tabard",
-		hands="Aya. Manopolas +2",
-		legs={ name="Carmine Cuisses +1", augments={'Accuracy+20','Attack+12','"Dual Wield"+6',}},
-		feet="Malignance Boots",
-		neck="Sanctity Necklace",
-		waist="Windbuffet Belt +1",
-		left_ear="Suppanomimi",
-		right_ear="Digni. Earring",
-		left_ring="Chirich Ring +1",
-		right_ring="Chirich Ring +1",
-	})
-	
-	sets.engaged.DualWield.SeraphBlade = set_combine(sets.engaged.DualWield, {
-		range="Ullr",
-		ammo="Demon Arrow",
-		head="Malignance Chapeau",
-		body="Malignance Tabard",
-		hands="Aya. Manopolas +2",
-		legs={ name="Carmine Cuisses +1", augments={'Accuracy+20','Attack+12','"Dual Wield"+6',}},
-		feet="Malignance Boots",
-		neck="Sanctity Necklace",
-		waist="Windbuffet Belt +1",
-		left_ear="Suppanomimi",
-		right_ear="Digni. Earring",
-		left_ring="Chirich Ring +1",
-		right_ring="Chirich Ring +1",
-	})
+	sets.engaged.DualWield.CroceaMors = set_combine(sets.engaged.DualWield, {})
+	sets.engaged.DualWield.SeraphBlade = set_combine(sets.engaged.DualWield, {})
 	
 	sets.engaged.DualWield.Acc = set_combine(sets.engaged.DualWield, {
 		right_ear="Telos Earring",
@@ -584,8 +541,26 @@ function init_gear_sets()
 	}
 		
 	--Special and Conditional Sets
+	
+	--Conditional Sets
+    sets.Kiting = {legs="Carmine Cuisses +1"}
+    sets.latent_refresh = {waist="Fucho-no-Obi"}
+	sets.magic_burst = {
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck="Mizu. Kubikazari",
+		left_ring="Mujin Band",
+		right_ring="Locus Ring",
+	}
     sets.CP = {back="Mecisto. Mantle"}
-	sets.Obi = {waist="Hachirin-no-Obi"}
+	
+	-- Set equips when mainhand is Crocea Mors AND Enspell is active while matching weather/day condition
+	sets.EnspellDamage = {    legs="Carmine Cuisses +1",waist="Hachirin-no-Obi",left_ear="Suppanomimi",}
+	
+	-- Equips when Saboteur is Active (buff condition)
 	sets.buff.Saboteur = {hands="Leth. Gantherots +1"}
     sets.TreasureHunter = {body=gear.Chironic_Body_TH,waist="Chaac belt",feet="Volte Boots"}
     sets.buff.Doom = {waist="Gishdubar Sash",right_ring="Purity Ring"}

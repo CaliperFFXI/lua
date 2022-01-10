@@ -102,7 +102,7 @@ function init_gear_sets()
 		body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		hands="Adhemar Wrist. +1", 
 		legs={ name="Hes. Hose +3", augments={'Enhances "Hundred Fists" effect',}},
-		feet={ name="Herculean Boots", augments={'Accuracy+23 Attack+23','"Triple Atk."+2','Attack+14',}},
+		feet={ name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck="Mnk. Nodowa +1",
 		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
@@ -113,19 +113,20 @@ function init_gear_sets()
 	})
 	
     sets.precast.WS['Victory Smite'] = set_combine(sets.precast.WS['Raging Fists'], {
+    main={ name="Verethragna", augments={'Path: A',}},
 		ammo="Knobkierrie",
 		head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
 		body="Ken. Samue",
 		hands={ name="Adhemar Wrist. +1", augments={'Accuracy+20','Attack+20','"Subtle Blow"+8',}},
-		legs="Ken. Hakama",
-		feet="Ken. Sune-Ate",
+		legs={ name="Tatena. Haidate +1", augments={'Path: A',}},
+		feet={ name="Tatena. Sune. +1", augments={'Path: A',}},
 		neck="Fotia Gorget",
 		waist="Moonbow Belt +1",
 		left_ear="Sherida Earring",
 		right_ear={ name="Moonshade Earring", augments={'"Mag.Atk.Bns."+4','TP Bonus +250',}},
 		left_ring="Gere Ring",
 		right_ring="Niqmaddu Ring",
-		back=gear.MNK_Crit,
+		back=gear.MNK_STR_WS,
 	})
 	
 	sets.VictorySmite_Impetus = set_combine(sets.precast.WS['Victory Smite'],{

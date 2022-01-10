@@ -186,8 +186,6 @@ function job_buff_change(buff,gain)
     end
 end
 
-function job_status_change(newStatus, oldStatus)
-end
 
 function job_state_change(descrip, newVal, oldVal)
 	if state.WeaponLock.value == true then
@@ -197,9 +195,4 @@ function job_state_change(descrip, newVal, oldVal)
 	end
 end
 
-function job_update(cmdParams, eventArgs)
-end
-
-function get_custom_wsmode(spell, spellMap, ws_mode)
-end
 
