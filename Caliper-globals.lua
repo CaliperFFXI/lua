@@ -30,7 +30,7 @@ job_user_settings = {
 	['COR'] = {num=15,book=6,page=9},
 	['DNC'] = {num=nil,book=nil,page=nil},
 	['DRG'] = {num=nil,book=nil,page=nil},
-	['DRK'] = {num=13,book=4,page=2},
+	['DRK'] = {num=14,book=4,page=2},
 	['GEO'] = {num=nil,book=13,page=1},
 	['MNK'] = {num=8,book=2,page=1},
 	['NIN'] = {num=nil,book=1,page=1},

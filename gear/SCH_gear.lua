@@ -1,4 +1,6 @@
--- Define sets and vars used by this job file.
+-- Original: Motenten / Arislan Modified: Caliper -of- Asura 
+-- File Version 1.0 rev 0
+
 function init_gear_sets()
 
     sets.precast.JA['Tabula Rasa'] = {}
@@ -210,7 +212,23 @@ function init_gear_sets()
 	
     sets.latent_refresh = {waist="Fucho-no-Obi"}
 
-    sets.engaged = {}
+    sets.engaged = {    
+		main="Reikikon",
+		sub="Flanged Grip",
+		ammo="Homiliary",
+		head="Nyame Helm",
+		body="Nyame Mail",
+		hands="Nyame Gauntlets",
+		legs="Nyame Flanchard",
+		feet="Nyame Sollerets",
+		neck="Combatant's Torque",
+		waist="Grunfeld Rope",
+		left_ear="Telos Earring",
+		right_ear="Brutal Earring",
+		left_ring="Chirich Ring +1",
+		right_ring="Chirich Ring +1",
+		back="Relucent Cape",
+	}
 
     sets.MagicBurst = {
 		head="Nyame Helm",

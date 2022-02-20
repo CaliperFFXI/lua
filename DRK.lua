@@ -1,3 +1,6 @@
+-- Original: Motenten / Arislan Modified: Caliper -of- Asura 
+-- File Version 1.0 rev 0
+
 function get_sets()
     mote_include_version = 2
     -- Load and initialize the include file.
@@ -47,7 +50,7 @@ end
 
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function user_setup()
-    state.OffenseMode:options('Normal','Acc','HighAcc')
+    state.OffenseMode:options('Normal','STP','Acc')
     state.CastingMode:options('Normal','Acc','HighAcc')
     state.HybridMode:options('Normal','DT')
     state.RangedMode:options('Normal','Acc')
@@ -70,12 +73,12 @@ function job_pretarget(spell, action, spellMap, eventArgs)
     elseif spell.english == "Meditate" and player.tp > 2900 then -- Cancel Meditate If TP Is Above 2900 --
 		eventArgs.cancel = true 
         add_to_chat(123, spell.name .. ' Canceled: ['..player.tp..' TP]')
-	elseif (spell.english == "Stun" or spellMap == 'Drain' or spell.english == "Dread Spikes") then
-		if buffactive.Hasso or buffactive.Seigan then -- Cancel Hasso or Seigan When You Use Stun/Drain/Dread Spikes --
-			cast_delay(0.2)
-			send_command('cancel Hasso,Seigan')
-			add_to_chat(155,'Hasso/Seigan Canceled for Magic')
-		end
+	-- elseif (spell.english == "Stun" or spellMap == 'Drain' or spell.english == "Dread Spikes") then
+		-- if buffactive.Hasso or buffactive.Seigan then -- Cancel Hasso or Seigan When You Use Stun/Drain/Dread Spikes --
+			-- cast_delay(0.2)
+			-- send_command('cancel Hasso,Seigan')
+			-- add_to_chat(155,'Hasso/Seigan Canceled for Magic')
+		-- end
 	end
 end
 
@@ -106,7 +109,7 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 			-- equip(sets.GavialisHelm)
 		-- end
 		if lugra_ws:contains(spell.english) and (world.time >= (17*60) or world.time <= (7*60)) then
-			equip(sets.LugraLeft)
+			equip(sets.LugraRight)
         end
 	end
 end

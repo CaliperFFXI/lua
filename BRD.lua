@@ -1,4 +1,6 @@
 -- Original: Motenten / Arislan Modified: Caliper -of- Asura 
+-- File Version 1.0 rev 0
+
 function get_sets()
     mote_include_version = 2
     -- Load and initialize the include file.
@@ -38,7 +40,6 @@ function user_setup()
 	-- info.AeonicHorn = nil 
 	-- Define name of Aeonic Horn
 	info.AeonicHorn = 'Marsyas'
-	
 end
 
 function job_precast(spell, action, spellMap, eventArgs)	
@@ -51,7 +52,6 @@ function job_precast(spell, action, spellMap, eventArgs)
 	-- Auto-Pianissimo
         if ((spell.target.type == 'PLAYER' and not spell.target.charmed) or (spell.target.type == 'NPC' and spell.target.in_party)) and
             not state.Buff['Pianissimo'] then
-            
             local spell_recasts = windower.ffxi.get_spell_recasts()
             if spell_recasts[spell.recast_id] < 2 then
                 send_command('@input /ja "Pianissimo" <me>; wait 1.5; input /ma "'..spell.name..'" '..spell.target.name)
@@ -65,32 +65,22 @@ function job_precast(spell, action, spellMap, eventArgs)
         elseif spell.name:contains("Foe Lullaby") then
 			-- Single target sleep (Max duration)
 			if (state.Buff['Troubadour'] and state.Buff['Nightingale'])and info.AeonicHorn ~= nil then
+			-- Single target sleep (Max duration)
 				equip({range=info.AeonicHorn})
 			else
 				equip({range=info.SongBonusInstrument})
 			end
-        elseif spell.name:contains("Horde Lullaby") then 	
+        elseif spell.name:contains("Horde Lullaby") then
 			-- AoE Sleep ( range and duration ) Harp's
+			-- Specify a harp/horn if you wish to use another instrument
 			equip({range=info.ExtraSongInstrument})
 		else
 			equip({range=info.SongBonusInstrument})
-		end
-		
-    end
-    if spellMap == 'Utsusemi' then
-        if buffactive['Copy Image (3)'] or buffactive['Copy Image (4+)'] then
-            cancel_spell()
-            add_to_chat(123, '**!! '..spell.english..' Canceled: [3+ IMAGES] !!**')
-            eventArgs.handled = true
-            return
-        elseif buffactive['Copy Image'] or buffactive['Copy Image (2)'] then
-            send_command('cancel 66; cancel 444; cancel Copy Image; cancel Copy Image (2)')
-        end
+		end		
     end
 end
 
 function job_midcast(spell, action, spellMap, eventArgs)
-	--add_to_chat(122, spellMap)
 	if spellMap == ('SongPlaceholder' or 'SongEnfeeble') then
 		if state.CombatForm.current == 'DualWield' then
 			equip(sets.SongDualWieldDuration)
@@ -104,22 +94,14 @@ end
 function job_aftercast(spell, action, spellMap, eventArgs)
     if spell.english:contains('Lullaby') and not spell.interrupted then
         get_lullaby_duration(spell)
-    end	
-end
-
-function job_handle_equipping_gear(playerStatus, eventArgs)
-end
-
-function job_update(cmdParams, eventArgs)
+    end
 end
 
 function customize_melee_set(meleeSet)
     if buffactive['Aftermath: Lv.3'] and player.equipment.main == "Carnwenhan" then
         meleeSet = set_combine(meleeSet, sets.engaged.Aftermath)
     end
-	-- if player.status == 'Engaged' then
-		-- meleeSet = set_combine(meleeSet, sets[state.WeaponSet.current])
-	-- end
+	-- Doom handling
 	if (buffactive.doom or buffactive['Doom']) then
         meleeSet = set_combine(meleeSet, sets.buff.Doom)
     end
@@ -127,12 +109,10 @@ function customize_melee_set(meleeSet)
 end
 
 function customize_idle_set(idleSet)
+	-- Doom handling
 	if (buffactive.doom or buffactive['Doom']) then
         idleSet = set_combine(idleSet, sets.buff.Doom)
-    end
-	-- if player.status == 'Idle' then
-		-- idleSet = set_combine(idleSet, sets[state.WeaponSet.current])
-	-- end			
+    end		
 	return idleSet -- !! line must remain for idle set to equip properly.
 end
 
@@ -242,5 +222,3 @@ function get_lullaby_duration(spell)
         send_command('@timers c "Lullaby ['..spell.target.name..']" ' ..totalDuration.. ' down spells/00376.png')
     end
 end
-
-

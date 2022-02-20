@@ -256,7 +256,7 @@ function init_gear_sets()
 	
 	sets.idle.Field = sets.idle.Town
     
-    sets.idle.Weak = {}
+    sets.idle.Weak = set_combine(sets.idle, {})
     
     -- Defense sets
     sets.defense.PDT = {

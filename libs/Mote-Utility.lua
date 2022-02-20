@@ -37,7 +37,7 @@ function cancel_conflicting_buffs(spell, action, spellMap, eventArgs)
             send_command('cancel sneak')
         elseif spell.english == ('Stoneskin') then
             send_command('@wait 1.0;cancel stoneskin')
-        elseif spell.english:startswith('Monomi') and spell.target.type == 'SELF' and buffactive.sneak then
+        elseif spell.english:startswith('Monomi') then
             send_command('@wait 1.7;cancel sneak')
         elseif spell.english == 'Utsusemi: Ichi' then
             send_command('@wait 1.7;cancel copy image,copy image (2)')
@@ -523,7 +523,7 @@ function set_macro_page(set,book)
             add_to_chat(123,'Error setting macro page: book is not a valid number ('..tostring(book)..').')
             return
         end
-        if book < 1 or book > 20 then
+        if book < 1 or book > 40 then
             add_to_chat(123,'Error setting macro page: Macro book ('..tostring(book)..') must be between 1 and 20.')
             return
         end
@@ -584,7 +584,6 @@ function find_player_in_alliance(name)
         end
     end
 end
-
 
 -- buff_set is a set of buffs in a library table (any of S{}, T{} or L{}).
 -- This function checks if any of those buffs are present on the player.
@@ -726,3 +725,4 @@ function get_combat_form()
 		state.CombatForm:reset()
 	end
 end
+

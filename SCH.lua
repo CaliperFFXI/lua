@@ -1,4 +1,6 @@
 -- Original: Motenten / Arislan Modified: Caliper -of- Asura 
+-- File Version 1.0 rev 0
+
 function get_sets()
     mote_include_version = 2
     -- Load and initialize the include file.
@@ -22,6 +24,8 @@ function user_setup()
     state.StormSurge = M(false, 'Stormsurge')
 	-- Add spellMap to this list for "auto Perpetuance"
 	Perpetuance_Spells = S{'Haste','Flurry','Protect','Shell','Regen','Storm','Adloquium'}
+	
+	
 end
 
 -- Custom spell mapping.

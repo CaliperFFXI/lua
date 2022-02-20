@@ -1,4 +1,6 @@
 -- Original: Motenten / Arislan Modified: Caliper -of- Asura 
+-- File Version 1.0 rev 0
+
 function get_sets()
     mote_include_version = 2
     -- Load and initialize the include file.
@@ -7,11 +9,19 @@ end
 
 function job_setup()
 
+    state.Buff['Climactic Flourish'] = buffactive['Climactic Flourish'] or false
     state.ClosedPosition = M(false, 'Closed Position')
     state.CP = M(false, 'Capacity Points Mode')
 
 	-- order of weapons is determined as they appear in this table
-	state.WeaponSet = M{['description']='Weapon Set','Twashtar','TpBonus','Blurred','Karambit'}
+	state.WeaponSet = M{['description']='Weapon Set','Terpsichore','Twashtar','Blurred','Karambit'}
+	
+			-- Aftermath
+	state.Buff['Aftermath'] = buffactive.AM or false
+	state.Buff["Aftermath: Lv.1"] = buffactive.AM1 or false
+	state.Buff["Aftermath: Lv.2"] = buffactive.AM2 or false
+	state.Buff["Aftermath: Lv.3"] = buffactive.AM3 or false
+
 	
 	include('organizer-lib')
 	send_command('lua l Dnc-hud')
@@ -19,11 +29,12 @@ function job_setup()
 end
 
 function user_setup()
-    state.OffenseMode:options('Normal', 'Hybrid', 'Acc')
-    state.HybridMode:options('Normal', 'DT')
-    state.WeaponskillMode:options('Normal', 'Acc', 'FullTP')
+    state.OffenseMode:options('Normal','Hybrid','Acc')
+    state.HybridMode:options('Normal','DT')
+    state.WeaponskillMode:options('Normal','Acc','FullTP','PDL','PDLTP')
     state.IdleMode:options('Normal','Regen')
 	
+	state.Physical_Limit = M(false, 'Weapon Lock')
 	state.WeaponLock = M(false, 'Weapon Lock')
     state.Auto_Kite = M(false, 'Auto_Kite')
 	options.ninja_tool_warning_limit = 10
@@ -41,13 +52,7 @@ function job_pretarget(spell, action, spellMap, eventArgs)
             cast_delay(1.1)
             send_command('input /ja "Presto" <me>')
         end
-    end
-	-- FullTP tag for weaponskill sets.
-	if spell.type == 'WeaponSkill' then
-		if player.tp > 2750 then 
-			state.WeaponskillMode:set('FullTP')
-		end
-	end		
+    end	
 	-- Distance Check
 	if spell.type == 'WeaponSkill' then
 		if spell.target.distance > 6 then
@@ -58,6 +63,18 @@ function job_pretarget(spell, action, spellMap, eventArgs)
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
+	-- FullTP tag for weaponskill sets.
+	if spell.type == 'WeaponSkill' then
+		if player.tp > 2750 then 
+			state.WeaponskillMode:set('FullTP')
+		-- Physical_Limit toggled on
+		elseif state.Physical_Limit.current == 'on' then
+			state.WeaponskillMode:set('PDL')
+		-- Physical_Limit toggled on and FullTP
+		elseif state.Physical_Limit.current == 'on' and player.tp > 2750 then
+			state.WeaponskillMode:set('PDLTP')
+		end
+	end
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)
@@ -72,7 +89,7 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 end
 
 function job_aftercast(spell, action, spellMap, eventArgs)
-	state.WeaponskillMode:reset() -- Resets Custom WS mode for next round	
+		state.WeaponskillMode:reset() -- Resets Custom WS mode for next round	
 end
 
 function job_update(cmdParams, eventArgs)
@@ -96,9 +113,17 @@ function customize_melee_set(meleeSet)
 	if buffactive['Fan Dance'] then
 		meleeSet = set_combine(meleeSet, sets.FanDance)
 	end
-    -- if state.ClosedPosition.value == true then
-        -- meleeSet = set_combine(meleeSet, sets.ClosedPosition)
-    -- end
+    if state.ClosedPosition.value == true then
+        meleeSet = set_combine(meleeSet, sets.ClosedPosition)
+    end
+		--Aftermath Set Handling
+	if (buffactive['Aftermath: Lv.3'])
+      and player.equipment.main == "Terpsichore" then
+      meleeSet = set_combine(meleeSet, sets.engaged.MythAftermath)
+	end	
+	if state.Buff['Climactic Flourish'] then
+            meleeSet = set_combine(meleeSet, sets.buff['Climactic Flourish'])
+        end
     return meleeSet
 end
 

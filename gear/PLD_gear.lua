@@ -104,6 +104,7 @@ function init_gear_sets()
 		right_ear="Telos Earring",
 		left_ring="Rufescent Ring",
 		right_ring="Begrudging Ring",
+		back=gear.PLD_TP,
 	})
 	
 	sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {
@@ -241,8 +242,8 @@ function init_gear_sets()
 		waist="Tempus Fugit",
 		left_ear="Telos Earring",
 		right_ear="Dedition Earring",
-		left_ring="Chirich Ring +1",
-		right_ring="Chirich Ring +1",
+		left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
+		right_ring={ name="Moonlight Ring",bag="wardrobe2", priority=13},
 		back=gear.PLD_TP,
 		-- ammo="Coiste Bodhar",
 		-- head={ name="Hjarrandi Helm", priority=10},
@@ -298,7 +299,7 @@ function init_gear_sets()
 	
 	sets.AM3 = {
 		ammo="Coiste Bodhar",
-		head="Sulevia's Mask +2",
+		head="Hjarrandi Helm",
 		body="Hjarrandi Breast.",
 		hands="Flam. Manopolas +2",
 		legs="Flamma Dirs +2",
@@ -307,8 +308,8 @@ function init_gear_sets()
 		waist="Tempus Fugit",
 		left_ear="Digni. Earring",
 		right_ear="Dedition Earring",
-		left_ring="Moonlight Ring",
-		right_ring="Moonlight Ring",
+		left_ring={ name="Moonlight Ring",bag="wardrobe", priority=14},
+		right_ring={ name="Moonlight Ring",bag="wardrobe2", priority=13},
 		back=gear.PLD_TP,
 	}	
 	

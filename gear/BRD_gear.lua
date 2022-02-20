@@ -15,17 +15,17 @@ function init_gear_sets()
 	}
 	
     sets.precast.FC = {
-		head={ name="Vanya Hood", augments={'MP+50','"Fast Cast"+10','Haste+2%',}},
+		head="Fili Calot +1",
 		body="Inyanga Jubbah +2",
 		hands={ name="Leyline Gloves", augments={'Accuracy+15','Mag. Acc.+15','"Mag.Atk.Bns."+15','"Fast Cast"+3',}},
 		legs="Aya. Cosciales +2",
-		feet="Inyan. Crackows +2",
-		neck="Voltsurge Torque",
+		feet={ name="Bihu Slippers +3", augments={'Enhances "Nightingale" effect',}},
+		neck={ name="Unmoving Collar +1", augments={'Path: A',}},
 		waist="Witful Belt",
 		left_ear="Loquac. Earring",
 		right_ear="Etiolation Earring",
-		left_ring="Weather. Ring",
-		right_ring="Kishar Ring",
+		left_ring="Moonlight Ring",
+		right_ring="Moonlight Ring",
 		back=gear.BRD_FC_Idle,
 	}
 
@@ -37,7 +37,6 @@ function init_gear_sets()
 
     sets.precast.FC.BardSong = set_combine(sets.precast.FC, {
 		main="Kali",
-		sub="Kali",
 		head="Fili Calot +1",
 		feet="Bihu Slippers +3",
 	})
@@ -348,6 +347,7 @@ function init_gear_sets()
     sets.Kiting = {feet="Fili Cothurnes +1"}
 	
 	sets.idle.Town = set_combine(sets.idle, sets.Kiting, {})
+	sets.idle.Field = set_combine(sets.idle, sets.Kiting, {})
 	sets.idle.Fish = set_combine(sets.idle, sets.Fish, {})
 	sets.idle.Town.Fish = set_combine(sets.idle, sets.Fish, {})
 
