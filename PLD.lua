@@ -60,6 +60,12 @@ function job_pretarget(spell, action, spellMap, eventArgs)
 		eventArgs.cancel = true 
         add_to_chat(123, '**!! '..spell.english..' Canceled due to status effect.**')
 	end
+	
+	-- Apply Majesty if its down
+	if not state.Buff['Majesty'] then
+		eventArgs.cancel = true
+		send_command('@input /ja "Majesty" <me>')
+	end
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)

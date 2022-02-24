@@ -64,13 +64,8 @@ function job_pretarget(spell, action, spellMap, eventArgs)
     if spell.action_type == 'Magic' and buffactive.silence then -- Auto Use Echo Drops If You Are Silenced --
 		eventArgs.cancel = true 
         send_command('input /item "Echo Drops" <me>')
-    elseif spell.english == "Berserk" and buffactive.Berserk then -- Change Berserk To Aggressor If Berserk Is On --
-		eventArgs.cancel = true 
-        send_command('/ja Aggressor <me>')
-    elseif spell.english == "Seigan" and buffactive.Seigan then -- Change Seigan To Third Eye If Seigan Is On --
-		eventArgs.cancel = true 
-        send_command('/ja ThirdEye <me>')
-    elseif spell.english == "Meditate" and player.tp > 2900 then -- Cancel Meditate If TP Is Above 2900 --
+		
+    elseif spell.english == "Meditate" and player.tp > 2400 then -- Cancel Meditate If TP Is Above 2400 --
 		eventArgs.cancel = true 
         add_to_chat(123, spell.name .. ' Canceled: ['..player.tp..' TP]')
 	-- elseif (spell.english == "Stun" or spellMap == 'Drain' or spell.english == "Dread Spikes") then
@@ -83,12 +78,30 @@ function job_pretarget(spell, action, spellMap, eventArgs)
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
+	-- Semi-Auto Hasso
+	-- Check for SAM subjob, and apply Hasso if its not up.
+	
+	-- Target is yourself, subjob is SAM , and hasso is down.
+	if spell.target.type == 'PLAYER' and (player.sub_job_id == 12 and not state.Buff['Hasso']) then 
+		local spell_recasts = windower.ffxi.get_spell_recasts() -- request cooldown timers
+		local cat --declare local variable
+			if spell.action_type == 'Magic' then
+				cat = 'ma'
+			elseif spell.action_type == 'JobAbility' then
+				cat = 'ja'
+			end
+			if spell_recasts[spell.recast_id] < 2 then
+				if _settings.debug_mode then add_to_chat(123, 'Auto-Hasso stored: /'..cat..' "'..spell.name..'" '..spell.target.name) end
+				send_command('@input /ja "Hasso" <me>; wait 1.5; input /'..cat..' "'..spell.name..'" '..spell.target.name)
+				eventArgs.cancel = true 
+			end		
+	end
+
 	if spell.type == 'WeaponSkill' then
 		if player.tp > 2750 then 
 			state.WeaponskillMode:set('FullTP')
 		end
 	end
-	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
 	if spell.type == 'WeaponSkill' then
 		if spell.target.distance > 6 then
 			eventArgs.cancel = true 
@@ -132,6 +145,7 @@ function job_aftercast(spell, action, spellMap, eventArgs)
 		hpmsg = math.floor(hp*.675) 
         add_to_chat(002, 'Dread Spikes is shielding '..hpmsg..' Damage.')
 	end
+	state.WeaponskillMode:reset() -- Resets Custom WS mode 	
 end
 
 function customize_defense_set(defenseSet) 
