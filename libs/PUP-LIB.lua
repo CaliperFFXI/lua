@@ -284,7 +284,6 @@ function setupTextWindow(pos_x, pos_y)
     hideTextSections()
 end
 
-
 -- This toggle the Hub style
 function toggleHubStyle()
     texts.clear(main_text_hub)
@@ -322,9 +321,7 @@ function toggleHubStyle()
     hideTextSections()
 end
 
-
 -- This handles hiding the different sections
-
 function hideTextSections()
 
     --For now when hiding a section its easier to recreate the entire window
@@ -403,10 +400,7 @@ function msg(str)
     send_command("@input /echo *-*-*-* " .. str .. " *-*-*-*")
 end
 
-------------------------------------
 ----------Utility Functions---------
-------------------------------------
-
 --Used to calculate the Combined State of you and your pet
 function TotalSCalc()
 
