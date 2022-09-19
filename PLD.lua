@@ -15,7 +15,7 @@ function job_setup()
     state.Buff.Cover = buffactive.cover or false
     state.Buff.Doom = buffactive.doom or false
 	state.Buff.Aquaveil = buffactive.aquaveil or false
-	state.Buff.Majesty = buffactive.majesty or false
+	state.Buff['Majesty'] = buffactive.majesty or false
 	
 	-- Enfeebles to track for pretarget cancellation
 	state.Buff.Paralyzed = buffactive.paralyzed or false
@@ -59,13 +59,26 @@ function job_pretarget(spell, action, spellMap, eventArgs)
     if buffactive['terror'] or buffactive['petrification'] or buffactive['stun'] or buffactive['sleep'] then
 		eventArgs.cancel = true 
         add_to_chat(123, '**!! '..spell.english..' Canceled due to status effect.**')
-	end
-	
-	-- Apply Majesty if its down
-	if not state.Buff['Majesty'] then
-		eventArgs.cancel = true
-		send_command('@input /ja "Majesty" <me>')
-	end
+	end	
+end
+
+function job_precast(spell, action, spellMap, eventArgs)
+	-- if ((spell.target.type == 'PLAYER' and not spell.target.charmed) or (spell.target.type == 'NPC' and spell.target.in_party)) and
+		-- not state.Buff['Majesty'] then
+		-- local spell_recasts = windower.ffxi.get_spell_recasts() -- request cooldown timers
+		-- local cat --declare local variable
+			-- if spell.action_type == 'Magic' then
+				-- cat = 'ma'
+			-- elseif spell.action_type == 'JobAbility' then
+				-- cat = 'ja'
+			-- end
+			-- if spell_recasts[spell.recast_id] < 2 then
+				-- if _settings.debug_mode then add_to_chat(123, 'Auto-Majesty stored: /'..cat..' "'..spell.name..'" '..spell.target.name) end
+				-- send_command('@input /ja "Majesty" <me>; wait 1.5; input /'..cat..' "'..spell.name..'" '..spell.target.name)
+				-- eventArgs.cancel = true 
+			-- end		
+	-- end
+
 end
 
 function job_post_precast(spell, action, spellMap, eventArgs)

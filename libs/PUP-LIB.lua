@@ -582,6 +582,49 @@ Modifier["Daze"] = "DEXFTP"
 Modifier["Slapstick"] = "DEX"
 Modifier["Knockout"] = "AGI"
 
+--This watches for when the Player changes to idle/engaged/resting
+function job_status_change(new, old)
+    if new == "Engaged" then
+        Master_State = const_stateEngaged
+        TotalSCalc()
+
+        --If we have AutoDeploy turned on and our pet is out then we will auto deploy
+        if state.AutoDeploy.value == true and pet.isvalid then
+            msg('Auto Deploying Pet')
+
+            --Gets the current target we have focus on and make sure it isn't null
+            --We are also keeping track of the current monster just in case we auto switch
+            if windower.ffxi.get_mob_by_target('t').id then
+                currentTargetedMonster = windower.ffxi.get_mob_by_target('t').id
+            end
+
+            send_command('wait 1; input /pet "Deploy" <t>')
+        end
+    else
+        Master_State = const_stateIdle
+        
+        if state.CP.value == true then --Fail safe to make sure back is enabled after a fight is over
+            enable("back") 
+        end 
+
+        TotalSCalc()
+    end
+
+    handle_equipping_gear(player.status, Pet_State)
+end
+
+function job_pet_status_change(new, old)
+    if new == "Engaged" then
+        Pet_State = const_stateEngaged
+        TotalSCalc()
+    else
+        Pet_State = const_stateIdle
+        TotalSCalc()
+    end
+
+    handle_equipping_gear(player.status, Pet_State)
+end
+
 --Pet Weapon Skills we are checking against in job_pet_aftercast
 AutomatonWeaponSkills =
     T {
